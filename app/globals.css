@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Raleway:wght@300;400;500;600;700;800&display=swap');
+
+@theme {
+  --font-family-serif: 'Cormorant Garamond', serif;
+  --font-family-sans: 'Raleway', sans-serif;
+
+  --color-primary: #841443;
+  --color-primary-light: #a01a54;
+  --color-primary-dark: #661035;
+  --color-secondary: #2f2f2f;
+  --color-accent: #f9cb33;
+
+  --animate-fade-in: fade-in 0.6s ease-in-out;
+  --animate-slide-up: slide-up 0.5s ease-out;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+body {
+  @apply bg-white text-secondary antialiased font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serif;
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.glass-dark {
+  @apply bg-secondary/60 backdrop-blur-lg border border-white/10;
+}
+
+.text-gradient {
+  @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+}
