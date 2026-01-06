@@ -1,20 +1,13 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaLibSQL } from '@prisma/adapter-libsql'
-import { createClient } from '@libsql/client'
 import bcrypt from 'bcryptjs'
 
-const libsql = createClient({
-  url: 'file:./prisma/dev.db'
-})
-
-const adapter = new PrismaLibSQL(libsql)
-const prisma = new PrismaClient({ adapter })
+const prisma = new PrismaClient()
 
 async function main() {
   console.log('🌱 Iniciando seed de la base de datos...')
 
   // Crear usuario admin
-  const hashedPassword = await bcrypt.hash('ParroquiaSalvador2026!', 10)
+  const hashedPassword = await bcrypt.hash('Admin1234', 10)
   
   const admin = await prisma.user.upsert({
     where: { username: 'admin' },
