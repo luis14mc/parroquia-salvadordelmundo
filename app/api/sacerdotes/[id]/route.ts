@@ -1,40 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
-import fs from 'fs/promises'
-import path from 'path'
-
-const dataPath = path.join(process.cwd(), 'data', 'sacerdotes.json')
+import { prisma } from '@/lib/prisma'
 
 // PUT - Actualizar sacerdote
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const body = await request.json()
-    const id = parseInt(params.id)
     
-    const data = await fs.readFile(dataPath, 'utf-8')
-    let sacerdotes = JSON.parse(data)
+    const sacerdote = await prisma.sacerdote.update({
+      where: { id },
+      data: {
+        nombre: body.nombre,
+        cargo: body.cargo,
+        descripcion: body.descripcion,
+        imagen: body.imagen,
+        email: body.email,
+        telefono: body.telefono,
+      },
+    })
     
-    const index = sacerdotes.findIndex((s: any) => s.id === id)
-    
-    if (index === -1) {
-      return NextResponse.json(
-        { error: 'Sacerdote no encontrado' },
-        { status: 404 }
-      )
-    }
-    
-    sacerdotes[index] = {
-      ...sacerdotes[index],
-      ...body,
-      id,
-      updatedAt: new Date().toISOString()
-    }
-    
-    await fs.writeFile(dataPath, JSON.stringify(sacerdotes, null, 2))
-    
-    return NextResponse.json(sacerdotes[index])
+    return NextResponse.json(sacerdote)
   } catch (error) {
     return NextResponse.json(
       { error: 'Error al actualizar sacerdote' },
@@ -46,17 +34,14 @@ export async function PUT(
 // DELETE - Eliminar sacerdote
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id)
+    const { id } = await context.params
     
-    const data = await fs.readFile(dataPath, 'utf-8')
-    let sacerdotes = JSON.parse(data)
-    
-    sacerdotes = sacerdotes.filter((s: any) => s.id !== id)
-    
-    await fs.writeFile(dataPath, JSON.stringify(sacerdotes, null, 2))
+    await prisma.sacerdote.delete({
+      where: { id },
+    })
     
     return NextResponse.json({ message: 'Sacerdote eliminado' })
   } catch (error) {

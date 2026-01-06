@@ -1,17 +1,19 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "email" TEXT,
     "role" TEXT NOT NULL DEFAULT 'admin',
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Sacerdote" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "nombre" TEXT NOT NULL,
     "cargo" TEXT NOT NULL,
     "descripcion" TEXT NOT NULL,
@@ -20,13 +22,15 @@ CREATE TABLE "Sacerdote" (
     "telefono" TEXT,
     "orden" INTEGER NOT NULL DEFAULT 0,
     "activo" BOOLEAN NOT NULL DEFAULT true,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Sacerdote_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Horario" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "tipo" TEXT NOT NULL,
     "dia" TEXT NOT NULL,
     "hora" TEXT NOT NULL,
@@ -34,27 +38,31 @@ CREATE TABLE "Horario" (
     "descripcion" TEXT,
     "activo" BOOLEAN NOT NULL DEFAULT true,
     "orden" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Horario_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Galeria" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "titulo" TEXT NOT NULL,
     "descripcion" TEXT,
     "imagen" TEXT NOT NULL,
     "categoria" TEXT,
-    "fecha" DATETIME,
+    "fecha" TIMESTAMP(3),
     "activo" BOOLEAN NOT NULL DEFAULT true,
     "orden" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Galeria_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Grupo" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "nombre" TEXT NOT NULL,
     "descripcion" TEXT NOT NULL,
     "imagen" TEXT,
@@ -63,29 +71,33 @@ CREATE TABLE "Grupo" (
     "contacto" TEXT,
     "activo" BOOLEAN NOT NULL DEFAULT true,
     "orden" INTEGER NOT NULL DEFAULT 0,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Grupo_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Noticia" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "titulo" TEXT NOT NULL,
     "contenido" TEXT NOT NULL,
     "resumen" TEXT,
     "imagen" TEXT,
     "categoria" TEXT NOT NULL DEFAULT 'noticia',
-    "fecha" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "fechaEvento" DATETIME,
+    "fecha" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "fechaEvento" TIMESTAMP(3),
     "activo" BOOLEAN NOT NULL DEFAULT true,
     "destacado" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Noticia_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "FormConfig" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "nombre" TEXT NOT NULL,
     "habilitado" BOOLEAN NOT NULL DEFAULT true,
     "emailDestino" TEXT,
@@ -93,18 +105,22 @@ CREATE TABLE "FormConfig" (
     "mensajeError" TEXT,
     "requireCaptcha" BOOLEAN NOT NULL DEFAULT false,
     "configuracion" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "FormConfig_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "FormSubmission" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "formulario" TEXT NOT NULL,
     "datos" TEXT NOT NULL,
     "ip" TEXT,
     "leido" BOOLEAN NOT NULL DEFAULT false,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "FormSubmission_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
