@@ -5,7 +5,7 @@ import { Construction, Calendar, Mail, Church } from 'lucide-react'
 
 export default function MantenimientoPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a5490] via-[#2c5282] to-[#d4af37] flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#841443] via-[#2f2f2f] to-[#f9cb33] flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -20,7 +20,7 @@ export default function MantenimientoPage() {
           className="mb-8 flex justify-center"
         >
           <div className="bg-white rounded-full p-8 shadow-2xl">
-            <Church className="h-24 w-24 text-[#1a5490]" />
+            <Church className="h-24 w-24 text-[#841443]" />
           </div>
         </motion.div>
 
