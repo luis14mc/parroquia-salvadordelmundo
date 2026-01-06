@@ -58,7 +58,7 @@ export default function SacramentoTemplate({ slug }: { slug: string }) {
             <div className="mb-6 inline-flex rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
               <Icon className="h-12 w-12 text-white" />
             </div>
-            <h1 className="mb-6 font-serif text-5xl font-bold text-white md:text-6xl">
+            <h1 className="mb-6  text-5xl font-bold text-white md:text-6xl">
               {data.nombre}
             </h1>
             <p className="text-xl text-white/90 md:text-2xl">
@@ -78,7 +78,7 @@ export default function SacramentoTemplate({ slug }: { slug: string }) {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="mb-6 font-serif text-3xl font-bold text-secondary">
+            <h2 className="mb-6  text-3xl font-bold text-secondary">
               ¿Qué es {data.nombre === 'Reconciliación (Confesión)' ? 'la ' : 'el '}{data.nombre}?
             </h2>
             <div className="prose prose-lg max-w-none text-gray-600">
@@ -97,7 +97,7 @@ export default function SacramentoTemplate({ slug }: { slug: string }) {
               <div className={`rounded-xl ${colors.bg} p-3`}>
                 <FileText className={`h-6 w-6 ${colors.text}`} />
               </div>
-              <h2 className="font-serif text-3xl font-bold text-secondary">
+              <h2 className=" text-3xl font-bold text-secondary">
                 Requisitos
               </h2>
             </div>
@@ -130,7 +130,7 @@ export default function SacramentoTemplate({ slug }: { slug: string }) {
               <div className="rounded-xl bg-white/10 p-3 backdrop-blur-sm">
                 <Clock className="h-6 w-6" />
               </div>
-              <h2 className="font-serif text-3xl font-bold">
+              <h2 className=" text-3xl font-bold">
                 Horarios
               </h2>
             </div>
@@ -156,7 +156,7 @@ export default function SacramentoTemplate({ slug }: { slug: string }) {
             viewport={{ once: true }}
             className={`rounded-3xl border-2 ${colors.bg} bg-gradient-to-br ${colors.light} to-white p-12 text-center`}
           >
-            <h3 className="mb-4 font-serif text-3xl font-bold text-secondary">
+            <h3 className="mb-4  text-3xl font-bold text-secondary">
               ¿Necesitas más información?
             </h3>
             <p className="mb-8 text-lg text-gray-600">

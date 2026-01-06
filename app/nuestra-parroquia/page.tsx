@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import { Church, Heart, Users, BookOpen, Cross, MapPin } from 'lucide-react'
 import NextImage from 'next/image'
+import GaleriaSection from '@/components/GaleriaSection'
+import Footer from '@/components/Footer'
 
 export default function NuestraParroquiaPage() {
   const valores = [
@@ -64,7 +66,7 @@ export default function NuestraParroquiaPage() {
               transition={{ duration: 0.6 }}
             >
               <Church className="mx-auto mb-6 h-16 w-16 text-white" />
-              <h1 className="mb-6 font-serif text-5xl font-bold text-white md:text-6xl">
+              <h1 className="mb-6  text-5xl font-bold text-white md:text-6xl">
                 Nuestra Parroquia
               </h1>
               <p className="text-xl text-white/90 md:text-2xl">
@@ -89,7 +91,7 @@ export default function NuestraParroquiaPage() {
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white">
                 <Church className="h-8 w-8" />
               </div>
-              <h2 className="mb-4 font-serif text-3xl font-bold text-secondary">Nuestra Misión</h2>
+              <h2 className="mb-4  text-3xl font-bold text-secondary">Nuestra Misión</h2>
               <p className="text-lg leading-relaxed text-gray-700">
                 Ser una comunidad parroquial que anuncia el Evangelio de Jesucristo, celebra los
                 sacramentos con devoción y sirve a los más necesitados, promoviendo la
@@ -107,7 +109,7 @@ export default function NuestraParroquiaPage() {
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent text-secondary">
                 <Heart className="h-8 w-8" />
               </div>
-              <h2 className="mb-4 font-serif text-3xl font-bold text-secondary">Nuestra Visión</h2>
+              <h2 className="mb-4  text-3xl font-bold text-secondary">Nuestra Visión</h2>
               <p className="text-lg leading-relaxed text-gray-700">
                 Ser una parroquia modelo en Honduras, reconocida por su vitalidad evangelizadora,
                 su compromiso con la justicia social y su capacidad de formar discípulos
@@ -128,7 +130,7 @@ export default function NuestraParroquiaPage() {
             transition={{ duration: 0.6 }}
             className="mb-16 text-center"
           >
-            <h2 className="mb-4 font-serif text-4xl font-bold text-secondary md:text-5xl">
+            <h2 className="mb-4  text-4xl font-bold text-secondary md:text-5xl">
               Nuestros Valores
             </h2>
             <p className="text-lg text-gray-600">
@@ -151,7 +153,7 @@ export default function NuestraParroquiaPage() {
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-dark">
                     <Icon className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="mb-3 font-serif text-xl font-bold text-secondary">
+                  <h3 className="mb-3  text-xl font-bold text-secondary">
                     {valor.title}
                   </h3>
                   <p className="text-gray-600">{valor.description}</p>
@@ -172,7 +174,7 @@ export default function NuestraParroquiaPage() {
             transition={{ duration: 0.6 }}
             className="mb-16 text-center"
           >
-            <h2 className="mb-4 font-serif text-4xl font-bold text-secondary md:text-5xl">
+            <h2 className="mb-4  text-4xl font-bold text-secondary md:text-5xl">
               Nuestra Historia
             </h2>
             <p className="text-lg text-gray-600">
@@ -204,7 +206,7 @@ export default function NuestraParroquiaPage() {
                       }`}
                     >
                       <div className="mb-2 text-3xl font-bold text-primary">{evento.year}</div>
-                      <h3 className="mb-3 font-serif text-2xl font-bold text-secondary">
+                      <h3 className="mb-3  text-2xl font-bold text-secondary">
                         {evento.title}
                       </h3>
                       <p className="text-gray-600">{evento.description}</p>
@@ -236,7 +238,7 @@ export default function NuestraParroquiaPage() {
             className="text-center"
           >
             <MapPin className="mx-auto mb-6 h-16 w-16 text-accent" />
-            <h2 className="mb-4 font-serif text-3xl font-bold md:text-4xl">Encuéntranos</h2>
+            <h2 className="mb-4  text-3xl font-bold md:text-4xl">Encuéntranos</h2>
             <p className="mb-8 text-xl text-white/90">
               Tegucigalpa, Francisco Morazán, Honduras
             </p>
@@ -249,6 +251,11 @@ export default function NuestraParroquiaPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Galería */}
+      <GaleriaSection />
+
+      <Footer />
     </div>
   )
 }

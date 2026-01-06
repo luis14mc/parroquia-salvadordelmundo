@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import Image from 'next/image'
 
 const galleryImages = [
   {
@@ -109,11 +110,15 @@ export default function GaleriaSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12 flex flex-wrap justify-center gap-3"
+          role="group"
+          aria-label="Filtros de categoría de la galería"
         >
           {categories.map((category) => (
             <motion.button
               key={category}
               onClick={() => setSelectedCategory(category)}
+              aria-label={`Filtrar galería por ${category}`}
+              aria-pressed={selectedCategory === category}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`rounded-full px-6 py-2 font-medium transition-all duration-300 ${
@@ -143,17 +148,29 @@ export default function GaleriaSection() {
               whileHover={{ y: -8 }}
               className="group relative cursor-pointer overflow-hidden rounded-2xl shadow-lg"
               onClick={() => openLightbox(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  openLightbox(index)
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Ver imagen: ${image.title} - ${image.category}`}
             >
-              <div className="aspect-square w-full">
-                <div
-                  className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                  style={{ backgroundImage: `url('${image.url}')` }}
+              <div className="aspect-square w-full relative">
+                <Image
+                  src={image.url}
+                  alt={image.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <p className="mb-1 text-xs font-semibold text-accent">{image.category}</p>
-                  <h3 className="font-serif text-xl font-bold text-white">{image.title}</h3>
+                  <h3 className="text-xl font-bold text-white">{image.title}</h3>
                 </div>
               </div>
             </motion.div>
@@ -168,12 +185,16 @@ export default function GaleriaSection() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
             onClick={closeLightbox}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Visor de imagen en tamaño completo"
           >
             <button
               onClick={closeLightbox}
+              aria-label="Cerrar visor de imagen"
               className="absolute right-4 top-4 rounded-full bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/20"
             >
-              <X className="h-6 w-6 text-white" />
+              <X className="h-6 w-6 text-white" aria-hidden="true" />
             </button>
 
             <button
@@ -181,9 +202,10 @@ export default function GaleriaSection() {
                 e.stopPropagation()
                 prevImage()
               }}
+              aria-label="Imagen anterior"
               className="absolute left-4 rounded-full bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/20"
             >
-              <ChevronLeft className="h-6 w-6 text-white" />
+              <ChevronLeft className="h-6 w-6 text-white" aria-hidden="true" />
             </button>
 
             <button
@@ -191,20 +213,26 @@ export default function GaleriaSection() {
                 e.stopPropagation()
                 nextImage()
               }}
+              aria-label="Imagen siguiente"
               className="absolute right-4 rounded-full bg-white/10 p-2 backdrop-blur-sm transition-colors hover:bg-white/20"
             >
-              <ChevronRight className="h-6 w-6 text-white" />
+              <ChevronRight className="h-6 w-6 text-white" aria-hidden="true" />
             </button>
 
             <div
               className="relative max-h-[90vh] max-w-5xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
-                src={filteredImages[currentImageIndex].url}
-                alt={filteredImages[currentImageIndex].title}
-                className="h-full w-full rounded-lg object-contain"
-              />
+              <div className="relative w-full" style={{ height: '80vh' }}>
+                <Image
+                  src={filteredImages[currentImageIndex].url}
+                  alt={filteredImages[currentImageIndex].title}
+                  fill
+                  sizes="100vw"
+                  className="rounded-lg object-contain"
+                  priority
+                />
+              </div>
               <div className="mt-4 text-center">
                 <p className="text-sm text-accent">{filteredImages[currentImageIndex].category}</p>
                 <h3 className="text-xl font-bold text-white">{filteredImages[currentImageIndex].title}</h3>

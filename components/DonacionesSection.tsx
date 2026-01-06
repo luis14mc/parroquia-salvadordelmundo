@@ -69,7 +69,7 @@ export default function DonacionesSection() {
           className="mb-16 text-center"
         >
           <Heart className="mx-auto mb-4 h-16 w-16 text-primary" />
-          <h2 className="mb-4 font-serif text-4xl font-bold text-secondary md:text-5xl">
+          <h2 className="mb-4 text-4xl font-bold text-secondary md:text-5xl">
             Apoya Nuestra Misión
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-gray-600">
@@ -94,7 +94,7 @@ export default function DonacionesSection() {
                 <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-dark">
                   <Icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="mb-6 font-serif text-2xl font-bold text-secondary">
+                <h3 className="mb-6 text-2xl font-bold text-secondary">
                   {metodo.title}
                 </h3>
                 <div className="space-y-3">
@@ -118,7 +118,7 @@ export default function DonacionesSection() {
           transition={{ duration: 0.6 }}
           className="mb-12 text-center"
         >
-          <h3 className="mb-4 font-serif text-3xl font-bold text-secondary">
+          <h3 className="mb-4 text-3xl font-bold text-secondary">
             ¿Cómo se usan tus donaciones?
           </h3>
           <p className="mx-auto max-w-2xl text-gray-600">
@@ -137,7 +137,7 @@ export default function DonacionesSection() {
               className="rounded-xl bg-white p-6 text-center shadow-md transition-shadow hover:shadow-lg"
             >
               <div className="mb-3 text-4xl">{proyecto.icon}</div>
-              <h4 className="mb-2 font-serif text-lg font-bold text-secondary">
+              <h4 className="mb-2 text-lg font-bold text-secondary">
                 {proyecto.title}
               </h4>
               <p className="text-sm text-gray-600">{proyecto.description}</p>
@@ -154,7 +154,7 @@ export default function DonacionesSection() {
           className="rounded-3xl bg-gradient-to-br from-primary to-primary-dark p-12 text-center text-white shadow-2xl"
         >
           <DollarSign className="mx-auto mb-4 h-16 w-16 text-accent" />
-          <h3 className="mb-4 font-serif text-3xl font-bold">¿Tienes preguntas sobre donaciones?</h3>
+          <h3 className="mb-4 text-3xl font-bold">¿Tienes preguntas sobre donaciones?</h3>
           <p className="mb-8 text-lg text-white/90">
             Contáctanos para más información sobre cómo apoyar nuestra parroquia
           </p>

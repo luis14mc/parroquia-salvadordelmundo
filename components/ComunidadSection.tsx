@@ -67,7 +67,7 @@ const communityGroups = [
   },
 ]
 
-const news = [
+const newsFallback = [
   {
     id: 1,
     title: 'Peregrinación a Suyapa',
@@ -95,6 +95,8 @@ const news = [
 ]
 
 export default function ComunidadSection() {
+  const news = newsFallback
+  
   return (
     <section id="comunidad" className="bg-white px-4 py-24">
       <div className="mx-auto max-w-7xl">
@@ -203,13 +205,13 @@ export default function ComunidadSection() {
             {news.map((item, index) => (
               <motion.article
                 key={item.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl"
-              >
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                  className="group cursor-pointer overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl"
+                >
                 {/* Image */}
                 <div className="relative h-48 w-full overflow-hidden bg-gray-200">
                   <div
@@ -232,12 +234,12 @@ export default function ComunidadSection() {
                   <p className="mb-4 text-sm text-gray-600 line-clamp-2">
                     {item.excerpt}
                   </p>
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    className="flex items-center gap-2 font-semibold text-primary"
-                  >
-                    Leer más
-                    <ArrowRight className="h-4 w-4" />
+                    <motion.div
+                      whileHover={{ x: 5 }}
+                      className="flex items-center gap-2 font-semibold text-primary"
+                    >
+                      Leer más
+                      <ArrowRight className="h-4 w-4" />
                   </motion.div>
                 </div>
               </motion.article>

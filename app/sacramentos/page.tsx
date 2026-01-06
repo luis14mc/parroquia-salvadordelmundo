@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Baby, BookOpen, Cross, Heart, Droplet, HandHeart, Church } from 'lucide-react'
+import Footer from '@/components/Footer'
 
 const sacramentos = [
   {
@@ -73,7 +74,7 @@ export default function SacramentosPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="mb-6 font-serif text-5xl font-bold text-white md:text-6xl">
+            <h1 className="mb-6  text-5xl font-bold text-white md:text-6xl">
               Sacramentos
             </h1>
             <p className="text-xl text-white/90 md:text-2xl">
@@ -118,7 +119,7 @@ export default function SacramentosPage() {
 
                       {/* Content */}
                       <div className="p-8">
-                        <h3 className="mb-3 font-serif text-2xl font-bold text-secondary">
+                        <h3 className="mb-3  text-2xl font-bold text-secondary">
                           {sacramento.nombre}
                         </h3>
                         <p className="mb-6 text-gray-600">
@@ -156,7 +157,7 @@ export default function SacramentosPage() {
             viewport={{ once: true }}
             className="rounded-3xl bg-gradient-to-br from-primary to-primary-dark p-12 text-center shadow-2xl"
           >
-            <h3 className="mb-4 font-serif text-3xl font-bold text-white md:text-4xl">
+            <h3 className="mb-4  text-3xl font-bold text-white md:text-4xl">
               ¿Necesitas más información?
             </h3>
             <p className="mb-8 text-lg text-white/90">
@@ -185,6 +186,7 @@ export default function SacramentosPage() {
           </motion.div>
         </div>
       </section>
+      <Footer />
     </main>
   )
 }

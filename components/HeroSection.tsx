@@ -55,7 +55,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section id="inicio" className="relative h-screen w-full overflow-hidden">
+    <section id="inicio" className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <div 
@@ -68,19 +68,20 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex h-full items-center justify-center px-4">
-        <div className="max-w-5xl text-center">
+      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-20 sm:py-24">
+        <div className="w-full max-w-5xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="space-y-6 sm:space-y-8"
           >
             {/* Live Status Badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="mb-8 inline-flex items-center gap-2 rounded-full glass-dark px-6 py-3"
+              className="inline-flex items-center gap-2 rounded-full glass-dark px-4 py-2 sm:px-6 sm:py-3"
             >
               {massStatus.isLive ? (
                 <>
@@ -88,12 +89,12 @@ export default function HeroSection() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"></span>
                     <span className="relative inline-flex h-3 w-3 rounded-full bg-accent"></span>
                   </span>
-                  <span className="text-sm font-medium text-white">Misa en Curso</span>
+                  <span className="text-xs font-medium text-white sm:text-sm">Misa en Curso</span>
                 </>
               ) : (
                 <>
-                  <Clock className="h-4 w-4 text-accent" />
-                  <span className="text-sm font-medium text-white">
+                  <Clock className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+                  <span className="text-xs font-medium text-white sm:text-sm">
                     Próxima misa: {massStatus.nextMass}
                   </span>
                 </>
@@ -101,14 +102,14 @@ export default function HeroSection() {
             </motion.div>
 
             {/* Main Title */}
-            <h1 className="mb-6 text-5xl font-bold leading-tight text-white md:text-7xl lg:text-8xl">
+            <h1 className="mb-4 text-4xl font-bold leading-tight text-white sm:mb-6 sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               Parroquia
               <br />
               El Salvador del Mundo
             </h1>
 
             {/* Subtitle */}
-            <p className="mb-8 text-xl text-white/90 md:text-2xl">
+            <p className="mb-6 px-4 text-base text-white/90 sm:mb-8 sm:text-lg md:text-xl lg:text-2xl">
               Una comunidad de fe, esperanza y amor en el corazón de Tegucigalpa
             </p>
 
@@ -119,8 +120,8 @@ export default function HeroSection() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="inline-flex items-center gap-2 text-white/80"
             >
-              <MapPin className="h-5 w-5 text-accent" />
-              <span className="text-lg">Tegucigalpa, Honduras</span>
+              <MapPin className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
+              <span className="text-sm sm:text-base md:text-lg">Tegucigalpa, Honduras</span>
             </motion.div>
 
             {/* CTA Buttons */}
@@ -128,16 +129,16 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
-              className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+              className="mt-8 flex flex-col items-center justify-center gap-3 px-4 sm:mt-12 sm:flex-row sm:gap-4"
             >
-              <a href="#horarios">
-                <button className="group relative overflow-hidden rounded-full bg-accent px-8 py-4 text-lg font-semibold text-secondary transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50">
+              <a href="#horarios" className="w-full sm:w-auto">
+                <button className="group relative w-full overflow-hidden rounded-full bg-accent px-6 py-3 text-base font-semibold text-secondary transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/50 sm:px-8 sm:py-4 sm:text-lg">
                   <span className="relative z-10">Ver Horarios</span>
                   <div className="absolute inset-0 -z-0 bg-gradient-to-r from-accent to-yellow-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </button>
               </a>
-              <a href="#contacto">
-                <button className="group rounded-full border-2 border-white/30 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/50 hover:bg-white/20">
+              <a href="/contacto" className="w-full sm:w-auto">
+                <button className="group w-full rounded-full border-2 border-white/30 bg-white/10 px-6 py-3 text-base font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/50 hover:bg-white/20 sm:px-8 sm:py-4 sm:text-lg">
                   Contactar
                 </button>
               </a>
@@ -151,7 +152,7 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 sm:block"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}

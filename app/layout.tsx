@@ -1,18 +1,13 @@
 import type { Metadata } from 'next'
-import { Raleway, Cormorant_Garamond } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 
-const raleway = Raleway({ 
+const montserrat = Montserrat({ 
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-raleway',
-})
-
-const cormorant = Cormorant_Garamond({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant',
+  variable: '--font-montserrat',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -34,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${raleway.variable} ${cormorant.variable}`}>
+    <html lang="es" className={montserrat.variable}>
       <body className="font-sans">
         <Navbar />
         {children}

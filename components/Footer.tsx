@@ -82,7 +82,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h4 className="mb-6 font-serif text-lg font-bold">Enlaces Rápidos</h4>
+            <h4 className="mb-6 text-lg font-bold">Enlaces Rápidos</h4>
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
@@ -105,7 +105,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h4 className="mb-6 font-serif text-lg font-bold">Sacramentos</h4>
+            <h4 className="mb-6 text-lg font-bold">Sacramentos</h4>
             <ul className="space-y-3">
               {sacramentos.map((sacramento, index) => (
                 <li key={index}>
@@ -128,7 +128,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <h4 className="mb-6 font-serif text-lg font-bold">Contacto</h4>
+            <h4 className="mb-6 text-lg font-bold">Contacto</h4>
             <ul className="space-y-4">
               <li>
                 <a

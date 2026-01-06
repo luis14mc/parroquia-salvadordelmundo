@@ -142,11 +142,12 @@ export default function ContactoSection() {
                       href={social.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Visitar nuestra página de ${social.name}`}
                       whileHover={{ scale: 1.1, y: -4 }}
                       whileTap={{ scale: 0.95 }}
                       className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-dark shadow-lg transition-shadow hover:shadow-xl"
                     >
-                      <Icon className="h-5 w-5 text-white" />
+                      <Icon className="h-5 w-5 text-white" aria-hidden="true" />
                     </motion.a>
                   )
                 })}
@@ -188,7 +189,7 @@ export default function ContactoSection() {
                 Envíanos un Mensaje
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-label="Formulario de contacto">
                 <div>
                   <label htmlFor="nombre" className="mb-2 block text-sm font-medium text-secondary">
                     Nombre Completo *
@@ -196,7 +197,9 @@ export default function ContactoSection() {
                   <input
                     type="text"
                     id="nombre"
+                    name="nombre"
                     required
+                    autoComplete="name"
                     value={formData.nombre}
                     onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
                     className="w-full rounded-xl border border-gray-300 px-4 py-3 text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -212,7 +215,9 @@ export default function ContactoSection() {
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       required
+                      autoComplete="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full rounded-xl border border-gray-300 px-4 py-3 text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -227,6 +232,8 @@ export default function ContactoSection() {
                     <input
                       type="tel"
                       id="telefono"
+                      name="telefono"
+                      autoComplete="tel"
                       value={formData.telefono}
                       onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
                       className="w-full rounded-xl border border-gray-300 px-4 py-3 text-secondary transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -276,9 +283,10 @@ export default function ContactoSection() {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  aria-label="Enviar formulario de contacto"
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-primary-dark px-8 py-4 font-semibold text-white shadow-lg transition-shadow hover:shadow-xl"
                 >
-                  <Send className="h-5 w-5" />
+                  <Send className="h-5 w-5" aria-hidden="true" />
                   Enviar Mensaje
                 </motion.button>
               </form>
