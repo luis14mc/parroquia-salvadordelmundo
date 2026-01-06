@@ -3,29 +3,52 @@
 import { motion } from 'framer-motion'
 import { Mail, Phone } from 'lucide-react'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
-const sacerdotesData = [
-  {
-    id: 1,
-    name: 'P. Juan Carlos Martínez',
-    title: 'Párroco',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
-    bio: 'Con más de 15 años de servicio sacerdotal, dedicado a la evangelización y el servicio.',
-    email: 'parroco@salvadordelmundo.hn',
-    phone: '+504 2212-3456',
-  },
-  {
-    id: 2,
-    name: 'P. Roberto Sánchez',
-    title: 'Vicario Parroquial',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400',
-    bio: 'Especialista en pastoral juvenil y acompañamiento espiritual.',
-    email: 'vicario@salvadordelmundo.hn',
-    phone: '+504 2212-3457',
-  },
-]
+interface Sacerdote {
+  id: number
+  nombre: string
+  cargo: string
+  imagen: string
+  descripcion: string
+  email?: string
+  telefono?: string
+}
 
 export default function SacerdotesSection() {
+  const [sacerdotes, setSacerdotes] = useState<Sacerdote[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchSacerdotes()
+  }, [])
+
+  const fetchSacerdotes = async () => {
+    try {
+      const res = await fetch('/api/sacerdotes')
+      const data = await res.json()
+      setSacerdotes(data)
+    } catch (error) {
+      console.error('Error al cargar sacerdotes:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <section id="sacerdotes" className="bg-gradient-to-b from-secondary to-secondary-dark px-4 py-24">
+        <div className="flex items-center justify-center">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-white border-t-transparent" />
+        </div>
+      </section>
+    )
+  }
+
+  if (sacerdotes.length === 0) {
+    return null
+  }
+
   return (
     <section id="sacerdotes" className="bg-gradient-to-b from-secondary to-secondary-dark px-4 py-24">
       <div className="mx-auto max-w-7xl">
@@ -47,7 +70,7 @@ export default function SacerdotesSection() {
 
         {/* Sacerdotes Grid */}
         <div className="grid gap-8 md:grid-cols-2">
-          {sacerdotesData.map((sacerdote, index) => (
+          {sacerdotes.map((sacerdote, index) => (
             <motion.div
               key={sacerdote.id}
               initial={{ opacity: 0, y: 30 }}
@@ -63,8 +86,8 @@ export default function SacerdotesSection() {
                   className="relative mb-6 h-48 w-48 overflow-hidden rounded-full shadow-lg"
                 >
                   <Image
-                    src={sacerdote.image}
-                    alt={sacerdote.name}
+                    src={sacerdote.imagen}
+                    alt={sacerdote.nombre}
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"
                     className="object-cover"
@@ -72,32 +95,38 @@ export default function SacerdotesSection() {
                 </motion.div>
 
                 <h3 className="mb-2 text-2xl font-bold text-secondary">
-                  {sacerdote.name}
+                  {sacerdote.nombre}
                 </h3>
                 <p className="mb-4 font-semibold text-primary">
-                  {sacerdote.title}
+                  {sacerdote.cargo}
                 </p>
                 <p className="mb-6 text-gray-600">
-                  {sacerdote.bio}
+                  {sacerdote.descripcion}
                 </p>
 
                 {/* Contacto */}
-                <div className="w-full space-y-3 border-t border-gray-200 pt-6">
-                  <a
-                    href={`mailto:${sacerdote.email}`}
-                    className="flex items-center justify-center gap-2 text-sm text-gray-600 transition-colors hover:text-primary"
-                  >
-                    <Mail className="h-4 w-4" />
-                    {sacerdote.email}
-                  </a>
-                  <a
-                    href={`tel:${sacerdote.phone}`}
-                    className="flex items-center justify-center gap-2 text-sm text-gray-600 transition-colors hover:text-primary"
-                  >
-                    <Phone className="h-4 w-4" />
-                    {sacerdote.phone}
-                  </a>
-                </div>
+                {(sacerdote.email || sacerdote.telefono) && (
+                  <div className="w-full space-y-3 border-t border-gray-200 pt-6">
+                    {sacerdote.email && (
+                      <a
+                        href={`mailto:${sacerdote.email}`}
+                        className="flex items-center justify-center gap-3 rounded-lg bg-primary/5 px-4 py-3 text-primary transition-colors hover:bg-primary/10"
+                      >
+                        <Mail className="h-5 w-5" />
+                        <span className="text-sm font-medium">{sacerdote.email}</span>
+                      </a>
+                    )}
+                    {sacerdote.telefono && (
+                      <a
+                        href={`tel:${sacerdote.telefono}`}
+                        className="flex items-center justify-center gap-3 rounded-lg bg-accent/10 px-4 py-3 text-secondary transition-colors hover:bg-accent/20"
+                      >
+                        <Phone className="h-5 w-5" />
+                        <span className="text-sm font-medium">{sacerdote.telefono}</span>
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

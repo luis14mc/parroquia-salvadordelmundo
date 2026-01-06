@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": 1767726911327,
+    "nombre": "Juan Enrique Martinez Cerrato",
+    "cargo": "Párroco",
+    "descripcion": "más de 10 años al servicio de Dios y de la Iglesia",
+    "imagen": "https://avatar.iran.liara.run/public/boy",
+    "email": "parroco@elsalvadordelmundo.org",
+    "telefono": "+504 00000000",
+    "createdAt": "2026-01-06T19:15:11.327Z",
+    "updatedAt": "2026-01-06T19:19:59.539Z"
+  },
+  {
+    "id": 1767727136866,
+    "nombre": "Samuel",
+    "cargo": "vicario",
+    "descripcion": "Vestibulum sem purus, commodo ac sapien et, tempor aliquam tortor. Vivamus dignissim velit at lobortis fringilla.",
+    "imagen": "https://avatar.iran.liara.run/public/boy",
+    "email": "vicario@elsalvadordelmundo.org",
+    "telefono": "+504 000-0000",
+    "createdAt": "2026-01-06T19:18:56.866Z",
+    "updatedAt": "2026-01-06T19:20:12.588Z"
+  }
+]
