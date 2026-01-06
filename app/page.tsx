@@ -2,25 +2,32 @@
 
 import { motion } from 'framer-motion'
 import { Construction, Calendar, Mail, Church } from 'lucide-react'
+import Image from 'next/image'
 
 export default function MantenimientoPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#841443] via-[#2f2f2f] to-[#f9cb33] flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="max-w-3xl w-full text-center"
       >
-        {/* Logo/Icono */}
+        {/* Logo oficial */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="mb-8 flex justify-center"
         >
-          <div className="bg-white rounded-full p-8 shadow-2xl">
-            <Church className="h-24 w-24 text-[#841443]" />
+          <div className="bg-white rounded-full p-6 shadow-2xl">
+            <Image 
+              src="/logo/logo.png" 
+              alt="Parroquia El Salvador del Mundo"
+              width={120}
+              height={120}
+              className="object-contain"
+            />
           </div>
         </motion.div>
 
