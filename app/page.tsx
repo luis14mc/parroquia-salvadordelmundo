@@ -80,7 +80,7 @@ export default function MantenimientoPage() {
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all">
             <Mail className="h-10 w-10 text-white mb-3 mx-auto" />
             <h3 className="text-white font-semibold mb-2 text-lg">Contáctanos</h3>
-            <p className="text-white/80 text-sm">
+            <p className="text-white/80 text-sm break-all">
               <a href="mailto:pelsalavadordelmundohn@gmail.com" className="underline hover:text-white transition-colors">
                 pelsalavadordelmundohn@gmail.com
               </a>
