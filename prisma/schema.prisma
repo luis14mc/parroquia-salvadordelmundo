@@ -1,0 +1,131 @@
+// Esquema de base de datos para Parroquia El Salvador del Mundo
+// PostgreSQL con Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// Usuario administrador del CMS
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // bcrypt hash
+  email     String?
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Sacerdotes de la parroquia
+model Sacerdote {
+  id          String   @id @default(cuid())
+  nombre      String
+  cargo       String
+  descripcion String
+  imagen      String?  // URL o path de la imagen
+  email       String?
+  telefono    String?
+  orden       Int      @default(0) // Para ordenar la visualización
+  activo      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([activo, orden])
+}
+
+// Horarios de misas y actividades
+model Horario {
+  id          String   @id @default(cuid())
+  tipo        String   // "misa", "confesion", "adoracion", etc.
+  dia         String   // "lunes", "martes", etc. o "diario"
+  hora        String
+  lugar       String?
+  descripcion String?
+  activo      Boolean  @default(true)
+  orden       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([activo, tipo])
+}
+
+// Galería de fotos
+model Galeria {
+  id          String   @id @default(cuid())
+  titulo      String
+  descripcion String?
+  imagen      String   // URL o path
+  categoria   String?  // "eventos", "instalaciones", "celebraciones"
+  fecha       DateTime?
+  activo      Boolean  @default(true)
+  orden       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([activo, categoria])
+}
+
+// Grupos y movimientos parroquiales
+model Grupo {
+  id          String   @id @default(cuid())
+  nombre      String
+  descripcion String
+  imagen      String?
+  coordinador String?
+  horario     String?
+  contacto    String?
+  activo      Boolean  @default(true)
+  orden       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([activo])
+}
+
+// Noticias y eventos
+model Noticia {
+  id          String   @id @default(cuid())
+  titulo      String
+  contenido   String
+  resumen     String?
+  imagen      String?
+  categoria   String   @default("noticia") // "noticia", "evento", "anuncio"
+  fecha       DateTime @default(now())
+  fechaEvento DateTime? // Para eventos futuros
+  activo      Boolean  @default(true)
+  destacado   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([activo, destacado, fecha])
+}
+
+// Configuración de formularios web
+model FormConfig {
+  id             String   @id @default(cuid())
+  nombre         String   @unique // "contacto", "donaciones", etc.
+  habilitado     Boolean  @default(true)
+  emailDestino   String?
+  mensajeExito   String?
+  mensajeError   String?
+  requireCaptcha Boolean  @default(false)
+  configuracion  String?    // Configuración adicional en JSON
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// Envíos de formularios
+model FormSubmission {
+  id         String   @id @default(cuid())
+  formulario String   // Nombre del formulario
+  datos      String   // Datos enviados en JSON
+  ip         String?
+  leido      Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([formulario, createdAt])
+}

@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function MantenimientoPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-primary via-primary-dark to-secondary flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ export default function MantenimientoPage() {
         >
           <div className="bg-white rounded-full p-6 shadow-2xl">
             <Image 
-              src="/logo/logo.png" 
+              src="/logo/logo_original.png" 
               alt="Parroquia El Salvador del Mundo"
               width={120}
               height={120}
@@ -81,8 +81,8 @@ export default function MantenimientoPage() {
             <Mail className="h-10 w-10 text-white mb-3 mx-auto" />
             <h3 className="text-white font-semibold mb-2 text-lg">Contáctanos</h3>
             <p className="text-white/80 text-sm">
-              <a href="mailto:info@parroquiasalvadordelmundo.org" className="underline hover:text-white transition-colors">
-                info@parroquiasalvador.org
+              <a href="mailto:pelsalavadordelmundohn@gmail.com" className="underline hover:text-white transition-colors">
+                pelsalavadordelmundohn@gmail.com
               </a>
             </p>
           </div>
