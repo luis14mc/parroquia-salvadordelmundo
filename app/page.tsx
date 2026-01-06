@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Construction, Calendar, Mail, Church } from 'lucide-react'
-import Image from 'next/image'
 
 export default function MantenimientoPage() {
   return (
