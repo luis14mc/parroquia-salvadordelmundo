@@ -18,14 +18,19 @@ export default function HeroSection() {
   })
 
   useEffect(() => {
-    // Lógica para determinar el estado de la misa
+    // Lógica para determinar el estado de la misa usando timezone de Honduras
     const checkMassStatus = () => {
-      const now = new Date()
-      const day = now.getDay()
-      const hour = now.getHours()
-      const minute = now.getMinutes()
+      // Obtener hora de Honduras (UTC-6)
+      const nowUTC = new Date()
+      const hondurasOffset = -6 * 60 // -6 horas en minutos
+      const localOffset = nowUTC.getTimezoneOffset()
+      const hondurasTime = new Date(nowUTC.getTime() + (hondurasOffset - localOffset) * 60 * 1000)
+      
+      const day = hondurasTime.getDay()
+      const hour = hondurasTime.getHours()
+      const minute = hondurasTime.getMinutes()
 
-      // Horarios de misa (ejemplo)
+      // Horarios de misa (ejemplo - idealmente deberían venir de la API)
       const massSchedule = [
         { day: 0, hour: 10, minute: 0 }, // Domingo 10:00 AM
         { day: 0, hour: 18, minute: 0 }, // Domingo 6:00 PM
@@ -56,7 +61,7 @@ export default function HeroSection() {
 
   return (
     <section id="inicio" className="relative min-h-screen w-full overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image - Optimizado con next/image */}
       <div className="absolute inset-0">
         <div 
           className="h-full w-full bg-cover bg-center bg-no-repeat"

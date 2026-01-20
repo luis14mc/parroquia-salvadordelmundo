@@ -60,33 +60,50 @@ export default function SacerdotesAdmin() {
     e.preventDefault()
     
     try {
+      const token = localStorage.getItem('admin_token')
+      
       if (editingId) {
         // Actualizar
         const res = await fetch(`/api/sacerdotes/${editingId}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(formData)
         })
         
         if (res.ok) {
           await fetchSacerdotes()
           resetForm()
+          alert('Sacerdote actualizado exitosamente')
+        } else {
+          const error = await res.json()
+          alert(error.error || 'Error al actualizar')
         }
       } else {
         // Crear
         const res = await fetch('/api/sacerdotes', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify(formData)
         })
         
         if (res.ok) {
           await fetchSacerdotes()
           resetForm()
+          alert('Sacerdote creado exitosamente')
+        } else {
+          const error = await res.json()
+          alert(error.error || 'Error al crear')
         }
       }
     } catch (error) {
       console.error('Error al guardar:', error)
+      alert('Error al guardar sacerdote')
     }
   }
 
@@ -107,15 +124,24 @@ export default function SacerdotesAdmin() {
     if (!confirm('¿Estás seguro de eliminar este sacerdote?')) return
     
     try {
+      const token = localStorage.getItem('admin_token')
       const res = await fetch(`/api/sacerdotes/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       })
       
       if (res.ok) {
         await fetchSacerdotes()
+        alert('Sacerdote eliminado exitosamente')
+      } else {
+        const error = await res.json()
+        alert(error.error || 'Error al eliminar')
       }
     } catch (error) {
       console.error('Error al eliminar:', error)
+      alert('Error al eliminar sacerdote')
     }
   }
 

@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server'
 import { revalidateTag } from 'next/cache'
 import { ZodError } from 'zod'
-import { SacerdoteService } from '@/lib/services/sacerdote.service'
-import { sacerdoteUpdateSchema } from '@/lib/validations/sacerdote'
+import { HorarioService } from '@/lib/services/horario.service'
+import { horarioUpdateSchema } from '@/lib/validations/horario'
 import { requireAdminRole, AuthenticatedRequest } from '@/lib/middleware/auth'
 import {
   successResponse,
@@ -13,8 +13,8 @@ import {
 } from '@/lib/utils/api-response'
 
 /**
- * PUT /api/sacerdotes/[id]
- * Actualizar sacerdote existente
+ * PUT /api/horarios/[id]
+ * Actualizar horario existente
  * Requiere autenticación y rol admin
  */
 export const PUT = requireAdminRole(async (
@@ -26,15 +26,15 @@ export const PUT = requireAdminRole(async (
     const body = await request.json()
     
     // Validar con Zod (parcial para updates)
-    const validatedData = sacerdoteUpdateSchema.parse(body)
+    const validatedData = horarioUpdateSchema.parse(body)
     
     // Actualizar usando servicio
-    const sacerdote = await SacerdoteService.update(id, validatedData)
+    const horario = await HorarioService.update(id, validatedData)
     
     // Revalidar cache
-    revalidateTag('sacerdotes')
+    revalidateTag('horarios')
     
-    return successResponse(sacerdote, 'Sacerdote actualizado exitosamente')
+    return successResponse(horario, 'Horario actualizado exitosamente')
   } catch (error) {
     if (error instanceof ZodError) {
       return validationErrorResponse(error)
@@ -52,8 +52,8 @@ export const PUT = requireAdminRole(async (
 })
 
 /**
- * DELETE /api/sacerdotes/[id]
- * Eliminar sacerdote
+ * DELETE /api/horarios/[id]
+ * Eliminar horario
  * Requiere autenticación y rol admin
  */
 export const DELETE = requireAdminRole(async (
@@ -64,12 +64,12 @@ export const DELETE = requireAdminRole(async (
     const { id } = await context.params
     
     // Eliminar usando servicio
-    await SacerdoteService.delete(id)
+    await HorarioService.delete(id)
     
     // Revalidar cache
-    revalidateTag('sacerdotes')
+    revalidateTag('horarios')
     
-    return successResponse(null, 'Sacerdote eliminado exitosamente')
+    return successResponse(null, 'Horario eliminado exitosamente')
   } catch (error) {
     if (error instanceof Error) {
       return errorResponse(error.message, 400)
