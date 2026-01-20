@@ -14,18 +14,18 @@ export async function apiClient<T = any>(
   url: string,
   options: RequestOptions = {}
 ): Promise<T> {
-  const { requireAuth = false, headers = {}, ...restOptions } = options
+  const { requireAuth = false, headers, ...restOptions } = options
 
   // Agregar token si es requerido
-  const finalHeaders: Record<string, string> = {
+  const finalHeaders: HeadersInit = {
     'Content-Type': 'application/json',
-    ...headers,
+    ...(headers as Record<string, string>),
   }
 
   if (requireAuth) {
     const token = localStorage.getItem('admin_token')
     if (token) {
-      finalHeaders['Authorization'] = `Bearer ${token}`
+      (finalHeaders as Record<string, string>)['Authorization'] = `Bearer ${token}`
     }
   }
 

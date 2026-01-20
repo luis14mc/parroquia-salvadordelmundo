@@ -45,7 +45,7 @@ export function errorResponse(error: string, status: number = 400) {
  * Respuesta de errores de validación (Zod)
  */
 export function validationErrorResponse(error: ZodError) {
-  const errors = error.errors.map((err) => ({
+  const errors = error.issues.map((err) => ({
     field: err.path.join('.'),
     message: err.message,
   }))

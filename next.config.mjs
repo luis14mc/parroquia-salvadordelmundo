@@ -23,9 +23,6 @@ const nextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 días
   },
   
-  // Optimización de compilación
-  swcMinify: true,
-  
   // Compresión
   compress: true,
   

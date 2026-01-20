@@ -25,7 +25,7 @@ export default async function SacerdotesList() {
           <div className="flex flex-col items-center text-center">
             <div className="relative mb-6 h-48 w-48 overflow-hidden rounded-full shadow-lg transition-transform duration-300 group-hover:scale-105">
               <Image
-                src={sacerdote.imagen}
+                src={sacerdote.imagen || '/logo/logo.png'}
                 alt={sacerdote.nombre}
                 fill
                 sizes="(max-width: 768px) 100vw, 400px"

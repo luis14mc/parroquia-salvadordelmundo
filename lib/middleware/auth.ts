@@ -44,9 +44,12 @@ export function verifyAuthToken(request: NextRequest): { user: any } | null {
 /**
  * Middleware que requiere autenticación
  * Retorna 401 si no hay token válido
+ * Soporta rutas simples y rutas con parámetros dinámicos
  */
-export function requireAuth(handler: (req: AuthenticatedRequest) => Promise<NextResponse>) {
-  return async (request: NextRequest) => {
+export function requireAuth<T extends any[]>(
+  handler: (req: AuthenticatedRequest, ...args: T) => Promise<NextResponse>
+) {
+  return async (request: NextRequest, ...args: T) => {
     const auth = verifyAuthToken(request)
     
     if (!auth) {
@@ -60,7 +63,7 @@ export function requireAuth(handler: (req: AuthenticatedRequest) => Promise<Next
     const authenticatedRequest = request as AuthenticatedRequest
     authenticatedRequest.user = auth.user
 
-    return handler(authenticatedRequest)
+    return handler(authenticatedRequest, ...args)
   }
 }
 
@@ -73,9 +76,12 @@ export function requireAdmin(request: AuthenticatedRequest): boolean {
 
 /**
  * Wrapper para handlers que requieren rol admin
+ * Soporta rutas simples y rutas con parámetros dinámicos
  */
-export function requireAdminRole(handler: (req: AuthenticatedRequest) => Promise<NextResponse>) {
-  return requireAuth(async (request: AuthenticatedRequest) => {
+export function requireAdminRole<T extends any[]>(
+  handler: (req: AuthenticatedRequest, ...args: T) => Promise<NextResponse>
+) {
+  return requireAuth(async (request: AuthenticatedRequest, ...args: T) => {
     if (!requireAdmin(request)) {
       return NextResponse.json(
         { error: 'Acceso denegado. Se requiere rol de administrador.' },
@@ -83,6 +89,6 @@ export function requireAdminRole(handler: (req: AuthenticatedRequest) => Promise
       )
     }
     
-    return handler(request)
+    return handler(request, ...args)
   })
 }
