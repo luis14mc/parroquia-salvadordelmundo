@@ -6,6 +6,11 @@ import DonacionesSection from '@/components/DonacionesSection'
 import ContactoSection from '@/components/ContactoSection'
 import Footer from '@/components/Footer'
 
+/**
+ * Landing Page Estática
+ * Versión simplificada sin CMS para lanzamiento rápido
+ */
+
 export default function Home() {
   return (
     <main className="min-h-screen">

@@ -15,39 +15,30 @@ interface Sacerdote {
   telefono?: string
 }
 
+// Datos hardcodeados de sacerdotes
+const sacerdotesData: Sacerdote[] = [
+  {
+    id: 1,
+    nombre: 'P. Juan Carlos Martínez',
+    cargo: 'Párroco',
+    imagen: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400',
+    descripcion: 'Sacerdote dedicado al servicio de nuestra comunidad parroquial desde hace 10 años.',
+    email: 'parroco@parroquiasalvador.hn',
+    telefono: '+504 2234-5678'
+  },
+  {
+    id: 2,
+    nombre: 'P. Roberto López',
+    cargo: 'Vicario',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400',
+    descripcion: 'Acompañando a los jóvenes y familias en su camino de fe.',
+    email: 'vicario@parroquiasalvador.hn',
+    telefono: '+504 2234-5679'
+  }
+]
+
 export default function SacerdotesSection() {
-  const [sacerdotes, setSacerdotes] = useState<Sacerdote[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetchSacerdotes()
-  }, [])
-
-  const fetchSacerdotes = async () => {
-    try {
-      const res = await fetch('/api/sacerdotes')
-      const data = await res.json()
-      setSacerdotes(data)
-    } catch (error) {
-      console.error('Error al cargar sacerdotes:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  if (loading) {
-    return (
-      <section id="sacerdotes" className="bg-gradient-to-b from-secondary to-secondary-dark px-4 py-24">
-        <div className="flex items-center justify-center">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-white border-t-transparent" />
-        </div>
-      </section>
-    )
-  }
-
-  if (sacerdotes.length === 0) {
-    return null
-  }
+  const sacerdotes = sacerdotesData
 
   return (
     <section id="sacerdotes" className="bg-gradient-to-b from-secondary to-secondary-dark px-4 py-24">
