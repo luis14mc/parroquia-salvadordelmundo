@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/ui/Hero.astro';
+import InfoContacto from '../components/ui/InfoContacto.astro';
+import { Icon } from 'astro-icon/components';
+
+const horarios = [
+	{ dias: "Lunes, Miércoles, Jueves, Viernes", horas: "2:00 PM - 6:15 PM" },
+	{ dias: "Martes", horas: "4:00 PM - 6:15 PM" },
+	{ dias: "Sábado", horas: "8:00 AM - 12:00 M" }
+];
+---
+
+<Layout title="Oficina Parroquial | Parroquia El Salvador del Mundo">
+	<Hero 
+		title="Oficina Parroquial" 
+		subtitle="Estamos para servirte en tus trámites y consultas administrativas. Visítanos en nuestros horarios de atención."
+	/>
+
+	<section class="section-padding bg-white">
+		<div class="container-tight">
+			<div class="max-w-3xl mx-auto">
+				<div class="text-center mb-10 lg:mb-12">
+					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 lg:mb-4 block">Atención</span>
+					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900">Horarios de Secretaría</h2>
+				</div>
+
+				<div class="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-sm border border-slate-100">
+					<div class="flex items-center gap-3 mb-6 lg:mb-8">
+						<div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-primary/5 flex items-center justify-center">
+							<Icon name="lucide:clock" class="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+						</div>
+						<h3 class="text-base lg:text-xl font-bold text-slate-900">Horario de Atención</h3>
+					</div>
+					
+					<div class="space-y-3 lg:space-y-4">
+						{horarios.map((item) => (
+							<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 lg:py-4 border-b border-slate-100 last:border-0 gap-1 sm:gap-4">
+								<span class="text-sm lg:text-base text-slate-600 font-medium">{item.dias}</span>
+								<span class="text-sm lg:text-base text-slate-900 font-bold">{item.horas}</span>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<InfoContacto />
+</Layout>

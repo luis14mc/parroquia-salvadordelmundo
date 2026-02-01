@@ -1,0 +1,247 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+const situaciones = [
+	{
+		titulo: "Enfermedad grave",
+		descripcion: "Personas que enfrentan una enfermedad seria o condición de salud que amenaza la vida.",
+		icono: "lucide:heart-pulse"
+	},
+	{
+		titulo: "Cirugías importantes",
+		descripcion: "Antes o después de intervenciones quirúrgicas de riesgo significativo.",
+		icono: "lucide:shield-plus"
+	},
+	{
+		titulo: "Vejez avanzada",
+		descripcion: "Personas de edad avanzada cuyas fuerzas comienzan a declinar notablemente.",
+		icono: "lucide:clock"
+	}
+];
+
+const efectos = [
+	{ nombre: "Gracia del Espíritu Santo", icono: "lucide:sparkles" },
+	{ nombre: "Unión con la Pasión de Cristo", icono: "lucide:cross" },
+	{ nombre: "Consuelo y paz", icono: "lucide:heart" },
+	{ nombre: "Fortaleza espiritual", icono: "lucide:shield" },
+	{ nombre: "Perdón de pecados", icono: "lucide:check-circle" },
+	{ nombre: "Preparación para el paso a la vida eterna", icono: "lucide:sunrise" }
+];
+---
+
+<Layout 
+	title="Unción de los Enfermos | Sacramentos | Parroquia El Salvador del Mundo"
+	description="Sacramento de la Unción de los Enfermos: significado, cuándo recibirlo y cómo coordinar la visita pastoral."
+>
+	<!-- Hero -->
+	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 to-purple-800">
+		<div class="absolute inset-0 opacity-10">
+			<div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+		</div>
+		
+		<div class="container-tight relative z-10 text-center">
+			<div class="inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-2xl lg:rounded-3xl bg-white/10 backdrop-blur-sm mb-6 lg:mb-8">
+				<Icon name="lucide:cross" class="w-8 h-8 lg:w-10 lg:h-10 text-white" />
+			</div>
+			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 lg:mb-6">Unción de los Enfermos</h1>
+			<p class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto">
+				Sacramento de sanación y fortaleza para quienes enfrentan enfermedad grave o vejez.
+			</p>
+		</div>
+	</section>
+
+	<!-- ¿Qué es? -->
+	<section class="section-padding bg-white">
+		<div class="container-tight max-w-4xl">
+			<div class="text-center mb-12 lg:mb-16">
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Sacramento de Sanación</span>
+				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">¿Qué es la Unción de los Enfermos?</h2>
+			</div>
+
+			<div class="prose prose-slate max-w-none">
+				<div class="bg-slate-50 rounded-2xl lg:rounded-3xl p-6 lg:p-8 mb-8">
+					<p class="text-base lg:text-lg text-slate-700 leading-relaxed mb-4">
+						La Unción de los Enfermos es un sacramento instituido por Cristo mediante el cual la Iglesia encomienda a los enfermos a la Pasión y Glorificación del Señor para que los alivie y los salve. Esta unción sagrada aporta al cristiano enfermo la gracia del Espíritu Santo con la cual el hombre es suscitado y alentado a confiar en Dios.
+					</p>
+					<p class="text-base lg:text-lg text-slate-700 leading-relaxed mb-0">
+						No es un sacramento exclusivo de los moribundos, sino un sacramento para los enfermos. Puede recibirse cada vez que un cristiano cae gravemente enfermo, así como cuando el enfermo, después de haberlo recibido, recae de nuevo o cuando la enfermedad se agrava.
+					</p>
+				</div>
+
+				<div class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 lg:p-8 border border-slate-200">
+					<div class="flex items-start gap-4 mb-4">
+						<Icon name="lucide:quote" class="w-8 h-8 text-primary flex-shrink-0" />
+						<div>
+							<p class="text-base lg:text-lg italic text-slate-700 leading-relaxed mb-2">
+								"¿Está enfermo alguno entre vosotros? Llame a los presbíteros de la Iglesia, que oren sobre él y le unjan con óleo en el nombre del Señor. Y la oración de la fe salvará al enfermo, y el Señor hará que se levante."
+							</p>
+							<p class="text-sm text-slate-500">— Santiago 5, 14-15</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ¿Cuándo recibirlo? -->
+	<section class="section-padding bg-slate-50">
+		<div class="container-tight max-w-4xl">
+			<div class="text-center mb-12 lg:mb-16">
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Momento apropiado</span>
+				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">¿Cuándo solicitar la Unción?</h2>
+				<p class="text-sm lg:text-base text-slate-600 max-w-2xl mx-auto">
+					Este sacramento puede recibirse en diversas situaciones:
+				</p>
+			</div>
+
+			<div class="grid md:grid-cols-3 gap-6">
+				{situaciones.map(sit => (
+					<div class="bg-white rounded-2xl p-6 lg:p-8 border border-slate-100 hover:shadow-lg transition-all duration-300">
+						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-primary/5 flex items-center justify-center mb-6">
+							<Icon name={sit.icono} class="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
+						</div>
+						<h3 class="font-bold text-slate-900 mb-3 text-base lg:text-lg">{sit.titulo}</h3>
+						<p class="text-sm text-slate-600 leading-relaxed">{sit.descripcion}</p>
+					</div>
+				))}
+			</div>
+
+			<div class="mt-8 bg-white rounded-2xl p-6 lg:p-8 border border-slate-100">
+				<div class="flex items-start gap-4">
+					<Icon name="lucide:info" class="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+					<div>
+						<h3 class="font-bold text-slate-900 mb-2 text-base lg:text-lg">Nota importante</h3>
+						<p class="text-sm lg:text-base text-slate-600 leading-relaxed">
+							Es mejor pedir la Unción cuando el enfermo está todavía consciente y puede participar en el sacramento. No debe esperarse hasta el último momento. Cuanto antes se reciba, mayor será el consuelo y la gracia que el sacramento proporciona.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Efectos del Sacramento -->
+	<section class="section-padding bg-white">
+		<div class="container-tight max-w-4xl">
+			<div class="text-center mb-12 lg:mb-16">
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Gracia Divina</span>
+				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Efectos del Sacramento</h2>
+				<p class="text-sm lg:text-base text-slate-600 max-w-2xl mx-auto">
+					La Unción de los Enfermos otorga gracias especiales al cristiano que enfrenta la prueba del sufrimiento:
+				</p>
+			</div>
+
+			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+				{efectos.map(efecto => (
+					<div class="bg-slate-50 rounded-xl p-6 border border-slate-100 hover:border-primary/20 transition-all duration-300">
+						<div class="flex items-center gap-3">
+							<div class="w-10 h-10 rounded-lg bg-white flex items-center justify-center flex-shrink-0">
+								<Icon name={efecto.icono} class="w-5 h-5 text-primary" />
+							</div>
+							<p class="text-sm font-medium text-slate-900">{efecto.nombre}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Cómo solicitar -->
+	<section class="section-padding bg-slate-50">
+		<div class="container-tight max-w-4xl">
+			<div class="text-center mb-12 lg:mb-16">
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Coordinación</span>
+				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">¿Cómo solicitar la Unción?</h2>
+			</div>
+
+			<div class="space-y-6">
+				<div class="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 border border-slate-100">
+					<div class="flex items-start gap-6">
+						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-primary/5 flex items-center justify-center flex-shrink-0">
+							<span class="text-xl lg:text-2xl font-bold text-primary">1</span>
+						</div>
+						<div class="flex-1">
+							<h3 class="text-lg lg:text-xl font-bold text-slate-900 mb-2">Contacto directo</h3>
+							<p class="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">
+								Puedes coordinar directamente con un ministro extraordinario de la comunión o llamar a la parroquia para solicitar la visita pastoral.
+							</p>
+							<div class="flex flex-wrap gap-3">
+								<a 
+									href="https://wa.me/50495345899" 
+									target="_blank"
+									class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+								>
+									<Icon name="mdi:whatsapp" class="w-4 h-4" />
+									<span class="font-medium">95345899</span>
+								</a>
+								<a 
+									href="tel:22240263" 
+									class="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+								>
+									<Icon name="lucide:phone" class="w-4 h-4" />
+									<span class="font-medium">2224-0263</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 border border-slate-100">
+					<div class="flex items-start gap-6">
+						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-primary/5 flex items-center justify-center flex-shrink-0">
+							<span class="text-xl lg:text-2xl font-bold text-primary">2</span>
+						</div>
+						<div class="flex-1">
+							<h3 class="text-lg lg:text-xl font-bold text-slate-900 mb-2">Visitas a hospitales</h3>
+							<p class="text-sm lg:text-base text-slate-600 leading-relaxed">
+								Para visitas a hospitales públicos, es necesario comunicarse con <strong>anticipación</strong> para poder programar el traslado del sacerdote y obtener los permisos de acceso necesarios.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 border border-slate-100">
+					<div class="flex items-start gap-6">
+						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-primary/5 flex items-center justify-center flex-shrink-0">
+							<span class="text-xl lg:text-2xl font-bold text-primary">3</span>
+						</div>
+						<div class="flex-1">
+							<h3 class="text-lg lg:text-xl font-bold text-slate-900 mb-2">Celebración comunitaria</h3>
+							<p class="text-sm lg:text-base text-slate-600 leading-relaxed">
+								Nuestra parroquia también organiza celebraciones comunitarias de la Unción de los Enfermos. Consulta las fechas disponibles en la secretaría parroquial.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="section-padding bg-gradient-to-br from-purple-700 to-purple-600">
+		<div class="container-tight max-w-3xl text-center">
+			<Icon name="mdi:whatsapp" class="w-12 h-12 lg:w-16 lg:h-16 text-white mx-auto mb-6" />
+			<h2 class="text-2xl lg:text-3xl font-bold text-white mb-4">Solicita la visita pastoral</h2>
+			<p class="text-base lg:text-lg text-white/90 mb-8">
+				Si tú o un ser querido necesita el sacramento de la Unción de los Enfermos, contáctanos de inmediato.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+				<a 
+					href="https://wa.me/50495345899?text=Hola,%20necesito%20solicitar%20la%20Unción%20de%20los%20Enfermos" 
+					target="_blank"
+					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-purple-700 px-6 lg:px-8 py-3 lg:py-4 rounded-full font-medium hover:bg-slate-50 transition-all duration-300 text-sm lg:text-base"
+				>
+					<Icon name="mdi:whatsapp" class="w-5 h-5" />
+					Contactar por WhatsApp
+				</a>
+				<a 
+					href="/sacramentos"
+					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white text-white px-6 lg:px-8 py-3 lg:py-4 rounded-full font-medium hover:bg-white/10 transition-all duration-300 text-sm lg:text-base"
+				>
+					Ver todos los sacramentos
+				</a>
+			</div>
+		</div>
+	</section>
+</Layout>

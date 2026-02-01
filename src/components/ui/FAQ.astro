@@ -1,0 +1,50 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const faqs = [
+	{
+		question: "¿Cómo puedo solicitar una intención para la misa?",
+		answer: "Puedes solicitar intenciones directamente en la secretaría parroquial durante los horarios de atención o a través de nuestro número de WhatsApp 9534-5899."
+	},
+	{
+		question: "¿Qué documentos necesito para el bautismo?",
+		answer: "Se requiere la partida de nacimiento del niño(a), copia de identidad de los padrinos y constancia de charlas pre-bautismales. Puedes comunicarte con nosotros para más detalles."
+	},
+	{
+		question: "¿Cuáles son los horarios de la oficina parroquial?",
+		answer: "Atendemos de lunes a viernes en jornada vespertina, y los sábados por la mañana. Consulta la sección de Oficina Parroquial para horarios detallados."
+	},
+	{
+		question: "¿Cómo puedo apoyar a la parroquia?",
+		answer: "Puedes realizar donaciones a través de nuestras cuentas bancarias o participar activamente en nuestros grupos y apostolados. Visita la sección Donaciones para más información."
+	}
+];
+---
+
+<section class="section-padding bg-slate-50">
+	<div class="container-tight">
+		<div class="text-center mb-16">
+			<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Ayuda</span>
+			<h2 class="text-4xl font-bold text-slate-900 mb-4">Preguntas Frecuentes</h2>
+			<p class="text-slate-600 max-w-2xl mx-auto">
+				Encuentra respuestas rápidas a las preguntas más comunes sobre nuestra parroquia.
+			</p>
+		</div>
+
+		<div class="max-w-3xl mx-auto space-y-4">
+			{faqs.map((faq) => (
+				<details class="group bg-white rounded-2xl border border-slate-100 overflow-hidden">
+					<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+						<span class="font-medium text-slate-900 pr-4">{faq.question}</span>
+						<Icon name="lucide:chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" />
+					</summary>
+					<div class="px-6 pb-6 border-t border-slate-100">
+						<p class="text-slate-600 leading-relaxed pt-4">
+							{faq.answer}
+						</p>
+					</div>
+				</details>
+			))}
+		</div>
+	</div>
+</section>

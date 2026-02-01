@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/ui/Hero.astro';
+
+const sectores = ["Santa Cruz", "Salvador del Mundo", "Santa Rosa de Lima", "Sagrado Corazón de Jesús"];
+---
+
+<Layout title="Nosotros | Parroquia El Salvador del Mundo">
+	<Hero 
+		title="Nuestra Identidad" 
+		subtitle="Conoce la historia, misión y visión de nuestra comunidad parroquial comprometida con la fe."
+	/>
+
+	<section class="section-padding bg-white">
+		<div class="container-tight">
+			<div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+				<!-- Misión -->
+				<div class="space-y-4 lg:space-y-6">
+					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary">Nuestra Misión</span>
+					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 leading-tight">
+						Enviados para evangelizar
+					</h2>
+					<p class="text-base lg:text-lg text-slate-600 leading-relaxed italic">
+						"Somos una parroquia en salida, enviados por Nuestro Señor Jesucristo para hacer discípulos a todas las Gentes."
+					</p>
+				</div>
+
+				<!-- Visión -->
+				<div class="space-y-4 lg:space-y-6">
+					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary">Nuestra Visión</span>
+					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 leading-tight">
+						Comunidad evangelizadora
+					</h2>
+					<p class="text-base lg:text-lg text-slate-600 leading-relaxed italic">
+						"Ser una comunidad parroquial evangelizada y evangelizadora, mostrando el Rostro del Salvador del Mundo."
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Historia -->
+	<section class="section-padding bg-slate-50">
+		<div class="container-tight">
+			<div class="max-w-3xl mx-auto text-center space-y-6 lg:space-y-8">
+				<div>
+					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 lg:mb-4 block">Historia</span>
+					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 lg:mb-6">Nuestra Trayectoria</h2>
+				</div>
+				
+				<p class="text-base lg:text-lg text-slate-600 leading-relaxed">
+					Fundada en 1996, la Parroquia El Salvador del Mundo es una comunidad de fieles de la Arquidiócesis de Tegucigalpa, conformada por diversos movimientos y apostolados para la misión cristiana.
+				</p>
+
+				<div class="grid sm:grid-cols-2 gap-6 lg:gap-8 pt-6 lg:pt-8">
+					<div class="text-center">
+						<h3 class="text-sm lg:text-base font-bold text-slate-900 mb-3">Sectores</h3>
+						<div class="space-y-1.5 lg:space-y-2">
+							{sectores.map(s => (
+								<p class="text-xs lg:text-sm text-slate-600">{s}</p>
+							))}
+						</div>
+					</div>
+					
+					<div class="text-center">
+						<h3 class="text-sm lg:text-base font-bold text-slate-900 mb-3">Párroco Actual</h3>
+						<p class="text-xs lg:text-sm text-slate-600">Juan Enrique Mártinez Cerrato</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

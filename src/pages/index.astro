@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/ui/Hero.astro';
+import Horarios from '../components/ui/Horarios.astro';
+import InfoContacto from '../components/ui/InfoContacto.astro';
+import SacerdoteCard from '../components/ui/SacerdoteCard.astro';
+import FAQ from '../components/ui/FAQ.astro';
+
+const sacerdotes = [
+	{
+		nombre: "P. Juan Enrique Martínez",
+		cargo: "Párroco",
+		descripcion: "Liderando nuestra comunidad con fe y dedicación desde su llegada a la parroquia.",
+		imagen: "https://images.unsplash.com/photo-1544120190-27583f22744c?q=80&w=1000"
+	},
+	{
+		nombre: "P. Samuel",
+		cargo: "Vicario",
+		descripcion: "Acompañando el caminar espiritual de nuestros fieles y sectores.",
+		imagen: "https://images.unsplash.com/photo-1551215543-34bf3932f841?q=80&w=1000"
+	}
+];
+---
+
+<Layout title="Parroquia El Salvador del Mundo | Inicio">
+	<Hero 
+		title="Salvados por Cristo, enviados al mundo" 
+		subtitle="Una comunidad de fe viva en el corazón de Tegucigalpa, comprometida con la evangelización y el servicio."
+		showCTA={true}
+	/>
+	
+	<Horarios />
+
+	<!-- Sección Sacerdotes -->
+	<section class="section-padding bg-white">
+		<div class="container-tight">
+			<div class="text-center mb-10 lg:mb-12">
+				<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block">Nuestros Pastores</span>
+				<h2 class="text-2xl lg:text-3xl font-bold text-slate-900">Equipo Pastoral</h2>
+			</div>
+
+			<div class="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl lg:max-w-2xl mx-auto">
+				{sacerdotes.map(s => (
+					<SacerdoteCard {...s} />
+				))}
+			</div>
+		</div>
+	</section>
+
+	<InfoContacto />
+	<FAQ />
+</Layout>

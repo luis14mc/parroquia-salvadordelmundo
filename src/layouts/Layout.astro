@@ -1,0 +1,40 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<SEO title={title} description={description} />
+	</head>
+	<body class="overflow-x-hidden">
+		<Navbar />
+
+		<main class="min-h-screen">
+			<slot />
+		</main>
+
+		<Footer />
+
+		<!-- WhatsApp -->
+		<a 
+			href="https://wa.me/50495345899" 
+			target="_blank" 
+			class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-primary text-white p-3.5 rounded-full shadow-lg hover:opacity-90 transition-all z-50 active:scale-95"
+			aria-label="Contactar por WhatsApp"
+		>
+			<Icon name="mdi:whatsapp" class="w-6 h-6" />
+		</a>
+	</body>
+</html>

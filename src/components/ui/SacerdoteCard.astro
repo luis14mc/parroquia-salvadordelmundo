@@ -1,0 +1,29 @@
+---
+interface Props {
+	nombre: string;
+	cargo: string;
+	descripcion: string;
+	imagen: string;
+}
+
+const { nombre, cargo, descripcion, imagen } = Astro.props;
+---
+
+<div class="group">
+	<div class="aspect-[3/4] rounded-xl lg:rounded-2xl overflow-hidden mb-3 lg:mb-4 bg-slate-100 relative">
+		<img 
+			src={imagen} 
+			alt={nombre} 
+			class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+	</div>
+	
+	<div class="text-center space-y-1">
+		<span class="text-[9px] lg:text-[10px] font-bold uppercase tracking-[0.2em] text-primary block">{cargo}</span>
+		<h3 class="text-sm lg:text-base font-bold text-slate-900">{nombre}</h3>
+		<p class="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
+			{descripcion}
+		</p>
+	</div>
+</div>
