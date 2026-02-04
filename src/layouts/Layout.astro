@@ -17,8 +17,23 @@ const { title, description } = Astro.props;
 <html lang="es">
 	<head>
 		<SEO title={title} description={description} />
+		<script type="application/ld+json" is:inline>
+			{
+				"@context": "https://schema.org",
+				"@type": "Place",
+				"name": "Parroquia El Salvador del Mundo",
+				"description": "Comunidad de fe en Tegucigalpa, Honduras",
+				"address": {
+					"@type": "PostalAddress",
+					"streetAddress": "Colonia Cerro Grande Zona 4",
+					"addressLocality": "Tegucigalpa",
+					"addressCountry": "HN"
+				},
+				"telephone": "+50422240263"
+			}
+		</script>
 	</head>
-	<body class="overflow-x-hidden">
+	<body class="overflow-x-hidden pt-16 md:pt-20 lg:pt-24">
 		<Navbar />
 
 		<main class="min-h-screen">
@@ -36,5 +51,31 @@ const { title, description } = Astro.props;
 		>
 			<Icon name="mdi:whatsapp" class="w-6 h-6" />
 		</a>
+
+		<script>
+			// Scroll Reveal Animation
+			const observerOptions = {
+				root: null,
+				rootMargin: '0px',
+				threshold: 0.1
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('active');
+					}
+				});
+			}, observerOptions);
+
+			function initReveal() {
+				const revealElements = document.querySelectorAll('.reveal');
+				revealElements.forEach(el => observer.observe(el));
+			}
+
+			// Initialize
+			initReveal();
+			document.addEventListener('astro:after-swap', initReveal);
+		</script>
 	</body>
 </html>

@@ -3,18 +3,24 @@ interface Props {
 	title: string;
 	subtitle?: string;
 	showCTA?: boolean;
+	image?: string;
 }
 
-const { title, subtitle, showCTA = false } = Astro.props;
+const { 
+	title, 
+	subtitle, 
+	showCTA = false, 
+	image = "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2400" 
+} = Astro.props;
 ---
 
-<section class="relative min-h-screen flex items-end pb-16 md:pb-20 lg:pb-24 overflow-hidden">
+<section class="relative min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] lg:min-h-[calc(100vh-96px)] flex items-center justify-center py-20 overflow-hidden">
 	<!-- Video o Imagen de Fondo -->
 	<div class="absolute inset-0 z-0">
 		<div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 opacity-95 z-10"></div>
 		<img 
-			src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2400" 
-			alt="Parroquia" 
+			src={image} 
+			alt={title} 
 			class="w-full h-full object-cover scale-110 animate-slow-zoom"
 		/>
 	</div>

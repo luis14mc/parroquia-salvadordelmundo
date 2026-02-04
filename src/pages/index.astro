@@ -27,6 +27,7 @@ const sacerdotes = [
 		title="Salvados por Cristo, enviados al mundo" 
 		subtitle="Una comunidad de fe viva en el corazón de Tegucigalpa, comprometida con la evangelización y el servicio."
 		showCTA={true}
+		image="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2400"
 	/>
 	
 	<Horarios />
@@ -39,7 +40,7 @@ const sacerdotes = [
 				<h2 class="text-2xl lg:text-3xl font-bold text-slate-900">Equipo Pastoral</h2>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4 sm:gap-6 max-w-xl lg:max-w-2xl mx-auto">
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-6 max-w-sm sm:max-w-xl lg:max-w-2xl mx-auto">
 				{sacerdotes.map(s => (
 					<SacerdoteCard {...s} />
 				))}
@@ -48,5 +49,43 @@ const sacerdotes = [
 	</section>
 
 	<InfoContacto />
-	<FAQ />
+
+	<!-- Sección Vida Parroquial (Galería) -->
+	<section class="section-padding bg-slate-50">
+		<div class="container-tight">
+			<div class="text-center mb-12 lg:mb-16">
+				<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block">Comunidad</span>
+				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900">Vida Parroquial</h2>
+				<p class="text-sm lg:text-base text-slate-600 mt-4 max-w-2xl mx-auto">
+					Momentos de fe, servicio y fraternidad que definen nuestra identidad como familia de Dios.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+				{[
+					"https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=800",
+					"https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=800",
+					"https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=800",
+					"https://images.unsplash.com/photo-1544427920-c49ccfb85579?q=80&w=800",
+					"https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=800",
+					"https://images.unsplash.com/photo-1477672680933-0287a151330e?q=80&w=800",
+					"https://images.unsplash.com/photo-1523050853023-8c2d2909f4f3?q=80&w=800",
+					"https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=800"
+				].map((img, i) => (
+					<div class={`group relative overflow-hidden rounded-2xl aspect-[4/5] reveal ${i % 3 === 0 ? 'md:col-span-2 md:aspect-[16/9]' : ''}`}>
+						<img 
+							src={img} 
+							alt="Vida Parroquial" 
+							loading="lazy"
+							decoding="async"
+							class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+							<span class="text-white text-xs font-medium tracking-wider uppercase">Comunidad en Misión</span>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
 </Layout>

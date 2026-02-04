@@ -12,6 +12,11 @@
   --color-slate-900: #0f172a;
   --color-slate-950: #020617;
   
+  /* Dark Mode Colors */
+  --color-dark-bg: #0a0f1e; /* Deep Midnight Blue */
+  --color-dark-card: #141b2d;
+  --color-dark-border: #1e293b;
+  
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -23,7 +28,36 @@
   }
   
   body {
-    @apply bg-white text-slate-900 font-sans;
+    @apply bg-slate-50 text-slate-900 font-sans transition-colors duration-500;
+  }
+  
+  /* Dark Mode support */
+  @media (pre- some-feature: dark) {
+    /* Base for future full dark mode implementation */
+  }
+  
+  .dark body {
+    @apply bg-[var(--color-dark-bg)] text-slate-100;
+  }
+
+  .dark .bg-white {
+    @apply bg-[var(--color-dark-card)] border-[var(--color-dark-border)];
+  }
+
+  .dark .bg-slate-50 {
+    @apply bg-[var(--color-dark-bg)];
+  }
+
+  .dark .text-slate-900 {
+    @apply text-white;
+  }
+
+  .dark .text-slate-600 {
+    @apply text-slate-400;
+  }
+
+  .dark .border-slate-100 {
+    @apply border-[var(--color-dark-border)];
   }
   
   ::selection {
@@ -52,5 +86,16 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

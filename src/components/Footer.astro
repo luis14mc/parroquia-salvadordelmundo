@@ -56,8 +56,15 @@ const socialLinks = [
 		</div>
 
 		<!-- Bottom -->
-		<div class="pt-6 lg:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3 lg:gap-4 text-xs lg:text-sm text-slate-500">
-			<p class="text-center md:text-left">&copy; {new Date().getFullYear()} Parroquia El Salvador del Mundo. Todos los derechos reservados.</p>
+		<div class="pt-6 lg:pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3 lg:gap-4 text-[10px] lg:text-xs text-slate-500">
+			<div class="flex flex-col md:flex-row items-center gap-1 md:gap-4">
+				<p class="text-center md:text-left">&copy; {new Date().getFullYear()} Parroquia El Salvador del Mundo.</p>
+				<p class="hidden md:block text-slate-700">|</p>
+				<p class="flex items-center gap-1">
+					Desarrollado con <Icon name="lucide:heart" class="w-3 h-3 text-primary" /> por 
+					<a href="#" class="text-slate-400 hover:text-white transition-colors">Luis Parroquia</a>
+				</p>
+			</div>
 			<p>Tegucigalpa, Honduras</p>
 		</div>
 	</div>

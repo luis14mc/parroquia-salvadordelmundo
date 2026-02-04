@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/ui/Hero.astro';
 import InfoContacto from '../components/ui/InfoContacto.astro';
+import FAQ from '../components/ui/FAQ.astro';
 import { Icon } from 'astro-icon/components';
 
 const horarios = [
@@ -15,6 +16,7 @@ const horarios = [
 	<Hero 
 		title="Oficina Parroquial" 
 		subtitle="Estamos para servirte en tus trámites y consultas administrativas. Visítanos en nuestros horarios de atención."
+		image="https://images.unsplash.com/photo-1438032005730-c779502df39b?q=80&w=2400"
 	/>
 
 	<section class="section-padding bg-white">
@@ -44,6 +46,64 @@ const horarios = [
 				</div>
 			</div>
 		</div>
+	</section>
+
+	<section class="section-padding bg-slate-50">
+		<div class="container-tight">
+			<div class="grid lg:grid-cols-2 gap-12 items-center">
+				<div>
+					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Servicios Espirituales</span>
+					<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 text-gradient">Intenciones de Misa</h2>
+					<p class="text-sm lg:text-base text-slate-600 leading-relaxed mb-8">
+						Ofrece el sacrificio de la Eucaristía por tus seres queridos, difuntos, salud o en acción de gracias. Las intenciones se reciben en la secretaría parroquial.
+					</p>
+					
+					<div class="space-y-4">
+						<div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100">
+							<div class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+								<Icon name="lucide:check" class="w-5 h-5 text-primary" />
+							</div>
+							<span class="text-sm font-medium text-slate-700">Difuntos y Aniversarios</span>
+						</div>
+						<div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100">
+							<div class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+								<Icon name="lucide:check" class="w-5 h-5 text-primary" />
+							</div>
+							<span class="text-sm font-medium text-slate-700">Salud y Peticiones Especiales</span>
+						</div>
+						<div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-100">
+							<div class="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center">
+								<Icon name="lucide:check" class="w-5 h-5 text-primary" />
+							</div>
+							<span class="text-sm font-medium text-slate-700">Acción de Gracias</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="bg-primary rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
+					<div class="relative z-10">
+						<h3 class="text-2xl font-bold mb-4">¿Cómo solicitar una intención?</h3>
+						<p class="text-white/80 text-sm lg:text-base mb-8">
+							Visítanos en la oficina parroquial durante los horarios de secretaría para anotar tu intención. Recomendamos hacerlo con al menos 15 minutos de anticipación a la misa.
+						</p>
+						<a 
+							href="https://wa.me/50495345899" 
+							target="_blank"
+							class="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary rounded-full font-bold text-sm hover:bg-slate-50 transition-colors"
+						>
+							<Icon name="lucide:message-circle" class="w-5 h-5" />
+							Consultar por WhatsApp
+						</a>
+					</div>
+					<!-- Decorative element -->
+					<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="pb-16 lg:pb-24 bg-white">
+		<FAQ />
 	</section>
 
 	<InfoContacto />

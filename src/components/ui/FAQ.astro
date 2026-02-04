@@ -23,23 +23,23 @@ const faqs = [
 
 <section class="section-padding bg-slate-50">
 	<div class="container-tight">
-		<div class="text-center mb-16">
-			<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Ayuda</span>
-			<h2 class="text-4xl font-bold text-slate-900 mb-4">Preguntas Frecuentes</h2>
-			<p class="text-slate-600 max-w-2xl mx-auto">
+		<div class="text-center mb-10 lg:mb-16">
+			<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 lg:mb-4 block">Ayuda</span>
+			<h2 class="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-900 mb-4">Preguntas Frecuentes</h2>
+			<p class="text-sm lg:text-base text-slate-600 max-w-2xl mx-auto">
 				Encuentra respuestas rápidas a las preguntas más comunes sobre nuestra parroquia.
 			</p>
 		</div>
 
-		<div class="max-w-3xl mx-auto space-y-4">
+		<div class="max-w-3xl mx-auto space-y-3 lg:space-y-4">
 			{faqs.map((faq) => (
-				<details class="group bg-white rounded-2xl border border-slate-100 overflow-hidden">
-					<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
-						<span class="font-medium text-slate-900 pr-4">{faq.question}</span>
-						<Icon name="lucide:chevron-down" class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" />
+				<details class="group bg-white rounded-xl lg:rounded-2xl border border-slate-100 overflow-hidden">
+					<summary class="flex items-center justify-between p-4 lg:p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+						<span class="text-sm lg:text-base font-medium text-slate-900 pr-4">{faq.question}</span>
+						<Icon name="lucide:chevron-down" class="w-4 h-4 lg:w-5 lg:h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" />
 					</summary>
-					<div class="px-6 pb-6 border-t border-slate-100">
-						<p class="text-slate-600 leading-relaxed pt-4">
+					<div class="px-4 pb-4 lg:px-6 lg:pb-6 border-t border-slate-100">
+						<p class="text-xs lg:text-sm text-slate-600 leading-relaxed pt-3 lg:pt-4">
 							{faq.answer}
 						</p>
 					</div>
