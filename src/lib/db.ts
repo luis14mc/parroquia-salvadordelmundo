@@ -2,7 +2,19 @@ import pg from "pg";
 
 const { Pool } = pg;
 
-const connectionString = process.env.DATABASE_URL;
+function getConnectionString() {
+  if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
+
+  const { PGHOST, PGPORT = "5432", PGUSER, PGPASSWORD, PGDATABASE } = process.env;
+  if (!PGHOST || !PGUSER || !PGPASSWORD || !PGDATABASE) return null;
+
+  const user = encodeURIComponent(PGUSER);
+  const password = encodeURIComponent(PGPASSWORD);
+  const database = encodeURIComponent(PGDATABASE);
+  return `postgresql://${user}:${password}@${PGHOST}:${PGPORT}/${database}`;
+}
+
+const connectionString = getConnectionString();
 
 export const hasDatabase = Boolean(connectionString);
 
@@ -15,7 +27,7 @@ export const pool = connectionString
 
 export async function query<T = unknown>(text: string, params: unknown[] = []) {
   if (!pool) {
-    throw new Error("DATABASE_URL is not configured");
+    throw new Error("Database connection is not configured. Set DATABASE_URL or PG* variables on the Railway web service.");
   }
 
   return pool.query<T>(text, params);
