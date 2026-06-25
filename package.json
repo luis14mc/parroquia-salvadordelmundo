@@ -1,29 +1,35 @@
 {
-  "name": "s",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@iconify-json/lucide": "^1.2.87",
-    "@iconify-json/mdi": "^1.2.3",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.15",
-    "astro-icon": "^1.1.5",
-    "leaflet": "^1.9.4",
-    "tailwindcss": "^4.1.18"
-  },
-  "devDependencies": {
-    "@types/leaflet": "^1.9.21"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
-  }
+    "name": "s",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "start": "node ./dist/server/entry.mjs",
+        "db:migrate": "node ./scripts/migrate.mjs"
+    },
+    "dependencies": {
+        "@astrojs/node": "^9.5.5",
+        "@iconify-json/lucide": "^1.2.87",
+        "@iconify-json/mdi": "^1.2.3",
+        "@tailwindcss/vite": "^4.1.18",
+        "astro": "^5.16.15",
+        "astro-icon": "^1.1.5",
+        "leaflet": "^1.9.4",
+        "pg": "^8.22.0",
+        "tailwindcss": "^4.1.18",
+        "zod": "^4.4.3"
+    },
+    "devDependencies": {
+        "@types/leaflet": "^1.9.21",
+        "@types/pg": "^8.20.0"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "sharp"
+        ]
+    }
 }

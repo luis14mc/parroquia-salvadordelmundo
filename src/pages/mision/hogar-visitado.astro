@@ -22,11 +22,12 @@ import Layout from '../../layouts/Layout.astro';
 
     <form id="missionForm" class="mission-form" novalidate>
       <div id="steps"></div>
+      <p id="submitStatus" class="submit-status" aria-live="polite"></p>
       <div class="actions">
         <button type="button" class="secondary" id="prev">Anterior</button>
         <button type="button" class="secondary" id="draft">Guardar borrador</button>
         <button type="button" id="next">Siguiente</button>
-        <button type="submit" id="download" hidden>Descargar registro</button>
+        <button type="submit" id="download" hidden>Enviar registro</button>
       </div>
     </form>
   </section>
@@ -108,6 +109,7 @@ import Layout from '../../layouts/Layout.astro';
     const next = document.getElementById('next');
     const draft = document.getElementById('draft');
     const download = document.getElementById('download');
+    const submitStatus = document.getElementById('submitStatus');
     const stepCount = document.getElementById('stepCount');
     const stepName = document.getElementById('stepName');
     const bar = document.getElementById('bar');
@@ -205,15 +207,37 @@ import Layout from '../../layouts/Layout.astro';
       localStorage.setItem(key, JSON.stringify(data()));
       show(active + 1);
     });
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      const blob = new Blob([JSON.stringify({ creado_en: new Date().toISOString(), ...data() }, null, 2)], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `hogar-visitado-${new Date().toISOString().slice(0, 10)}.json`;
-      link.click();
-      URL.revokeObjectURL(link.href);
-      localStorage.removeItem(key);
+      if (!valid()) return;
+
+      download.disabled = true;
+      submitStatus.textContent = 'Guardando registro...';
+      submitStatus.dataset.state = 'loading';
+
+      try {
+        const response = await fetch('/api/mision/hogares', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(data()),
+        });
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || 'No se pudo guardar el registro.');
+        }
+
+        submitStatus.textContent = `Registro guardado correctamente. Código: ${result.id}`;
+        submitStatus.dataset.state = 'success';
+        localStorage.removeItem(key);
+        form.reset();
+        show(0);
+      } catch (error) {
+        submitStatus.textContent = error instanceof Error ? error.message : 'No se pudo guardar el registro.';
+        submitStatus.dataset.state = 'error';
+      } finally {
+        download.disabled = false;
+      }
     });
 
     fill();
@@ -257,6 +281,9 @@ import Layout from '../../layouts/Layout.astro';
   .summary #summary div { border-bottom: 1px solid var(--color-outline-variant); display: grid; gap: 4px; padding: 10px 0; }
   .summary span { color: var(--color-on-surface-variant); font-size: .78rem; font-weight: 800; text-transform: uppercase; }
   .summary strong { color: var(--color-on-surface); overflow-wrap: anywhere; }
+  .submit-status { color: var(--color-on-surface-variant); font-weight: 750; margin: 24px 0 0; min-height: 24px; }
+  .submit-status[data-state="success"] { color: #0f7a3b; }
+  .submit-status[data-state="error"] { color: var(--color-error); }
   .actions { border-top: 1px solid var(--color-outline-variant); display: flex; gap: 12px; justify-content: flex-end; margin-top: 32px; padding-top: 22px; }
   .mission-form button { border: 0; border-radius: 8px; background: var(--color-primary); color: var(--color-on-primary); cursor: pointer; font-weight: 800; min-height: 48px; padding: 0 20px; }
   .mission-form button.secondary { background: transparent; border: 1px solid var(--color-outline-variant); color: var(--color-primary); }
