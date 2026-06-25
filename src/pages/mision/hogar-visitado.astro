@@ -1,0 +1,265 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Registro de Hogar Visitado | Parroquia El Salvador del Mundo"
+  description="Formulario pastoral para registrar hogares visitados durante la misión parroquial."
+>
+  <section class="mission-page">
+    <header class="mission-header">
+      <div>
+        <p class="eyebrow">Misión parroquial</p>
+        <h1>Registro de hogar visitado</h1>
+        <p>Formulario móvil para seguimiento pastoral, sacramentos, necesidades y próxima visita.</p>
+      </div>
+      <aside class="progress-card" aria-live="polite">
+        <span id="stepCount">Paso 1 de 7</span>
+        <strong id="stepName">Visita</strong>
+        <div class="track"><i id="bar"></i></div>
+      </aside>
+    </header>
+
+    <form id="missionForm" class="mission-form" novalidate>
+      <div id="steps"></div>
+      <div class="actions">
+        <button type="button" class="secondary" id="prev">Anterior</button>
+        <button type="button" class="secondary" id="draft">Guardar borrador</button>
+        <button type="button" id="next">Siguiente</button>
+        <button type="submit" id="download" hidden>Descargar registro</button>
+      </div>
+    </form>
+  </section>
+
+  <script>
+    const schema = [
+      {
+        title: 'Visita',
+        fields: [
+          ['textarea', 'direccion_referencia', 'Dirección o referencia', true],
+          ['text', 'misionero_nombre', 'Nombre del misionero', true],
+          ['date', 'fecha_visita', 'Fecha de visita', true],
+          ['time', 'hora_visita', 'Hora'],
+          ['number', 'duracion_minutos', 'Duración aproximada en minutos'],
+          ['text', 'sector_zona', 'Sector o zona']
+        ]
+      },
+      {
+        title: 'Hogar',
+        fields: [
+          ['number', 'total_personas', 'Número total de personas'],
+          ['number', 'adultos', 'Adultos'],
+          ['number', 'ninos', 'Niños'],
+          ['radio', 'condiciones_salud', 'Personas mayores o con condiciones de salud', ['Sí', 'No']],
+          ['textarea', 'observacion_salud', 'Observación breve']
+        ]
+      },
+      {
+        title: 'Identidad religiosa',
+        fields: [
+          ['radio', 'religion_predominante', 'Religión predominante', ['Católico', 'Evangélico', 'Otra', 'Indiferente']],
+          ['text', 'religion_otra', 'Especificar si aplica'],
+          ['radio', 'desea_ingresar_iglesia', '¿Algún miembro desea ingresar a la Iglesia católica?', ['Sí', 'No']],
+          ['textarea', 'ingreso_detalles', 'Detalles']
+        ]
+      },
+      {
+        title: 'Sacramentos',
+        fields: ['Bautismo', 'Primera Comunión', 'Confirmación', 'Matrimonio sacramental', 'Unción de los enfermos'].map((name) => ['sacrament', name])
+      },
+      {
+        title: 'Respuesta y seguimiento',
+        fields: [
+          ['radio', 'respuesta_anuncio', 'Respuesta al anuncio', ['Aceptó', 'Interesado', 'Indiferente', 'Rechazó']],
+          ['textarea', 'comentario_kerigma', 'Comentario breve'],
+          ['radio', 'acepta_seguimiento', '¿Aceptan seguimiento de la parroquia?', ['Sí', 'No']],
+          ['checkbox', 'tipo_seguimiento', 'Tipo de seguimiento', ['Catequesis', 'Preparación sacramental', 'Visita social', 'Oración', 'Otro']],
+          ['text', 'interes_grupo_detalle', 'Interés en grupo, movimiento, asociación o comunidad']
+        ]
+      },
+      {
+        title: 'Necesidades y riesgos',
+        fields: [
+          ['checkbox', 'necesidades', 'Necesidades detectadas', ['Salud', 'Alimentos', 'Acompañamiento', 'Otro']],
+          ['textarea', 'necesidades_detalle', 'Detalle de necesidades'],
+          ['radio', 'tiene_riesgos', 'Riesgos o situaciones particulares', ['Sí', 'No']],
+          ['textarea', 'riesgos_descripcion', 'Descripción de riesgos'],
+          ['textarea', 'medidas_seguridad', 'Medidas recomendadas para seguridad']
+        ]
+      },
+      {
+        title: 'Cierre',
+        fields: [
+          ['date', 'fecha_proxima_visita', 'Fecha de próxima visita o convocatoria'],
+          ['time', 'hora_proxima_visita', 'Hora'],
+          ['text', 'responsable_proxima_visita', 'Responsable de próxima visita'],
+          ['tel', 'telefono_responsable', 'Teléfono del responsable'],
+          ['textarea', 'observaciones_siguiente', 'Observaciones para la siguiente visita'],
+          ['text', 'coordinador_grupo', 'Firma o nombre del coordinador del grupo'],
+          ['date', 'fecha_entrega_zonal', 'Fecha de entrega al Coordinador Zonal'],
+          ['checkbox-single', 'privacidad_aceptada', 'Confirmo uso exclusivo para seguimiento pastoral y operativo de la misión parroquial', true]
+        ]
+      }
+    ];
+
+    const stepsRoot = document.getElementById('steps');
+    const form = document.getElementById('missionForm');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const draft = document.getElementById('draft');
+    const download = document.getElementById('download');
+    const stepCount = document.getElementById('stepCount');
+    const stepName = document.getElementById('stepName');
+    const bar = document.getElementById('bar');
+    const key = 'hogar-visitado-mision';
+    let active = 0;
+
+    const safeName = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+
+    const fieldHtml = (field) => {
+      const [type, name, label, extra] = field;
+      if (type === 'sacrament') {
+        const id = `sacramento_${safeName(name)}`;
+        return `<div class="sacrament"><strong>${name}</strong><label><input type="radio" name="${id}" value="Sí"> Sí</label><label><input type="radio" name="${id}" value="No"> No</label><input name="${id}_quien" placeholder="Quién" /></div>`;
+      }
+      if (type === 'radio' || type === 'checkbox') {
+        return `<fieldset class="choices"><legend>${label}</legend>${extra.map((option) => `<label><input type="${type}" name="${name}" value="${option}"> ${option}</label>`).join('')}</fieldset>`;
+      }
+      if (type === 'checkbox-single') {
+        return `<label class="privacy"><input type="checkbox" name="${name}" value="Sí" ${extra ? 'required' : ''}> ${label}</label>`;
+      }
+      const required = extra === true ? 'required' : '';
+      const control = type === 'textarea'
+        ? `<textarea name="${name}" rows="3" ${required}></textarea>`
+        : `<input type="${type}" name="${name}" ${type === 'number' ? 'min="0" inputmode="numeric"' : ''} ${required}>`;
+      return `<label>${label}${control}</label>`;
+    };
+
+    stepsRoot.innerHTML = [
+      ...schema.map((step, index) => `<section class="step" data-title="${step.title}"><h2>${step.title}</h2><div class="fields ${index === 3 ? 'single' : ''}">${step.fields.map(fieldHtml).join('')}</div></section>`),
+      `<section class="step summary" data-title="Resumen"><h2>Resumen del registro</h2><div id="summary"></div><p>Los datos se usarán exclusivamente para seguimiento pastoral y operativo de la misión de la Parroquia El Salvador del Mundo.</p></section>`
+    ].join('');
+
+    const steps = Array.from(document.querySelectorAll('.step'));
+    const data = () => {
+      const result = {};
+      new FormData(form).forEach((value, name) => {
+        if (result[name]) result[name] = Array.isArray(result[name]) ? [...result[name], value] : [result[name], value];
+        else result[name] = value;
+      });
+      return result;
+    };
+
+    const fill = () => {
+      const raw = localStorage.getItem(key);
+      if (!raw) return;
+      Object.entries(JSON.parse(raw)).forEach(([name, value]) => {
+        const values = Array.isArray(value) ? value : [value];
+        values.forEach((item) => {
+          const controls = Array.from(form.elements[name]?.length ? form.elements[name] : form.elements[name] ? [form.elements[name]] : []);
+          const control = controls.find((el) => ['radio', 'checkbox'].includes(el.type) ? el.value === item : true);
+          if (!control) return;
+          if (['radio', 'checkbox'].includes(control.type)) control.checked = true;
+          else control.value = item;
+        });
+      });
+    };
+
+    const renderSummary = () => {
+      const rows = Object.entries(data()).filter(([, value]) => String(value).trim() !== '');
+      document.getElementById('summary').innerHTML = rows.length
+        ? rows.map(([name, value]) => `<div><span>${name.replaceAll('_', ' ')}</span><strong>${Array.isArray(value) ? value.join(', ') : value}</strong></div>`).join('')
+        : '<p>No hay datos para resumir.</p>';
+    };
+
+    const show = (index) => {
+      active = Math.max(0, Math.min(index, steps.length - 1));
+      steps.forEach((step, idx) => step.classList.toggle('active', idx === active));
+      const isSummary = active === steps.length - 1;
+      if (isSummary) renderSummary();
+      stepCount.textContent = isSummary ? 'Resumen final' : `Paso ${active + 1} de ${schema.length}`;
+      stepName.textContent = steps[active].dataset.title;
+      bar.style.width = `${(active / (steps.length - 1)) * 100}%`;
+      prev.disabled = active === 0;
+      next.hidden = isSummary;
+      download.hidden = !isSummary;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const valid = () => {
+      const invalid = steps[active].querySelector('input:invalid, textarea:invalid, select:invalid');
+      if (!invalid) return true;
+      invalid.reportValidity();
+      return false;
+    };
+
+    form.addEventListener('input', () => localStorage.setItem(key, JSON.stringify(data())));
+    draft.addEventListener('click', () => {
+      localStorage.setItem(key, JSON.stringify(data()));
+      draft.textContent = 'Borrador guardado';
+      setTimeout(() => draft.textContent = 'Guardar borrador', 1300);
+    });
+    prev.addEventListener('click', () => show(active - 1));
+    next.addEventListener('click', () => {
+      if (!valid()) return;
+      localStorage.setItem(key, JSON.stringify(data()));
+      show(active + 1);
+    });
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const blob = new Blob([JSON.stringify({ creado_en: new Date().toISOString(), ...data() }, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `hogar-visitado-${new Date().toISOString().slice(0, 10)}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      localStorage.removeItem(key);
+    });
+
+    fill();
+    show(0);
+  </script>
+</Layout>
+
+<style>
+  .mission-page {
+    min-height: 100vh;
+    padding: 48px 20px 72px;
+    background: linear-gradient(120deg, rgba(97, 0, 45, 0.08), rgba(115, 92, 0, 0.08)), var(--color-background);
+  }
+  .mission-header, .mission-form { width: min(1120px, 100%); margin: 0 auto; }
+  .mission-header { display: grid; grid-template-columns: 1fr minmax(260px, 360px); gap: 24px; align-items: end; margin-bottom: 24px; }
+  .eyebrow { color: var(--color-primary); font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+  h1 { color: var(--color-on-background); font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.4rem); line-height: 1; margin: 0; }
+  .mission-header p:not(.eyebrow) { color: var(--color-on-surface-variant); line-height: 1.7; max-width: 680px; }
+  .progress-card, .mission-form { border: 1px solid rgba(137,113,118,.22); background: rgba(255,255,255,.84); box-shadow: 0 24px 70px rgba(63,0,27,.09); backdrop-filter: blur(16px); border-radius: 8px; }
+  .progress-card { padding: 20px; }
+  .progress-card span { color: var(--color-on-surface-variant); display: block; font-size: .85rem; }
+  .progress-card strong { color: var(--color-primary); display: block; font-size: 1.35rem; margin-top: 4px; }
+  .track { height: 8px; background: var(--color-surface-container-highest); border-radius: 999px; margin-top: 18px; overflow: hidden; }
+  .track i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary-container)); transition: width .25s ease; }
+  .mission-form { padding: clamp(20px, 4vw, 40px); }
+  .step { display: none; }
+  .step.active { display: block; }
+  h2 { color: var(--color-on-background); font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); margin: 0 0 24px; }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .fields.single { grid-template-columns: 1fr; }
+  label, .choices legend { color: var(--color-on-surface); display: grid; gap: 8px; font-size: .9rem; font-weight: 750; }
+  input, textarea { width: 100%; min-height: 48px; border: 1px solid var(--color-outline-variant); border-radius: 8px; background: var(--color-surface-container-lowest); color: var(--color-on-surface); font: inherit; font-weight: 500; padding: 12px 14px; }
+  textarea { resize: vertical; }
+  input:focus, textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(97,0,45,.12); outline: none; }
+  .choices { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; grid-column: 1 / -1; }
+  .choices legend { grid-column: 1 / -1; }
+  .choices label, .privacy { align-items: center; border: 1px solid var(--color-outline-variant); border-radius: 8px; display: flex; gap: 10px; min-height: 48px; padding: 12px 14px; }
+  input[type='radio'], input[type='checkbox'] { accent-color: var(--color-primary); min-height: auto; width: auto; }
+  .sacrament { align-items: center; border: 1px solid var(--color-outline-variant); border-radius: 8px; display: grid; gap: 12px; grid-template-columns: 1fr auto auto minmax(160px,240px); padding: 14px; }
+  .summary #summary { display: grid; gap: 10px; }
+  .summary #summary div { border-bottom: 1px solid var(--color-outline-variant); display: grid; gap: 4px; padding: 10px 0; }
+  .summary span { color: var(--color-on-surface-variant); font-size: .78rem; font-weight: 800; text-transform: uppercase; }
+  .summary strong { color: var(--color-on-surface); overflow-wrap: anywhere; }
+  .actions { border-top: 1px solid var(--color-outline-variant); display: flex; gap: 12px; justify-content: flex-end; margin-top: 32px; padding-top: 22px; }
+  button { border: 0; border-radius: 8px; background: var(--color-primary); color: var(--color-on-primary); cursor: pointer; font-weight: 800; min-height: 48px; padding: 0 20px; }
+  button.secondary { background: transparent; border: 1px solid var(--color-outline-variant); color: var(--color-primary); }
+  button:disabled { cursor: not-allowed; opacity: .45; }
+  @media (max-width: 820px) { .mission-header, .fields, .choices, .sacrament { grid-template-columns: 1fr; } .actions { display: grid; grid-template-columns: 1fr; } }
+</style>
