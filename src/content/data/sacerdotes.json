@@ -1,0 +1,18 @@
+[
+  {
+    "id": "parroco",
+    "nombre": "P. Juan Enrique Martínez",
+    "cargo": "Párroco",
+    "descripcion": "Liderando nuestra comunidad con fe y dedicación desde su llegada a la parroquia.",
+    "imagen": "https://images.unsplash.com/photo-1544120190-27583f22744c?q=80&w=1000",
+    "orden": 1
+  },
+  {
+    "id": "vicario",
+    "nombre": "P. Samuel",
+    "cargo": "Vicario",
+    "descripcion": "Acompañando el caminar espiritual de nuestros fieles y sectores.",
+    "imagen": "https://images.unsplash.com/photo-1551215543-34bf3932f841?q=80&w=1000",
+    "orden": 2
+  }
+]

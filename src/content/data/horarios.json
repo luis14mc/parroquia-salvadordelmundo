@@ -1,0 +1,30 @@
+[
+  {
+    "id": "eucaristia",
+    "tipo": "eucaristia",
+    "items": [
+      { "dias": "Lunes - Viernes", "horas": "7:00 PM" },
+      { "dias": "Sábados", "horas": "7:00 AM" },
+      { "dias": "Domingos", "horas": "9:00 AM | 11:00 AM | 5:30 PM" }
+    ]
+  },
+  {
+    "id": "confesion",
+    "tipo": "confesion",
+    "items": [
+      { "dias": "Lunes, Martes, Miércoles y Viernes", "horas": "Después de misa de 7:00 PM" },
+      { "dias": "Jueves", "horas": "6:00 PM" },
+      { "dias": "Domingo", "horas": "11:00 AM" }
+    ],
+    "nota": "En sede parroquial"
+  },
+  {
+    "id": "secretaria",
+    "tipo": "secretaria",
+    "items": [
+      { "dias": "Lunes, Miércoles, Jueves, Viernes", "horas": "2:00 PM - 6:15 PM" },
+      { "dias": "Martes", "horas": "4:00 PM - 6:15 PM" },
+      { "dias": "Sábado", "horas": "8:00 AM - 12:00 M" }
+    ]
+  }
+]

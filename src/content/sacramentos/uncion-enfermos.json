@@ -1,0 +1,48 @@
+{
+  "nombre": "Unción de los Enfermos",
+  "slug": "uncion-enfermos",
+  "icono": "lucide:cross",
+  "color": "from-purple-500/10 to-purple-600/10 hover:from-purple-500/20 hover:to-purple-600/20",
+  "heroGradient": "from-purple-900 to-purple-800",
+  "descripcionCorta": "Sacramento de sanación para quienes enfrentan enfermedad grave o vejez.",
+  "descripcionLarga": "La Unción de los Enfermos es un sacramento instituido por Cristo mediante el cual la Iglesia encomienda a los enfermos a la Pasión y Glorificación del Señor para que los alivie y los salve. Esta unción sagrada aporta al cristiano enfermo la gracia del Espíritu Santo con la cual el hombre es suscitado y alentado a confiar en Dios.\n\nNo es un sacramento exclusivo de los moribundos, sino un sacramento para los enfermos. Puede recibirse cada vez que un cristiano cae gravemente enfermo, así como cuando el enfermo, después de haberlo recibido, recae de nuevo o cuando la enfermedad se agrava.",
+  "pilares": [
+    {
+      "titulo": "Enfermedad grave",
+      "descripcion": "Personas que enfrentan una enfermedad seria o condición de salud que amenaza la vida.",
+      "icono": "lucide:heart-pulse"
+    },
+    {
+      "titulo": "Cirugías importantes",
+      "descripcion": "Antes o después de intervenciones quirúrgicas de riesgo significativo.",
+      "icono": "lucide:shield-plus"
+    },
+    {
+      "titulo": "Vejez avanzada",
+      "descripcion": "Personas de edad avanzada cuyas fuerzas comienzan a declinar notablemente.",
+      "icono": "lucide:clock"
+    }
+  ],
+  "requisitos": [
+    "Coordinar con ministro extraordinario de la comunión o llamar a la parroquia para su visita",
+    "En caso de visita a hospitales públicos, comunicarse con anticipación para programar traslado y permisos de acceso"
+  ],
+  "ctaTitulo": "Solicita la visita pastoral",
+  "ctaTexto": "Si tú o un ser querido necesita el sacramento de la Unción de los Enfermos, contáctanos de inmediato.",
+  "whatsappMessage": "Hola, necesito solicitar la Unción de los Enfermos",
+  "seccionesExtra": [
+    {
+      "tipo": "lista",
+      "titulo": "Efectos del Sacramento",
+      "subtitulo": "La Unción de los Enfermos otorga gracias especiales al cristiano que enfrenta la prueba del sufrimiento:",
+      "contenido": [
+        { "nombre": "Gracia del Espíritu Santo", "icono": "lucide:sparkles" },
+        { "nombre": "Unión con la Pasión de Cristo", "icono": "lucide:cross" },
+        { "nombre": "Consuelo y paz", "icono": "lucide:heart" },
+        { "nombre": "Fortaleza espiritual", "icono": "lucide:shield" },
+        { "nombre": "Perdón de pecados", "icono": "lucide:check-circle" },
+        { "nombre": "Preparación para el paso a la vida eterna", "icono": "lucide:sunrise" }
+      ]
+    }
+  ]
+}

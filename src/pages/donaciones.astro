@@ -2,47 +2,41 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/ui/Hero.astro';
 import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+import { siteConfig } from '../config/site';
 
-const cuentas = [
-	{ 
-		banco: "Banco de Occidente", 
-		numero: "11-401-012345-6", 
-		tipo: "Cuenta de Cheques"
-	},
-	{ 
-		banco: "BAC Credomatic", 
-		numero: "740123456", 
-		tipo: "Cuenta de Ahorros"
-	}
-];
+const allCuentas = await getCollection('cuentasBancarias');
+const cuentas = allCuentas
+	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
+	.map(c => c.data);
 ---
 
-<Layout 
-	title="Donaciones | Parroquia El Salvador del Mundo"
+<Layout
+	title="Donaciones"
 	description="Apoya la misión de nuestra parroquia a través de tus ofrendas y donaciones."
 >
-	<Hero 
-		title="Apoya nuestra misión" 
+	<Hero
+		title="Apoya nuestra misión"
 		subtitle="Tus ofrendas nos permiten continuar con la labor evangelizadora y el mantenimiento de nuestra comunidad parroquial."
 		image="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2400"
 	/>
 
-	<section class="section-padding bg-white">
+	<section class="section-padding bg-surface">
 		<div class="container-tight">
 			<div class="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
 				<!-- Info Fiscal -->
 				<div class="lg:col-span-2 lg:sticky lg:top-32">
-					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 lg:mb-4 block">Transparencia</span>
-					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 lg:mb-6 leading-tight">
+					<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Transparencia</span>
+					<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-background mb-4 lg:mb-6 leading-tight">
 						Información Fiscal
 					</h2>
-					
-					<div class="bg-slate-50 rounded-2xl lg:rounded-3xl p-6 lg:p-8 border border-slate-100 mb-4 lg:mb-6">
-						<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.2em] text-slate-500 block mb-2">RTN Parroquial</span>
-						<p class="text-xl lg:text-2xl font-bold text-primary">0801-9003-123456</p>
+
+					<div class="bg-surface-container-low rounded-xl p-6 lg:p-8 border border-outline-variant/30 mb-4 lg:mb-6">
+						<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant block mb-2">RTN Parroquial</span>
+						<p class="font-display text-xl lg:text-2xl font-bold text-primary">{siteConfig.rtn}</p>
 					</div>
 
-					<p class="text-sm lg:text-base text-slate-600 leading-relaxed">
+					<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">
 						Toda contribución es destinada al sostenimiento de los sectores, la pastoral y las obras sociales de la parroquia.
 					</p>
 				</div>
@@ -51,35 +45,35 @@ const cuentas = [
 				<div class="lg:col-span-3 space-y-6 lg:space-y-8">
 					<div>
 						<div class="flex items-center gap-3 mb-4 lg:mb-6">
-							<div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-primary/5 flex items-center justify-center">
-								<Icon name="lucide:landmark" class="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
+							<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center">
+								<Icon name="lucide:landmark" class="w-6 h-6 text-on-primary-fixed-variant" />
 							</div>
-							<h3 class="text-lg lg:text-xl font-bold text-slate-900">Cuentas Bancarias</h3>
+							<h3 class="font-display text-lg lg:text-xl font-bold text-on-surface">Cuentas Bancarias</h3>
 						</div>
 					</div>
 
 					<div class="grid gap-4 lg:gap-6">
 						{cuentas.map(c => (
-							<div class="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+							<div class="card-surface-elevated p-6 lg:p-8 rounded-xl hover:shadow-lg hover:border-primary/20 transition-all duration-300">
 								<div class="flex items-start justify-between mb-3 lg:mb-4">
 									<div>
-										<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.2em] text-slate-500 block mb-1.5 lg:mb-2">{c.banco}</span>
-										<p class="text-lg lg:text-2xl font-bold text-slate-900">{c.numero}</p>
+										<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant block mb-2">{c.banco}</span>
+										<p class="font-display text-lg lg:text-2xl font-bold text-on-surface">{c.numero}</p>
 									</div>
-									<Icon name="lucide:building-2" class="w-5 h-5 lg:w-6 lg:h-6 text-slate-300 flex-shrink-0" />
+									<Icon name="lucide:building-2" class="w-6 h-6 text-outline flex-shrink-0" />
 								</div>
-								<p class="text-xs lg:text-sm text-slate-500">{c.tipo}</p>
+								<p class="font-body text-xs lg:text-sm text-on-surface-variant">{c.tipo}</p>
 							</div>
 						))}
 					</div>
 
 					<!-- Mensaje -->
-					<div class="bg-gradient-to-br from-primary to-primary/90 rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-white mt-6 lg:mt-8">
-						<p class="text-base lg:text-xl font-medium italic mb-3 lg:mb-4">
+					<div class="bg-tertiary rounded-xl p-6 lg:p-10 text-on-tertiary mt-6 lg:mt-8">
+						<p class="font-display text-base lg:text-xl font-medium italic mb-3 lg:mb-4">
 							"Dios ama al que da con alegría."
 						</p>
-						<div class="w-12 lg:w-16 h-1 bg-accent mb-3 lg:mb-4"></div>
-						<p class="text-xs lg:text-sm text-white/80">
+						<div class="w-16 h-1 bg-secondary-fixed mb-3 lg:mb-4"></div>
+						<p class="font-body text-xs lg:text-sm text-tertiary-fixed-dim">
 							Agradecemos tu generosidad para el crecimiento de nuestra comunidad.
 						</p>
 					</div>

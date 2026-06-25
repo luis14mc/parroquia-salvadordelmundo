@@ -1,0 +1,48 @@
+{
+  "nombre": "Primera Comunión",
+  "slug": "primera-comunion",
+  "icono": "lucide:wheat",
+  "color": "from-amber-500/10 to-amber-600/10 hover:from-amber-500/20 hover:to-amber-600/20",
+  "heroGradient": "from-amber-900 to-amber-800",
+  "descripcionCorta": "Recibir por primera vez el Cuerpo y la Sangre de Cristo en la Eucaristía.",
+  "descripcionLarga": "La Primera Comunión es uno de los momentos más importantes en la vida de un católico. Es el día en que un niño o niña recibe por primera vez el sacramento de la Eucaristía, es decir, el Cuerpo y la Sangre de Cristo bajo las especies del pan y del vino.\n\nEste sacramento fortalece la unión con Cristo y con la Iglesia, alimentando la vida espiritual del creyente. Es el alimento del alma que nos acompaña en nuestro camino de fe.",
+  "pilares": [
+    {
+      "titulo": "Encuentro personal",
+      "descripcion": "Con Jesús en la Eucaristía",
+      "icono": "lucide:heart"
+    },
+    {
+      "titulo": "Alimento espiritual",
+      "descripcion": "Pan de vida eterna",
+      "icono": "lucide:wheat"
+    },
+    {
+      "titulo": "Vida comunitaria",
+      "descripcion": "Unión con la Iglesia",
+      "icono": "lucide:church"
+    }
+  ],
+  "requisitos": [
+    "Edad de 9 años cumplidos",
+    "Partida de bautismo original o copia certificada"
+  ],
+  "pasos": [
+    {
+      "titulo": "Catequesis",
+      "descripcion": "Programa de formación durante todo el año para conocer mejor a Jesús y prepararse dignamente."
+    },
+    {
+      "titulo": "Sacramentos previos",
+      "descripcion": "Haber recibido el sacramento del Bautismo como requisito fundamental."
+    },
+    {
+      "titulo": "Vida en comunidad",
+      "descripcion": "Participación activa en la vida parroquial y asistencia a la Eucaristía dominical."
+    }
+  ],
+  "inscripciones": "Mes de enero en horarios de oficina",
+  "ctaTitulo": "Inscribe a tu hijo",
+  "ctaTexto": "Contáctanos para más información sobre las inscripciones y el proceso de preparación.",
+  "whatsappMessage": "Hola, quisiera información sobre la Primera Comunión"
+}

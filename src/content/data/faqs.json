@@ -1,0 +1,30 @@
+[
+  {
+    "id": "faq-1",
+    "question": "¿Cómo puedo solicitar una intención para la misa?",
+    "answer": "Puedes solicitar intenciones directamente en la secretaría parroquial durante los horarios de atención o a través de nuestro número de WhatsApp 9534-5899.",
+    "orden": 1,
+    "seccion": "general"
+  },
+  {
+    "id": "faq-2",
+    "question": "¿Qué documentos necesito para el bautismo?",
+    "answer": "Se requiere la partida de nacimiento del niño(a), copia de identidad de los padrinos y constancia de charlas pre-bautismales. Puedes comunicarte con nosotros para más detalles.",
+    "orden": 2,
+    "seccion": "sacramentos"
+  },
+  {
+    "id": "faq-3",
+    "question": "¿Cuáles son los horarios de la oficina parroquial?",
+    "answer": "Atendemos de lunes a viernes en jornada vespertina, y los sábados por la mañana. Consulta la sección de Oficina Parroquial para horarios detallados.",
+    "orden": 3,
+    "seccion": "oficina"
+  },
+  {
+    "id": "faq-4",
+    "question": "¿Cómo puedo apoyar a la parroquia?",
+    "answer": "Puedes realizar donaciones a través de nuestras cuentas bancarias o participar activamente en nuestros grupos y apostolados. Visita la sección Donaciones para más información.",
+    "orden": 4,
+    "seccion": "donaciones"
+  }
+]

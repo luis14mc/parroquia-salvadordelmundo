@@ -1,0 +1,76 @@
+{
+  "nombre": "Matrimonio",
+  "slug": "matrimonio",
+  "icono": "lucide:heart",
+  "color": "from-rose-500/10 to-rose-600/10 hover:from-rose-500/20 hover:to-rose-600/20",
+  "heroGradient": "from-rose-900 to-rose-800",
+  "descripcionCorta": "Sacramento que une a un hombre y una mujer en alianza perpetua de amor.",
+  "descripcionLarga": "El Matrimonio cristiano es una alianza por la cual un varón y una mujer constituyen entre sí un consorcio de toda la vida, ordenado por su misma índole natural al bien de los cónyuges y a la generación y educación de la prole.\n\nEsta alianza entre bautizados fue elevada por Cristo Señor a la dignidad de sacramento. El matrimonio es signo del amor de Cristo a su Iglesia, un amor fiel, total y fecundo.",
+  "pilares": [
+    {
+      "titulo": "Unidad",
+      "descripcion": "Una sola carne, una sola vida",
+      "icono": "lucide:infinity"
+    },
+    {
+      "titulo": "Fidelidad",
+      "descripcion": "Amor exclusivo y eterno",
+      "icono": "lucide:shield-check"
+    },
+    {
+      "titulo": "Fecundidad",
+      "descripcion": "Abiertos a la vida",
+      "icono": "lucide:users"
+    }
+  ],
+  "requisitos": [
+    "Presentarse a la parroquia al menos 3 meses antes de la fecha propuesta",
+    "Llenar el expediente matrimonial con el sacerdote",
+    "Presentar dos testigos que los conozcan a ambos",
+    "Partida de nacimiento de ambos contrayentes",
+    "Copia de identidad de los contrayentes",
+    "Copia de identidad de los testigos",
+    "Fotografía tamaño carné de ambos contrayentes",
+    "Fe de bautismo de los contrayentes",
+    "Constancia de comunión de los contrayentes",
+    "Constancia de confirmación de los contrayentes",
+    "Constancia de matrimonio civil"
+  ],
+  "pasos": [
+    {
+      "titulo": "Encuentro inicial",
+      "descripcion": "Reunión con el sacerdote para conocer su situación y entregar documentación."
+    },
+    {
+      "titulo": "Expediente matrimonial",
+      "descripcion": "Completar el expediente canónico con toda la información requerida."
+    },
+    {
+      "titulo": "Curso prematrimonial",
+      "descripcion": "Participación en las charlas de preparación al matrimonio."
+    },
+    {
+      "titulo": "Celebración",
+      "descripcion": "Coordinación de la fecha, horario y detalles de la ceremonia."
+    }
+  ],
+  "inscripciones": "Horarios de oficina",
+  "ctaTitulo": "Comienza tu camino juntos",
+  "ctaTexto": "Contáctanos para iniciar el proceso de preparación al matrimonio sacramental.",
+  "whatsappMessage": "Hola, quisiera información sobre el Matrimonio",
+  "seccionesExtra": [
+    {
+      "tipo": "curso",
+      "titulo": "Curso Prematrimonial",
+      "subtitulo": "El curso prematrimonial es un requisito indispensable que ayuda a las parejas a prepararse para el matrimonio desde una perspectiva cristiana.",
+      "contenido": [
+        "Comunicación en la pareja",
+        "Espiritualidad conyugal",
+        "Paternidad responsable",
+        "Economía familiar",
+        "Resolución de conflictos",
+        "El sacramento del matrimonio"
+      ]
+    }
+  ]
+}

@@ -1,62 +1,56 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
 
-const eucaristia = [
-	{ day: "Lunes - Viernes", time: "7:00 PM" },
-	{ day: "Sábados", time: "7:00 AM" },
-	{ day: "Domingos", time: "9:00 AM | 11:00 AM | 5:30 PM" },
-];
+const allHorarios = await getCollection('horarios');
+const eucaristiaData = allHorarios.find(h => h.data.tipo === 'eucaristia');
+const confesionData = allHorarios.find(h => h.data.tipo === 'confesion');
 
-const confesiones = "Lunes, martes, miércoles y viernes después de misa de 7:00 PM. Jueves a las 6:00 PM y domingo a las 11:00 AM.";
+const eucaristia = eucaristiaData?.data.items ?? [];
+const confesionItems = confesionData?.data.items ?? [];
 ---
 
-<section id="horarios" class="section-padding bg-slate-50">
+<section id="horarios" class="section-padding bg-surface">
 	<div class="container-tight">
-		<div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-			<!-- Header -->
-			<div class="lg:col-span-2 lg:sticky lg:top-32">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Comunidad</span>
-				<h2 class="text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900 mb-4 lg:mb-6 leading-tight">
-					Celebramos juntos
-				</h2>
-				<p class="text-sm lg:text-base text-slate-600 leading-relaxed">
-					Únete a nuestra comunidad en la celebración de la Eucaristía y la Reconciliación en nuestra sede parroquial.
-				</p>
-			</div>
+		<!-- Header -->
+		<div class="mb-12 lg:mb-16 reveal">
+			<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-3">Comunidad</span>
+			<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-background leading-[0.9]">
+				Celebramos<br/>juntos
+			</h2>
+		</div>
 
-			<!-- Content -->
-			<div class="lg:col-span-3 space-y-6 lg:space-y-8 reveal">
-				<!-- Eucaristía -->
-				<div class="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 xl:p-10 shadow-sm border border-slate-100">
-					<div class="flex items-center gap-3 mb-6 lg:mb-8">
-						<div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-primary/5 flex items-center justify-center">
-							<Icon name="lucide:cross" class="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
-						</div>
-						<h3 class="text-lg lg:text-xl font-bold text-slate-900">Eucaristía</h3>
-					</div>
-					
-					<div class="space-y-3 lg:space-y-4">
-						{eucaristia.map((item, index) => (
-							<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 lg:py-4 border-b border-slate-100 last:border-0 gap-2 sm:gap-4">
-								<span class="text-sm lg:text-base text-slate-600 font-medium">{item.day}</span>
-								<span class="text-base lg:text-lg text-slate-900 font-bold">{item.time}</span>
-							</div>
-						))}
-					</div>
+		<!-- Grid de 2 columnas -->
+		<div class="grid md:grid-cols-2 gap-0 border-2 border-on-surface">
+			<!-- Eucaristía -->
+			<div class="p-8 lg:p-12 border-b md:border-b-0 md:border-r-2 border-on-surface reveal stagger-1">
+				<div class="flex items-center gap-3 mb-8">
+					<Icon name="lucide:cross" class="w-6 h-6 text-primary" />
+					<h3 class="font-display text-2xl font-bold">Eucaristía</h3>
 				</div>
 
-				<!-- Confesiones -->
-				<div class="bg-gradient-to-br from-primary to-primary/90 rounded-2xl lg:rounded-3xl p-6 lg:p-8 xl:p-10 text-white">
-					<div class="flex items-center gap-3 mb-4 lg:mb-6">
-						<div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-white/10 flex items-center justify-center">
-							<Icon name="lucide:heart" class="w-5 h-5 lg:w-6 lg:h-6 text-white" />
+				<div class="space-y-0">
+					{eucaristia.map((item, i) => (
+						<div class={`flex flex-col sm:flex-row sm:items-baseline sm:justify-between py-4 gap-1 ${i < eucaristia.length - 1 ? 'border-b border-on-surface/10' : ''}`}>
+							<span class="font-body text-sm text-on-surface-variant">{item.dias}</span>
+							<span class="font-display text-xl font-bold text-primary">{item.horas}</span>
 						</div>
-						<h3 class="text-lg lg:text-xl font-bold">Reconciliación</h3>
-					</div>
-					
-					<p class="text-sm lg:text-base text-white/90 leading-relaxed">
-						{confesiones}
-					</p>
+					))}
+				</div>
+			</div>
+
+			<!-- Confesiones -->
+			<div class="p-8 lg:p-12 bg-on-surface text-on-primary reveal stagger-2">
+				<div class="flex items-center gap-3 mb-8">
+					<Icon name="lucide:heart" class="w-6 h-6 text-primary" />
+					<h3 class="font-display text-2xl font-bold">Reconciliación</h3>
+				</div>
+
+				<div class="font-body text-sm text-on-primary/70 leading-relaxed">
+					{confesionItems.map((item, i) => (
+						<>{item.dias}: {item.horas}{i < confesionItems.length - 1 ? '. ' : '.'}</>
+					))}
+					{confesionData?.data.nota && <> {confesionData.data.nota}.</>}
 				</div>
 			</div>
 		</div>

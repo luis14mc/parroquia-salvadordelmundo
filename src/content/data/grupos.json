@@ -1,0 +1,30 @@
+[
+  {
+    "id": "legion-maria",
+    "nombre": "Legión de María",
+    "icono": "lucide:users",
+    "descripcion": "Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de la Legión de María.",
+    "orden": 1
+  },
+  {
+    "id": "renovacion",
+    "nombre": "Renovación Carismática",
+    "icono": "lucide:flame",
+    "descripcion": "Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de la Renovación Carismática.",
+    "orden": 2
+  },
+  {
+    "id": "jovenes",
+    "nombre": "Jóvenes",
+    "icono": "lucide:graduation-cap",
+    "descripcion": "Un espacio de crecimiento espiritual y servicio comunitario para la juventud de nuestra parroquia.",
+    "orden": 3
+  },
+  {
+    "id": "catequesis",
+    "nombre": "Catequesis",
+    "icono": "lucide:book-open",
+    "descripcion": "Formación en la fe para niños, jóvenes y adultos de nuestra comunidad parroquial.",
+    "orden": 4
+  }
+]

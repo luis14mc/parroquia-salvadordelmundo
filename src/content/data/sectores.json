@@ -1,0 +1,30 @@
+[
+  {
+    "id": "santa-cruz",
+    "nombre": "Santa Cruz",
+    "descripcion": "Comunidad activa en la evangelización del sector alto.",
+    "imagen": "https://images.unsplash.com/photo-1445006844194-71be0dbc7bb1?q=80&w=800",
+    "orden": 1
+  },
+  {
+    "id": "salvador-del-mundo",
+    "nombre": "Salvador del Mundo",
+    "descripcion": "Sede parroquial y centro de nuestra vida espiritual.",
+    "imagen": "https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=800",
+    "orden": 2
+  },
+  {
+    "id": "santa-rosa-de-lima",
+    "nombre": "Santa Rosa de Lima",
+    "descripcion": "Fieles comprometidos con el servicio y la caridad.",
+    "imagen": "https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=800",
+    "orden": 3
+  },
+  {
+    "id": "sagrado-corazon",
+    "nombre": "Sagrado Corazón de Jesús",
+    "descripcion": "Corazón de nuestra comunidad en oración constante.",
+    "imagen": "https://images.unsplash.com/photo-1477672680933-0287a151330e?q=80&w=800",
+    "orden": 4
+  }
+]

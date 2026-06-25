@@ -1,106 +1,166 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Hero from '../../components/ui/Hero.astro';
-import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
 
-const sacramentos = [
-	{ 
-		nombre: "Bautismo",
-		slug: "bautismo",
-		icono: "lucide:droplets",
-		descripcion: "El primer sacramento de iniciación cristiana, puerta de entrada a la vida en Cristo.",
-		color: "from-blue-500/10 to-blue-600/10 hover:from-blue-500/20 hover:to-blue-600/20"
-	},
-	{ 
-		nombre: "Primera Comunión",
-		slug: "primera-comunion",
-		icono: "lucide:wheat",
-		descripcion: "Recibir por primera vez el Cuerpo y la Sangre de Cristo en la Eucaristía.",
-		color: "from-amber-500/10 to-amber-600/10 hover:from-amber-500/20 hover:to-amber-600/20"
-	},
-	{ 
-		nombre: "Confirmación",
-		slug: "confirmacion",
-		icono: "lucide:flame",
-		descripcion: "Sacramento que perfecciona la gracia bautismal fortaleciendo el don del Espíritu Santo.",
-		color: "from-orange-500/10 to-orange-600/10 hover:from-orange-500/20 hover:to-orange-600/20"
-	},
-	{ 
-		nombre: "Matrimonio",
-		slug: "matrimonio",
-		icono: "lucide:heart",
-		descripcion: "Sacramento que une a un hombre y una mujer en alianza perpetua de amor.",
-		color: "from-rose-500/10 to-rose-600/10 hover:from-rose-500/20 hover:to-rose-600/20"
-	},
-	{ 
-		nombre: "Unción de los Enfermos",
-		slug: "uncion-enfermos",
-		icono: "lucide:cross",
-		descripcion: "Sacramento de sanación para quienes enfrentan enfermedad grave o vejez.",
-		color: "from-purple-500/10 to-purple-600/10 hover:from-purple-500/20 hover:to-purple-600/20"
-	}
-];
+const allSacramentos = await getCollection('sacramentos');
+const bautismo = allSacramentos.find(s => s.data.slug === 'bautismo')?.data;
+const communion = allSacramentos.find(s => s.data.slug === 'primera-comunion')?.data;
+const confirmacion = allSacramentos.find(s => s.data.slug === 'confirmacion')?.data;
+const matrimonio = allSacramentos.find(s => s.data.slug === 'matrimonio')?.data;
+const uncion = allSacramentos.find(s => s.data.slug === 'uncion-enfermos')?.data;
 ---
 
-<Layout title="Sacramentos | Parroquia El Salvador del Mundo">
-	<Hero 
-		title="Vida Sacramental" 
-		subtitle="Los sacramentos son signos eficaces de la gracia, instituidos por Cristo y confiados a la Iglesia."
-		image="https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=2400"
-	/>
+<Layout title="Santos Sacramentos">
+  <main class="max-w-[1280px] mx-auto px-6 md:px-margin-desktop py-16">
+    <!-- Hero Section -->
+    <section class="mb-20 text-center reveal">
+      <span class="font-label text-xs font-bold text-secondary uppercase tracking-[0.25em] mb-4 block">Gracia Divina</span>
+      <h1 class="font-display text-4xl sm:text-5xl font-bold text-primary mb-6">Los Santos Sacramentos</h1>
+      <p class="font-body text-base sm:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed text-balance">
+        Los sacramentos son signos sensibles y eficaces de la gracia, instituidos por Cristo y confiados a la Iglesia, a través de los cuales se nos otorga la vida divina.
+      </p>
+    </section>
 
-	<section class="section-padding bg-slate-50">
-		<div class="container-tight">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Gracia Divina</span>
-				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 lg:mb-6">Los Siete Sacramentos</h2>
-				<p class="text-sm lg:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
-					Explora cada sacramento y descubre cómo puedes recibirlos en nuestra parroquia.
-				</p>
-			</div>
+    <!-- Bento Grid for Sacraments -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+      
+      <!-- Bautismo (7/12 cols) -->
+      {bautismo && (
+        <div class="col-span-12 md:col-span-7 bg-surface-container-low border border-outline-variant/50 p-8 rounded-xl flex flex-col justify-between hover:shadow-lg transition-all duration-300 group reveal">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-outlined text-secondary text-4xl">water_drop</span>
+              <h2 class="font-display text-2xl font-bold text-primary">{bautismo.nombre}</h2>
+            </div>
+            <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">
+              {bautismo.descripcionCorta}
+            </p>
+            <div class="space-y-3 mb-6">
+              <h3 class="font-label text-xs font-bold text-secondary uppercase tracking-widest border-b border-outline-variant/10 pb-1">Requisitos</h3>
+              <ul class="space-y-2 font-body text-sm text-on-surface">
+                {bautismo.requisitos.map(req => (
+                  <li class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-secondary text-sm mt-0.5">check_circle</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all w-fit mt-4" href={`/sacramentos/${bautismo.slug}`}>
+            Detalles y Proceso <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      )}
 
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-				{sacramentos.map(s => (
-					<a 
-						href={`/sacramentos/${s.slug}`}
-						class={`group block bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden`}
-					>
-						<div class={`absolute inset-0 bg-gradient-to-br ${s.color} opacity-30 group-hover:opacity-100 transition-opacity duration-300`}></div>
-						<div class="relative z-10">
-							<div class="flex items-start justify-between mb-4 lg:mb-6">
-								<div class={`w-12 h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl bg-white shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-									<Icon name={s.icono} class="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
-								</div>
-								<Icon name="lucide:arrow-right" class="w-5 h-5 text-slate-400 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
-							</div>
-							
-							<h3 class="text-xl lg:text-2xl font-bold text-slate-900 mb-3">{s.nombre}</h3>
-							<p class="text-sm lg:text-base text-slate-600 leading-relaxed">
-								{s.descripcion}
-							</p>
-						</div>
-					</a>
-				))}
-			</div>
+      <!-- Primera Comunión (5/12 cols) -->
+      {communion && (
+        <div class="col-span-12 md:col-span-5 bg-surface-container-low border border-outline-variant/50 p-8 rounded-xl flex flex-col justify-between hover:shadow-lg transition-all duration-300 group reveal stagger-1">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-outlined text-secondary text-4xl">restaurant_menu</span>
+              <h2 class="font-display text-2xl font-bold text-primary">{communion.nombre}</h2>
+            </div>
+            <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">
+              {communion.descripcionCorta}
+            </p>
+            <div class="space-y-3 mb-6">
+              <h3 class="font-label text-xs font-bold text-secondary uppercase tracking-widest border-b border-outline-variant/10 pb-1">Requisitos</h3>
+              <ul class="space-y-2 font-body text-sm text-on-surface">
+                {communion.requisitos.map(req => (
+                  <li class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-secondary text-sm mt-0.5">check_circle</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all w-fit mt-4" href={`/sacramentos/${communion.slug}`}>
+            Detalles y Proceso <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      )}
 
-			<!-- CTA -->
-			<div class="mt-16 lg:mt-20 text-center">
-				<div class="bg-white rounded-2xl lg:rounded-3xl p-8 lg:p-12 max-w-3xl mx-auto border border-slate-100 shadow-sm">
-					<Icon name="mdi:whatsapp" class="w-12 h-12 lg:w-16 lg:h-16 text-primary mx-auto mb-6" />
-					<h3 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">¿Tienes preguntas?</h3>
-					<p class="text-sm lg:text-base text-slate-600 mb-6 lg:mb-8">
-						Contáctanos por WhatsApp para más información sobre cualquier sacramento.
-					</p>
-					<a 
-						href="https://wa.me/50495345899" 
-						target="_blank"
-						class="inline-flex items-center gap-2 bg-primary text-white px-6 lg:px-8 py-3 lg:py-4 rounded-full font-medium hover:bg-primary/90 transition-all duration-300 text-sm lg:text-base"
-					>
-						<Icon name="mdi:whatsapp" class="w-5 h-5" />
-						Contactar por WhatsApp
-					</a>
-				</div>
-			</div>
-		</div>
-	</section>
+      <!-- Confirmación (5/12 cols) -->
+      {confirmacion && (
+        <div class="col-span-12 md:col-span-5 bg-surface-container-low border border-outline-variant/50 p-8 rounded-xl flex flex-col justify-between hover:shadow-lg transition-all duration-300 group reveal">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-outlined text-secondary text-4xl">local_fire_department</span>
+              <h2 class="font-display text-2xl font-bold text-primary">{confirmacion.nombre}</h2>
+            </div>
+            <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">
+              {confirmacion.descripcionCorta}
+            </p>
+            <div class="space-y-3 mb-6">
+              <h3 class="font-label text-xs font-bold text-secondary uppercase tracking-widest border-b border-outline-variant/10 pb-1">Requisitos</h3>
+              <ul class="space-y-2 font-body text-sm text-on-surface">
+                {confirmacion.requisitos.map(req => (
+                  <li class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-secondary text-sm mt-0.5">check_circle</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all w-fit mt-4" href={`/sacramentos/${confirmacion.slug}`}>
+            Detalles y Proceso <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      )}
+
+      <!-- Matrimonio (7/12 cols) -->
+      {matrimonio && (
+        <div class="col-span-12 md:col-span-7 bg-surface-container-low border border-outline-variant/50 p-8 rounded-xl flex flex-col justify-between hover:shadow-lg transition-all duration-300 group reveal stagger-1">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-outlined text-secondary text-4xl">favorite</span>
+              <h2 class="font-display text-2xl font-bold text-primary">{matrimonio.nombre}</h2>
+            </div>
+            <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">
+              {matrimonio.descripcionCorta}
+            </p>
+            <div class="space-y-3 mb-6">
+              <h3 class="font-label text-xs font-bold text-secondary uppercase tracking-widest border-b border-outline-variant/10 pb-1">Requisitos Clave</h3>
+              <ul class="space-y-2 font-body text-sm text-on-surface grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+                {matrimonio.requisitos.slice(0, 6).map(req => (
+                  <li class="flex items-start gap-2">
+                    <span class="material-symbols-outlined text-secondary text-sm mt-0.5">check_circle</span>
+                    <span>{req}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all w-fit mt-4" href={`/sacramentos/${matrimonio.slug}`}>
+            Detalles y Proceso <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      )}
+
+      <!-- Unción de los Enfermos (12 cols) -->
+      {uncion && (
+        <div class="col-span-12 bg-primary text-on-primary p-8 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-lg transition-all duration-300 group reveal">
+          <div class="max-w-3xl">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary-fixed text-4xl">medical_services</span>
+              <h2 class="font-display text-2xl font-bold text-primary-fixed">{uncion.nombre}</h2>
+            </div>
+            <p class="font-body text-sm text-on-primary/80 mb-4 leading-relaxed">
+              {uncion.descripcionCorta}
+            </p>
+            <p class="font-body text-xs text-primary-fixed/70 italic">
+              Requisitos: {uncion.requisitos[0]}
+            </p>
+          </div>
+          <a class="mt-6 md:mt-0 bg-surface-container-lowest text-primary px-6 py-3 rounded-lg font-label text-xs font-bold uppercase tracking-widest hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow" href={`/sacramentos/${uncion.slug}`}>
+            Ver Detalles
+          </a>
+        </div>
+      )}
+
+    </div>
+  </main>
 </Layout>

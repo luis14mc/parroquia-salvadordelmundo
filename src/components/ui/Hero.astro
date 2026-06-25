@@ -2,82 +2,35 @@
 interface Props {
 	title: string;
 	subtitle?: string;
-	showCTA?: boolean;
 	image?: string;
 }
 
-const { 
-	title, 
-	subtitle, 
-	showCTA = false, 
-	image = "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2400" 
+const {
+	title,
+	subtitle,
+	image = "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=2400"
 } = Astro.props;
 ---
 
-<section class="relative min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] lg:min-h-[calc(100vh-96px)] flex items-center justify-center py-20 overflow-hidden">
-	<!-- Video o Imagen de Fondo -->
-	<div class="absolute inset-0 z-0">
-		<div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 opacity-95 z-10"></div>
-		<img 
-			src={image} 
-			alt={title} 
-			class="w-full h-full object-cover scale-110 animate-slow-zoom"
+<header class="relative w-full h-[400px] flex items-center overflow-hidden bg-primary hero-clip">
+	<div class="absolute inset-0 opacity-40 mix-blend-overlay">
+		<img
+			src={image}
+			alt=""
+			class="w-full h-full object-cover"
 		/>
 	</div>
-
-	<!-- Grid Pattern Overlay -->
-	<div class="absolute inset-0 z-10 opacity-5" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
-
-	<!-- Content -->
-	<div class="container-tight relative z-20 text-center px-4 w-full">
-		<div class="max-w-4xl mx-auto space-y-4 md:space-y-6">
-			<!-- Badge -->
-			<div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
-				<span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-				<span class="text-[10px] md:text-xs font-medium text-white/60 uppercase tracking-widest">Tegucigalpa, Honduras</span>
-			</div>
-
-			<!-- Title -->
-			<h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight tracking-tight px-4">
-				<span class="block mb-2 md:mb-3">{title}</span>
-			</h1>
-
+	<div class="relative w-full px-6 md:px-margin-desktop max-w-[1280px] mx-auto text-on-primary">
+		<div class="max-w-2xl reveal">
+			<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary-fixed mb-2 block">
+				Parroquia El Salvador del Mundo
+			</span>
+			<h1 class="font-display text-4xl sm:text-5xl font-bold mb-4">{title}</h1>
 			{subtitle && (
-				<p class="text-sm md:text-base lg:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed px-4">
+				<p class="font-body text-base sm:text-lg text-primary-fixed opacity-90 leading-relaxed">
 					{subtitle}
 				</p>
 			)}
-
-			{showCTA && (
-				<div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 md:pt-8 px-4">
-					<a 
-						href="#horarios" 
-						class="group w-full sm:w-auto px-6 md:px-7 py-2.5 md:py-3 bg-white text-slate-900 rounded-full font-medium hover:bg-accent hover:text-slate-900 transition-all duration-300 inline-flex items-center justify-center gap-2 text-sm"
-					>
-						Ver Horarios
-						<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-						</svg>
-					</a>
-					<a 
-						href="/donaciones" 
-						class="w-full sm:w-auto px-6 md:px-7 py-2.5 md:py-3 border border-white/20 text-white rounded-full font-medium hover:bg-white/10 transition-all duration-300 text-sm"
-					>
-						Apoyar Misión
-					</a>
-				</div>
-			)}
 		</div>
 	</div>
-</section>
-
-<style>
-	@keyframes slow-zoom {
-		0%, 100% { transform: scale(1); }
-		50% { transform: scale(1.1); }
-	}
-	
-	.animate-slow-zoom {
-		animation: slow-zoom 20s ease-in-out infinite;
-	}
-</style>
+</header>

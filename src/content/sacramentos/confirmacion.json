@@ -1,0 +1,60 @@
+{
+  "nombre": "Confirmación",
+  "slug": "confirmacion",
+  "icono": "lucide:flame",
+  "color": "from-orange-500/10 to-orange-600/10 hover:from-orange-500/20 hover:to-orange-600/20",
+  "heroGradient": "from-orange-900 to-orange-800",
+  "descripcionCorta": "Sacramento que perfecciona la gracia bautismal fortaleciendo el don del Espíritu Santo.",
+  "descripcionLarga": "La Confirmación es el sacramento que completa la gracia bautismal. Por medio de este sacramento, los bautizados son enriquecidos con el don del Espíritu Santo y quedan vinculados más perfectamente a la Iglesia. Este sacramento da fuerza especial para dar testimonio de la fe cristiana.\n\nEn Pentecostés, el Espíritu Santo descendió sobre los apóstoles y los transformó en valientes testigos de Cristo. De manera similar, la Confirmación fortalece a los confirmandos para ser testigos de Jesús en el mundo de hoy.",
+  "pilares": [
+    {
+      "titulo": "Fortaleza",
+      "descripcion": "Para vivir la fe con valentía",
+      "icono": "lucide:zap"
+    },
+    {
+      "titulo": "Misión",
+      "descripcion": "Enviados a evangelizar",
+      "icono": "lucide:send"
+    },
+    {
+      "titulo": "Espíritu Santo",
+      "descripcion": "Sellados con sus dones",
+      "icono": "lucide:flame"
+    }
+  ],
+  "requisitos": [
+    "Edad de 14 años cumplidos",
+    "Partida de bautismo original o copia certificada",
+    "Haber recibido la Primera Comunión"
+  ],
+  "inscripciones": "Mes de enero en horarios de oficina",
+  "ctaTitulo": "Fortalécete en la fe",
+  "ctaTexto": "Inicia tu camino hacia la Confirmación y recibe los dones del Espíritu Santo.",
+  "whatsappMessage": "Hola, quisiera información sobre la Confirmación",
+  "seccionesExtra": [
+    {
+      "tipo": "dones",
+      "titulo": "Los Siete Dones",
+      "subtitulo": "El Espíritu Santo otorga siete dones especiales a quienes reciben la Confirmación.",
+      "contenido": [
+        { "nombre": "Sabiduría", "icono": "lucide:lightbulb", "descripcion": "Para discernir la voluntad de Dios" },
+        { "nombre": "Entendimiento", "icono": "lucide:brain", "descripcion": "Para comprender las verdades de fe" },
+        { "nombre": "Consejo", "icono": "lucide:compass", "descripcion": "Para tomar decisiones correctas" },
+        { "nombre": "Fortaleza", "icono": "lucide:shield", "descripcion": "Para enfrentar las dificultades" },
+        { "nombre": "Ciencia", "icono": "lucide:book-open", "descripcion": "Para conocer a Dios y su obra" },
+        { "nombre": "Piedad", "icono": "lucide:heart", "descripcion": "Para amar a Dios como Padre" },
+        { "nombre": "Temor de Dios", "icono": "lucide:sparkles", "descripcion": "Respeto reverencial hacia Dios" }
+      ]
+    },
+    {
+      "tipo": "padrino",
+      "titulo": "El Padrino de Confirmación",
+      "contenido": [
+        "Tenga 16 años cumplidos y haya recibido los tres sacramentos de iniciación",
+        "Lleve una vida coherente con la fe y la misión que va a asumir",
+        "Sea un modelo de fe y acompañe espiritualmente al confirmando"
+      ]
+    }
+  ]
+}

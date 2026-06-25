@@ -1,0 +1,16 @@
+[
+  {
+    "id": "boc",
+    "banco": "Banco de Occidente",
+    "numero": "11-401-012345-6",
+    "tipo": "Cuenta de Cheques",
+    "orden": 1
+  },
+  {
+    "id": "bac",
+    "banco": "BAC Credomatic",
+    "numero": "740123456",
+    "tipo": "Cuenta de Ahorros",
+    "orden": 2
+  }
+]

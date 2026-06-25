@@ -4,6 +4,7 @@ import SEO from '../components/SEO.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
+import { siteConfig } from '../config/site';
 
 interface Props {
 	title: string;
@@ -11,52 +12,70 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+const structuredData = {
+	"@context": "https://schema.org",
+	"@type": "Place",
+	"name": siteConfig.name,
+	"description": siteConfig.description,
+	"address": {
+		"@type": "PostalAddress",
+		"streetAddress": siteConfig.address.street,
+		"addressLocality": siteConfig.address.locality,
+		"addressCountry": siteConfig.address.countryCode,
+	},
+	"telephone": `+504${siteConfig.contact.telefono}`,
+	"geo": {
+		"@type": "GeoCoordinates",
+		"latitude": siteConfig.address.lat,
+		"longitude": siteConfig.address.lng,
+	},
+};
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<SEO title={title} description={description} />
-		<script type="application/ld+json" is:inline>
-			{
-				"@context": "https://schema.org",
-				"@type": "Place",
-				"name": "Parroquia El Salvador del Mundo",
-				"description": "Comunidad de fe en Tegucigalpa, Honduras",
-				"address": {
-					"@type": "PostalAddress",
-					"streetAddress": "Colonia Cerro Grande Zona 4",
-					"addressLocality": "Tegucigalpa",
-					"addressCountry": "HN"
-				},
-				"telephone": "+50422240263"
-			}
-		</script>
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	</head>
 	<body class="overflow-x-hidden pt-16 md:pt-20 lg:pt-24">
+		<!-- Skip to content — Accesibilidad -->
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-primary focus:text-on-primary focus:px-6 focus:py-3 focus:rounded-xl focus:text-sm focus:font-label focus:font-semibold focus:shadow-[0_8px_32px_rgba(97,0,45,0.3)]">
+			Ir al contenido principal
+		</a>
+
 		<Navbar />
 
-		<main class="min-h-screen">
+		<main id="main-content" class="min-h-screen">
 			<slot />
 		</main>
 
 		<Footer />
 
-		<!-- WhatsApp -->
-		<a 
-			href="https://wa.me/50495345899" 
-			target="_blank" 
-			class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-primary text-white p-3.5 rounded-full shadow-lg hover:opacity-90 transition-all z-50 active:scale-95"
+		<!-- WhatsApp FAB — Elevated con glow -->
+		<a
+			href={siteConfig.contact.whatsappLink}
+			target="_blank"
+			rel="noopener"
+			class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 group"
 			aria-label="Contactar por WhatsApp"
 		>
-			<Icon name="mdi:whatsapp" class="w-6 h-6" />
+			<div class="relative">
+				<!-- Glow effect -->
+				<div class="absolute inset-0 bg-primary rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 animate-[pulse-glow_3s_ease-in-out_infinite]"></div>
+				<!-- Button -->
+				<div class="relative bg-primary text-on-primary p-4 rounded-2xl shadow-[0_4px_24px_rgba(97,0,45,0.3)] transition-all duration-500 group-hover:bg-primary-container group-hover:scale-110 group-hover:shadow-[0_8px_40px_rgba(97,0,45,0.4)] active:scale-95">
+					<Icon name="mdi:whatsapp" class="w-6 h-6" />
+				</div>
+			</div>
 		</a>
 
 		<script>
-			// Scroll Reveal Animation
+			// Scroll Reveal Animation con soporte para stagger
 			const observerOptions = {
 				root: null,
-				rootMargin: '0px',
+				rootMargin: '0px 0px -50px 0px',
 				threshold: 0.1
 			};
 
@@ -64,18 +83,30 @@ const { title, description } = Astro.props;
 				entries.forEach(entry => {
 					if (entry.isIntersecting) {
 						entry.target.classList.add('active');
+						observer.unobserve(entry.target);
 					}
 				});
 			}, observerOptions);
 
 			function initReveal() {
 				const revealElements = document.querySelectorAll('.reveal');
-				revealElements.forEach(el => observer.observe(el));
+				revealElements.forEach((el, index) => {
+					observer.observe(el);
+				});
 			}
+
+			// Smooth scroll para anchors
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const target = document.querySelector(this.getAttribute('href'));
+					if (target) {
+						target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+				});
+			});
 
 			// Initialize
 			initReveal();
 			document.addEventListener('astro:after-swap', initReveal);
 		</script>
-	</body>
-</html>

@@ -1,45 +1,32 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
 
-const faqs = [
-	{
-		question: "¿Cómo puedo solicitar una intención para la misa?",
-		answer: "Puedes solicitar intenciones directamente en la secretaría parroquial durante los horarios de atención o a través de nuestro número de WhatsApp 9534-5899."
-	},
-	{
-		question: "¿Qué documentos necesito para el bautismo?",
-		answer: "Se requiere la partida de nacimiento del niño(a), copia de identidad de los padrinos y constancia de charlas pre-bautismales. Puedes comunicarte con nosotros para más detalles."
-	},
-	{
-		question: "¿Cuáles son los horarios de la oficina parroquial?",
-		answer: "Atendemos de lunes a viernes en jornada vespertina, y los sábados por la mañana. Consulta la sección de Oficina Parroquial para horarios detallados."
-	},
-	{
-		question: "¿Cómo puedo apoyar a la parroquia?",
-		answer: "Puedes realizar donaciones a través de nuestras cuentas bancarias o participar activamente en nuestros grupos y apostolados. Visita la sección Donaciones para más información."
-	}
-];
+const allFaqs = await getCollection('faqs');
+const faqs = allFaqs
+	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
+	.map(f => f.data);
 ---
 
-<section class="section-padding bg-slate-50">
+<section class="section-padding bg-surface border-t-2 border-on-surface">
 	<div class="container-tight">
-		<div class="text-center mb-10 lg:mb-16">
-			<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 lg:mb-4 block">Ayuda</span>
-			<h2 class="text-2xl lg:text-3xl xl:text-4xl font-bold text-slate-900 mb-4">Preguntas Frecuentes</h2>
-			<p class="text-sm lg:text-base text-slate-600 max-w-2xl mx-auto">
-				Encuentra respuestas rápidas a las preguntas más comunes sobre nuestra parroquia.
-			</p>
+		<!-- Header -->
+		<div class="mb-12 lg:mb-16 reveal">
+			<span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-3">Ayuda</span>
+			<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-background leading-[0.9]">
+				Preguntas<br/>Frecuentes
+			</h2>
 		</div>
 
-		<div class="max-w-3xl mx-auto space-y-3 lg:space-y-4">
-			{faqs.map((faq) => (
-				<details class="group bg-white rounded-xl lg:rounded-2xl border border-slate-100 overflow-hidden">
-					<summary class="flex items-center justify-between p-4 lg:p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
-						<span class="text-sm lg:text-base font-medium text-slate-900 pr-4">{faq.question}</span>
-						<Icon name="lucide:chevron-down" class="w-4 h-4 lg:w-5 lg:h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" />
+		<div class="max-w-3xl">
+			{faqs.map((faq, i) => (
+				<details class={`group border-b-2 border-on-surface/10 ${i === 0 ? 'border-t-2 border-on-surface' : ''} reveal stagger-${(i % 6) + 1}`}>
+					<summary class="flex items-center justify-between py-5 cursor-pointer list-none hover:bg-on-surface/5 transition-colors px-4 -mx-4">
+						<span class="font-body text-base font-medium text-on-surface pr-4">{faq.question}</span>
+						<Icon name="lucide:chevron-down" class="w-5 h-5 text-on-surface-variant group-open:rotate-180 transition-transform flex-shrink-0" />
 					</summary>
-					<div class="px-4 pb-4 lg:px-6 lg:pb-6 border-t border-slate-100">
-						<p class="text-xs lg:text-sm text-slate-600 leading-relaxed pt-3 lg:pt-4">
+					<div class="px-4 pb-5 -mx-4">
+						<p class="font-body text-sm text-on-surface-variant leading-relaxed">
 							{faq.answer}
 						</p>
 					</div>

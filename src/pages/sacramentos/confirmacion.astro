@@ -19,68 +19,68 @@ const dones = [
 ];
 ---
 
-<Layout 
+<Layout
 	title="Confirmación | Sacramentos | Parroquia El Salvador del Mundo"
 	description="Información sobre el sacramento de la Confirmación: significado, requisitos y preparación para recibir los dones del Espíritu Santo."
 >
 	<!-- Hero -->
-	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-orange-900 to-orange-800">
+	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-tertiary">
 		<div class="absolute inset-0 opacity-10">
 			<div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
 		</div>
-		
+
 		<div class="container-tight relative z-10 text-center">
-			<div class="inline-flex items-center justify-center w-16 h-16 lg:w-20 lg:h-20 rounded-2xl lg:rounded-3xl bg-white/10 backdrop-blur-sm mb-6 lg:mb-8">
-				<Icon name="lucide:flame" class="w-8 h-8 lg:w-10 lg:h-10 text-white" />
+			<div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-sm mb-8">
+				<Icon name="lucide:flame" class="w-10 h-10 text-on-tertiary" />
 			</div>
-			<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 lg:mb-6">Confirmación</h1>
-			<p class="text-lg lg:text-xl text-white/80 max-w-2xl mx-auto">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-tertiary mb-6">Confirmación</h1>
+			<p class="font-body text-lg lg:text-xl text-tertiary-fixed-dim max-w-2xl mx-auto">
 				El sacramento que perfecciona la gracia bautismal y fortalece el don del Espíritu Santo.
 			</p>
 		</div>
 	</section>
 
 	<!-- ¿Qué es? -->
-	<section class="section-padding bg-white">
+	<section class="section-padding bg-surface">
 		<div class="container-tight max-w-4xl">
 			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Sacramento de Iniciación</span>
-				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">¿Qué es la Confirmación?</h2>
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Sacramento de Iniciación</span>
+				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">¿Qué es la Confirmación?</h2>
 			</div>
 
-			<div class="prose prose-slate max-w-none">
-				<div class="bg-slate-50 rounded-2xl lg:rounded-3xl p-6 lg:p-8 mb-8">
-					<p class="text-base lg:text-lg text-slate-700 leading-relaxed mb-4">
+			<div class="space-y-8">
+				<div class="bg-surface-container-low rounded-xl p-6 lg:p-8">
+					<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed mb-4">
 						La Confirmación es el sacramento que completa la gracia bautismal. Por medio de este sacramento, los bautizados son enriquecidos con el don del Espíritu Santo y quedan vinculados más perfectamente a la Iglesia. Este sacramento da fuerza especial para dar testimonio de la fe cristiana.
 					</p>
-					<p class="text-base lg:text-lg text-slate-700 leading-relaxed mb-0">
+					<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed mb-0">
 						En Pentecostés, el Espíritu Santo descendió sobre los apóstoles y los transformó en valientes testigos de Cristo. De manera similar, la Confirmación fortalece a los confirmandos para ser testigos de Jesús en el mundo de hoy.
 					</p>
 				</div>
 
 				<div class="grid md:grid-cols-3 gap-6 lg:gap-8">
 					<div class="text-center">
-						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-primary/5 flex items-center justify-center mx-auto mb-4">
-							<Icon name="lucide:zap" class="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
+						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mx-auto mb-4">
+							<Icon name="lucide:zap" class="w-7 h-7 text-on-primary-fixed-variant" />
 						</div>
-						<h3 class="font-bold text-slate-900 mb-2 text-sm lg:text-base">Fortaleza</h3>
-						<p class="text-xs lg:text-sm text-slate-600">Para vivir la fe con valentía</p>
+						<h3 class="font-label text-sm font-semibold text-on-surface mb-2">Fortaleza</h3>
+						<p class="font-body text-xs lg:text-sm text-on-surface-variant">Para vivir la fe con valentía</p>
 					</div>
-					
+
 					<div class="text-center">
-						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-primary/5 flex items-center justify-center mx-auto mb-4">
-							<Icon name="lucide:send" class="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
+						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mx-auto mb-4">
+							<Icon name="lucide:send" class="w-7 h-7 text-on-primary-fixed-variant" />
 						</div>
-						<h3 class="font-bold text-slate-900 mb-2 text-sm lg:text-base">Misión</h3>
-						<p class="text-xs lg:text-sm text-slate-600">Enviados a evangelizar</p>
+						<h3 class="font-label text-sm font-semibold text-on-surface mb-2">Misión</h3>
+						<p class="font-body text-xs lg:text-sm text-on-surface-variant">Enviados a evangelizar</p>
 					</div>
-					
+
 					<div class="text-center">
-						<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-primary/5 flex items-center justify-center mx-auto mb-4">
-							<Icon name="lucide:flame" class="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
+						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mx-auto mb-4">
+							<Icon name="lucide:flame" class="w-7 h-7 text-on-primary-fixed-variant" />
 						</div>
-						<h3 class="font-bold text-slate-900 mb-2 text-sm lg:text-base">Espíritu Santo</h3>
-						<p class="text-xs lg:text-sm text-slate-600">Sellados con sus dones</p>
+						<h3 class="font-label text-sm font-semibold text-on-surface mb-2">Espíritu Santo</h3>
+						<p class="font-body text-xs lg:text-sm text-on-surface-variant">Sellados con sus dones</p>
 					</div>
 				</div>
 			</div>
@@ -88,24 +88,24 @@ const dones = [
 	</section>
 
 	<!-- Los 7 Dones del Espíritu Santo -->
-	<section class="section-padding bg-slate-50">
+	<section class="section-padding bg-surface-container-low">
 		<div class="container-tight max-w-5xl">
 			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Espíritu Santo</span>
-				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Los Siete Dones</h2>
-				<p class="text-sm lg:text-base text-slate-600 max-w-2xl mx-auto">
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Espíritu Santo</span>
+				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">Los Siete Dones</h2>
+				<p class="font-body text-sm lg:text-base text-on-surface-variant max-w-2xl mx-auto">
 					El Espíritu Santo otorga siete dones especiales a quienes reciben la Confirmación.
 				</p>
 			</div>
 
 			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 				{dones.map(don => (
-					<div class="bg-white rounded-2xl p-6 border border-slate-100 hover:shadow-lg transition-all duration-300 group">
-						<div class="w-12 h-12 rounded-xl bg-primary/5 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
-							<Icon name={don.icono} class="w-6 h-6 text-primary" />
+					<div class="card-surface p-6 rounded-xl hover:shadow-lg transition-all duration-300 group">
+						<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
+							<Icon name={don.icono} class="w-6 h-6 text-on-primary-fixed-variant" />
 						</div>
-						<h3 class="font-bold text-slate-900 mb-2 text-base lg:text-lg">{don.nombre}</h3>
-						<p class="text-sm text-slate-600 leading-relaxed">{don.descripcion}</p>
+						<h3 class="font-display text-base lg:text-lg font-bold text-on-surface mb-2">{don.nombre}</h3>
+						<p class="font-body text-sm text-on-surface-variant leading-relaxed">{don.descripcion}</p>
 					</div>
 				))}
 			</div>
@@ -113,51 +113,51 @@ const dones = [
 	</section>
 
 	<!-- Requisitos -->
-	<section class="section-padding bg-white">
+	<section class="section-padding bg-surface">
 		<div class="container-tight max-w-4xl">
 			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block">Documentación</span>
-				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">Requisitos</h2>
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Documentación</span>
+				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">Requisitos</h2>
 			</div>
 
-			<div class="bg-slate-50 rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-sm border border-slate-100">
+			<div class="card-surface-elevated p-6 lg:p-8">
 				<div class="space-y-4 mb-8">
 					{requisitos.map(req => (
 						<div class="flex items-start gap-4">
-							<div class="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-								<Icon name="lucide:check" class="w-4 h-4 text-primary" />
+							<div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0 mt-0.5">
+								<Icon name="lucide:check" class="w-4 h-4 text-on-primary-fixed-variant" />
 							</div>
-							<p class="text-sm lg:text-base text-slate-700 leading-relaxed">{req}</p>
+							<p class="font-body text-sm lg:text-base text-on-surface leading-relaxed">{req}</p>
 						</div>
 					))}
 				</div>
 
-				<div class="pt-8 border-t border-slate-200">
-					<h3 class="font-bold text-slate-900 mb-4 text-base lg:text-lg">Preparación Catequética</h3>
-					<p class="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">
+				<div class="pt-8 border-t border-outline-variant/30">
+					<h3 class="font-display text-base lg:text-lg font-bold text-on-surface mb-4">Preparación Catequética</h3>
+					<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed mb-4">
 						Los candidatos a la Confirmación deben completar un programa de preparación catequética que incluye:
 					</p>
 					<ul class="space-y-2">
-						<li class="flex items-start gap-2 text-sm lg:text-base text-slate-600">
+						<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
 							<Icon name="lucide:circle-dot" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
 							<span>Formación doctrinal sobre los fundamentos de la fe católica</span>
 						</li>
-						<li class="flex items-start gap-2 text-sm lg:text-base text-slate-600">
+						<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
 							<Icon name="lucide:circle-dot" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
 							<span>Participación activa en la vida sacramental de la Iglesia</span>
 						</li>
-						<li class="flex items-start gap-2 text-sm lg:text-base text-slate-600">
+						<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
 							<Icon name="lucide:circle-dot" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
 							<span>Servicio comunitario y testimonio de vida cristiana</span>
 						</li>
 					</ul>
 				</div>
 
-				<div class="mt-8 pt-8 border-t border-slate-200 flex items-center gap-3">
-					<Icon name="lucide:calendar" class="w-5 h-5 text-slate-400" />
+				<div class="mt-8 pt-8 border-t border-outline-variant/30 flex items-center gap-3">
+					<Icon name="lucide:calendar" class="w-5 h-5 text-outline" />
 					<div>
-						<p class="text-xs text-slate-500">Inscripciones</p>
-						<p class="text-sm font-medium text-slate-900">Mes de enero en horarios de oficina</p>
+						<p class="font-label text-xs text-on-surface-variant">Inscripciones</p>
+						<p class="font-body text-sm font-medium text-on-surface">Mes de enero en horarios de oficina</p>
 					</div>
 				</div>
 			</div>
@@ -165,28 +165,28 @@ const dones = [
 	</section>
 
 	<!-- El Padrino -->
-	<section class="section-padding bg-slate-50">
+	<section class="section-padding bg-surface-container-low">
 		<div class="container-tight max-w-4xl">
-			<div class="bg-white rounded-2xl lg:rounded-3xl p-8 lg:p-12 border border-slate-100">
+			<div class="card-surface-elevated p-8 lg:p-12 rounded-xl">
 				<div class="flex items-start gap-6 mb-6">
-					<div class="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-						<Icon name="lucide:user-check" class="w-6 h-6 lg:w-7 lg:h-7 text-primary" />
+					<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
+						<Icon name="lucide:user-check" class="w-7 h-7 text-on-primary-fixed-variant" />
 					</div>
 					<div>
-						<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">El Padrino de Confirmación</h2>
-						<p class="text-sm lg:text-base text-slate-600 leading-relaxed mb-4">
+						<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-background mb-4">El Padrino de Confirmación</h2>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed mb-4">
 							El padrino o madrina debe ser una persona que:
 						</p>
 						<ul class="space-y-2">
-							<li class="flex items-start gap-2 text-sm lg:text-base text-slate-600">
+							<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
 								<Icon name="lucide:check" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
 								<span>Tenga 16 años cumplidos y haya recibido los tres sacramentos de iniciación</span>
 							</li>
-							<li class="flex items-start gap-2 text-sm lg:text-base text-slate-600">
+							<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
 								<Icon name="lucide:check" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
 								<span>Lleve una vida coherente con la fe y la misión que va a asumir</span>
 							</li>
-							<li class="flex items-start gap-2 text-sm lg:text-base text-slate-600">
+							<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
 								<Icon name="lucide:check" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
 								<span>Sea un modelo de fe y acompañe espiritualmente al confirmando</span>
 							</li>
@@ -198,25 +198,25 @@ const dones = [
 	</section>
 
 	<!-- CTA -->
-	<section class="section-padding bg-gradient-to-br from-orange-700 to-orange-600">
+	<section class="section-padding bg-primary">
 		<div class="container-tight max-w-3xl text-center">
-			<Icon name="mdi:whatsapp" class="w-12 h-12 lg:w-16 lg:h-16 text-white mx-auto mb-6" />
-			<h2 class="text-2xl lg:text-3xl font-bold text-white mb-4">Fortalécete en la fe</h2>
-			<p class="text-base lg:text-lg text-white/90 mb-8">
+			<Icon name="mdi:whatsapp" class="w-12 h-12 lg:w-16 lg:h-16 text-on-primary mx-auto mb-6" />
+			<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-primary mb-4">Fortalécete en la fe</h2>
+			<p class="font-body text-base lg:text-lg text-on-primary/90 mb-8">
 				Inicia tu camino hacia la Confirmación y recibe los dones del Espíritu Santo.
 			</p>
 			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-				<a 
-					href="https://wa.me/50495345899?text=Hola,%20quisiera%20información%20sobre%20la%20Confirmación" 
+				<a
+					href="https://wa.me/50495345899?text=Hola,%20quisiera%20información%20sobre%20la%20Confirmación"
 					target="_blank"
-					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-orange-700 px-6 lg:px-8 py-3 lg:py-4 rounded-full font-medium hover:bg-slate-50 transition-all duration-300 text-sm lg:text-base"
+					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-on-primary text-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-label text-sm font-semibold hover:bg-surface-container-low transition-all duration-300"
 				>
 					<Icon name="mdi:whatsapp" class="w-5 h-5" />
 					Contactar por WhatsApp
 				</a>
-				<a 
+				<a
 					href="/sacramentos"
-					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white text-white px-6 lg:px-8 py-3 lg:py-4 rounded-full font-medium hover:bg-white/10 transition-all duration-300 text-sm lg:text-base"
+					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-on-primary text-on-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-label text-sm font-semibold hover:bg-white/10 transition-all duration-300"
 				>
 					Ver todos los sacramentos
 				</a>

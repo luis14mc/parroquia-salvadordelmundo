@@ -1,91 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/ui/Hero.astro';
-
 import { Icon } from 'astro-icon/components';
+import { getCollection } from 'astro:content';
+import { siteConfig } from '../config/site';
 
-const sectores = [
-	{ 
-		nombre: "Santa Cruz", 
-		descripcion: "Comunidad activa en la evangelización del sector alto.",
-		imagen: "https://images.unsplash.com/photo-1445006844194-71be0dbc7bb1?q=80&w=800"
-	},
-	{ 
-		nombre: "Salvador del Mundo", 
-		descripcion: "Sede parroquial y centro de nuestra vida espiritual.",
-		imagen: "https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=800"
-	},
-	{ 
-		nombre: "Santa Rosa de Lima", 
-		descripcion: "Fieles comprometidos con el servicio y la caridad.",
-		imagen: "https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=800"
-	},
-	{ 
-		nombre: "Sagrado Corazón de Jesús", 
-		descripcion: "Corazón de nuestra comunidad en oración constante.",
-		imagen: "https://images.unsplash.com/photo-1477672680933-0287a151330e?q=80&w=800"
-	}
-];
+const allSectores = await getCollection('sectores');
+const sectores = allSectores
+	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
+	.map(s => s.data);
 
-const grupos = [
-	{ nombre: "Legión de María", icono: "lucide:users" },
-	{ nombre: "Renovación Carismática", icono: "lucide:flame" },
-	{ nombre: "Jóvenes", icono: "lucide:graduation-cap" },
-	{ nombre: "Catequesis", icono: "lucide:book-open" }
-];
+const allGrupos = await getCollection('grupos');
+const grupos = allGrupos
+	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
+	.map(g => g.data);
 ---
 
-<Layout title="Nosotros | Parroquia El Salvador del Mundo">
-	<Hero 
-		title="Nuestra Identidad" 
+<Layout title="Nosotros">
+	<Hero
+		title="Nuestra Identidad"
 		subtitle="Conoce la historia, misión y visión de nuestra comunidad parroquial comprometida con la fe."
 		image="https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=2400"
 	/>
 
 	<!-- Historia -->
-	<section class="section-padding bg-white">
+	<section class="section-padding bg-surface">
 		<div class="container-tight">
 			<div class="max-w-3xl mx-auto text-center space-y-6 lg:space-y-8">
 				<div class="reveal">
-					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 lg:mb-4 block">Historia</span>
-					<h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4 lg:mb-6">Nuestra Trayectoria</h2>
+					<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Historia</span>
+					<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-4 lg:mb-6">Nuestra Trayectoria</h2>
 				</div>
-				
-				<p class="text-base lg:text-lg text-slate-600 leading-relaxed reveal">
-					Fundada en 1996, la Parroquia El Salvador del Mundo es una comunidad de fieles de la Arquidiócesis de Tegucigalpa, conformada por diversos movimientos y apostolados para la misión cristiana.
+
+				<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed reveal">
+					{siteConfig.resenaHistorica}
 				</p>
 
-				<div class="pt-8 border-t border-slate-100 reveal">
-					<p class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-2">Párroco Actual</p>
-					<p class="text-lg lg:text-xl font-bold text-primary">Juan Enrique Mártinez Cerrato</p>
+				<div class="pt-8 border-t border-outline-variant/30 reveal">
+					<p class="font-label text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-2">Párroco Actual</p>
+					<p class="font-display text-lg lg:text-xl font-bold text-primary">{siteConfig.parroco}</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Misión y Visión -->
-	<section class="section-padding bg-slate-50">
+	<section class="section-padding bg-surface-container-low">
 		<div class="container-tight">
 			<div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
 				<!-- Misión -->
-				<div class="space-y-4 lg:space-y-6 bg-white p-8 lg:p-10 rounded-3xl border border-slate-100 shadow-sm reveal">
-					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary">Nuestra Misión</span>
-					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 leading-tight">
+				<div class="space-y-4 lg:space-y-6 bg-surface-container-lowest p-8 lg:p-10 rounded-xl border border-outline-variant shadow-sm reveal">
+					<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary font-label">Nuestra Misión</span>
+					<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-background leading-tight">
 						Enviados para evangelizar
 					</h2>
-					<p class="text-base lg:text-lg text-slate-600 leading-relaxed italic">
-						"Somos una parroquia en salida, enviados por Nuestro Señor Jesucristo para hacer discípulos a todas las Gentes."
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed italic">
+						"{siteConfig.mision}"
 					</p>
 				</div>
 
 				<!-- Visión -->
-				<div class="space-y-4 lg:space-y-6 bg-white p-8 lg:p-10 rounded-3xl border border-slate-100 shadow-sm reveal">
-					<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary">Nuestra Visión</span>
-					<h2 class="text-2xl lg:text-3xl font-bold text-slate-900 leading-tight">
+				<div class="space-y-4 lg:space-y-6 bg-surface-container-lowest p-8 lg:p-10 rounded-xl border border-outline-variant shadow-sm reveal">
+					<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary font-label">Nuestra Visión</span>
+					<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-background leading-tight">
 						Comunidad evangelizadora
 					</h2>
-					<p class="text-base lg:text-lg text-slate-600 leading-relaxed italic">
-						"Ser una comunidad parroquial evangelizada y evangelizadora, mostrando el Rostro del Salvador del Mundo."
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed italic">
+						"{siteConfig.vision}"
 					</p>
 				</div>
 			</div>
@@ -93,28 +74,28 @@ const grupos = [
 	</section>
 
 	<!-- Sectores -->
-	<section class="section-padding bg-white">
+	<section class="section-padding bg-surface">
 		<div class="container-tight">
 			<div class="text-center mb-12 lg:mb-16 reveal">
-				<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block">Geografía de Fe</span>
-				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900">Nuestros Sectores</h2>
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block font-label">Geografía de Fe</span>
+				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background">Nuestros Sectores</h2>
 			</div>
 
 			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 				{sectores.map(s => (
-					<div class="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden reveal">
+					<div class="group bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:shadow-lg transition-all duration-500 overflow-hidden reveal">
 						<div class="aspect-video overflow-hidden relative">
-							<img 
-								src={s.imagen} 
-								alt={s.nombre} 
+							<img
+								src={s.imagen}
+								alt={s.nombre}
 								class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
 								loading="lazy"
 							/>
-							<div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+							<div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
 						</div>
 						<div class="p-6">
-							<h3 class="font-bold text-slate-900 mb-2 group-hover:text-primary transition-colors">{s.nombre}</h3>
-							<p class="text-sm text-slate-600 leading-relaxed">{s.descripcion}</p>
+							<h3 class="font-display text-base font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">{s.nombre}</h3>
+							<p class="font-body text-sm text-on-surface-variant leading-relaxed">{s.descripcion}</p>
 						</div>
 					</div>
 				))}
@@ -123,25 +104,25 @@ const grupos = [
 	</section>
 
 	<!-- Grupos y Movimientos -->
-	<section class="section-padding bg-slate-50">
+	<section class="section-padding bg-surface-container-low">
 		<div class="container-tight">
 			<div class="text-center mb-12 lg:mb-16 reveal">
-				<span class="text-[10px] lg:text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block">Participación</span>
-				<h2 class="text-3xl lg:text-4xl font-bold text-slate-900">Grupos y Movimientos</h2>
-				<p class="text-sm lg:text-base text-slate-600 mt-4 max-w-2xl mx-auto">
+				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block font-label">Participación</span>
+				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background">Grupos y Movimientos</h2>
+				<p class="font-body text-sm lg:text-base text-on-surface-variant mt-4 max-w-2xl mx-auto">
 					La vitalidad de nuestra parroquia se manifiesta a través de sus diversos carismas y servicios.
 				</p>
 			</div>
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 				{grupos.map(g => (
-					<div class="group bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 reveal">
-						<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
-							<Icon name={g.icono} class="w-7 h-7 text-primary group-hover:text-white transition-colors duration-500" />
+					<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-500 reveal">
+						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
+							<Icon name={g.icono} class="w-7 h-7 text-on-primary-fixed-variant group-hover:text-on-primary transition-colors duration-500" />
 						</div>
-						<h3 class="text-lg font-bold text-slate-900 mb-3 group-hover:text-primary transition-colors">{g.nombre}</h3>
-						<p class="text-sm text-slate-600 leading-relaxed">
-							Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de {g.nombre}.
+						<h3 class="font-display text-lg font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">{g.nombre}</h3>
+						<p class="font-body text-sm text-on-surface-variant leading-relaxed">
+							{g.descripcion ?? `Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de ${g.nombre}.`}
 						</p>
 					</div>
 				))}

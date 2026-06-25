@@ -22,43 +22,44 @@ const iconMap: Record<string, string> = {
 const iconName = iconMap[nombre] || "lucide:scroll-text";
 ---
 
-<div class="group bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-primary/20 transition-all duration-300">
-	<div class="flex items-center gap-4 mb-6">
-		<div class="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-			<Icon name={iconName} class="w-7 h-7 text-primary" />
-		</div>
-		<h3 class="text-xl font-bold text-slate-900">{nombre}</h3>
+<article class="border-2 border-on-surface p-6 lg:p-8 bg-surface hover:bg-on-surface hover:text-on-surface group transition-colors">
+	<!-- Header -->
+	<div class="flex items-center gap-4 mb-6 pb-6 border-b border-on-surface/10 group-hover:border-on-surface/20">
+		<Icon name={iconName} class="w-8 h-8 text-primary group-hover:text-primary" />
+		<h3 class="font-display text-2xl font-bold">{nombre}</h3>
 	</div>
-	
+
+	<!-- Requisitos -->
 	<div class="space-y-3 mb-6">
 		{requisitos.map(r => (
 			<div class="flex items-start gap-3">
-				<Icon name="lucide:check-circle" class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-				<p class="text-slate-600 text-sm leading-relaxed">{r}</p>
+				<Icon name="lucide:check" class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+				<p class="font-body text-sm leading-relaxed opacity-80">{r}</p>
 			</div>
 		))}
 	</div>
-	
+
+	<!-- Info adicional -->
 	{(dias || ofrenda || contacto) && (
-		<div class="pt-6 border-t border-slate-100 space-y-3 text-sm">
+		<div class="pt-6 border-t border-on-surface/10 space-y-2 text-sm">
 			{dias && (
-				<div class="flex items-center gap-2 text-slate-500">
+				<div class="flex items-center gap-2 opacity-70">
 					<Icon name="lucide:calendar" class="w-4 h-4" />
 					<span>{dias}</span>
 				</div>
 			)}
 			{ofrenda && (
-				<div class="flex items-center gap-2 text-slate-500">
+				<div class="flex items-center gap-2 opacity-70">
 					<Icon name="lucide:banknote" class="w-4 h-4" />
 					<span>Ofrenda: {ofrenda}</span>
 				</div>
 			)}
 			{contacto && (
-				<div class="flex items-center gap-2 text-primary font-medium">
+				<div class="flex items-center gap-2 text-primary font-bold">
 					<Icon name="mdi:whatsapp" class="w-4 h-4" />
 					<span>{contacto}</span>
 				</div>
 			)}
 		</div>
 	)}
-</div>
+</article>

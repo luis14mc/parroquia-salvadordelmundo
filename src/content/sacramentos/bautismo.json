@@ -1,0 +1,54 @@
+{
+  "nombre": "Bautismo",
+  "slug": "bautismo",
+  "icono": "lucide:droplets",
+  "color": "from-blue-500/10 to-blue-600/10 hover:from-blue-500/20 hover:to-blue-600/20",
+  "heroGradient": "from-slate-900 to-slate-800",
+  "descripcionCorta": "El primer sacramento de iniciación cristiana, puerta de entrada a la vida en Cristo.",
+  "descripcionLarga": "El Bautismo es el fundamento de toda la vida cristiana, el pórtico de la vida en el espíritu y la puerta que abre el acceso a los otros sacramentos. Por el Bautismo somos liberados del pecado y regenerados como hijos de Dios, llegamos a ser miembros de Cristo y somos incorporados a la Iglesia y hechos partícipes de su misión.",
+  "pilares": [
+    {
+      "titulo": "Purificación",
+      "descripcion": "Limpia del pecado original",
+      "icono": "lucide:sparkles"
+    },
+    {
+      "titulo": "Incorporación",
+      "descripcion": "Miembro de la Iglesia",
+      "icono": "lucide:users"
+    },
+    {
+      "titulo": "Nueva vida",
+      "descripcion": "Hijo adoptivo de Dios",
+      "icono": "lucide:heart-handshake"
+    }
+  ],
+  "requisitos": [
+    "Presentar partida de nacimiento del bautizando",
+    "Copia de identidad de los padrinos",
+    "Haber recibido las charlas prebautismales"
+  ],
+  "pasos": [
+    {
+      "titulo": "Contacto inicial",
+      "descripcion": "Comunícate con la secretaría parroquial en horario de oficina o por WhatsApp."
+    },
+    {
+      "titulo": "Documentación",
+      "descripcion": "Presenta la partida de nacimiento y la identidad de los padrinos."
+    },
+    {
+      "titulo": "Charlas prebautismales",
+      "descripcion": "Asiste a las charlas de preparación para padres y padrinos."
+    },
+    {
+      "titulo": "Programación",
+      "descripcion": "Se coordina la fecha y hora de la celebración del bautismo."
+    }
+  ],
+  "inscripciones": "Horarios de oficina",
+  "ofrenda": 50,
+  "ctaTitulo": "¿Listo para comenzar?",
+  "ctaTexto": "Contáctanos por WhatsApp para iniciar el proceso de bautismo en nuestra parroquia.",
+  "whatsappMessage": "Hola, quisiera información sobre el Bautismo"
+}
