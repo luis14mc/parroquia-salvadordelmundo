@@ -4,8 +4,15 @@ const { Pool } = pg;
 
 function getConnectionString() {
   if (process.env.DATABASE_URL) return process.env.DATABASE_URL;
+  if (process.env.DATABASE_PUBLIC_URL) return process.env.DATABASE_PUBLIC_URL;
 
-  const { PGHOST, PGPORT = "5432", PGUSER, PGPASSWORD, PGDATABASE } = process.env;
+  const {
+    PGHOST,
+    PGPORT = "5432",
+    PGUSER = process.env.POSTGRES_USER,
+    PGPASSWORD = process.env.POSTGRES_PASSWORD,
+    PGDATABASE = process.env.POSTGRES_DB,
+  } = process.env;
   if (!PGHOST || !PGUSER || !PGPASSWORD || !PGDATABASE) return null;
 
   const user = encodeURIComponent(PGUSER);
