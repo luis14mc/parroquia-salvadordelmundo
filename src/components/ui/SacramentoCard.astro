@@ -22,10 +22,10 @@ const iconMap: Record<string, string> = {
 const iconName = iconMap[nombre] || "lucide:scroll-text";
 ---
 
-<article class="border-2 border-on-surface p-6 lg:p-8 bg-surface hover:bg-on-surface hover:text-on-surface group transition-colors">
+<article class="border-2 border-outline p-6 lg:p-8 bg-surface hover:bg-inverse-surface hover:text-inverse-on-surface group transition-colors">
 	<!-- Header -->
-	<div class="flex items-center gap-4 mb-6 pb-6 border-b border-on-surface/10 group-hover:border-on-surface/20">
-		<Icon name={iconName} class="w-8 h-8 text-primary group-hover:text-primary" />
+	<div class="flex items-center gap-4 mb-6 pb-6 border-b border-outline-variant/20 group-hover:border-inverse-on-surface/20">
+		<Icon name={iconName} class="w-8 h-8 text-primary group-hover:text-secondary-fixed" />
 		<h3 class="font-display text-2xl font-bold">{nombre}</h3>
 	</div>
 
@@ -33,29 +33,29 @@ const iconName = iconMap[nombre] || "lucide:scroll-text";
 	<div class="space-y-3 mb-6">
 		{requisitos.map(r => (
 			<div class="flex items-start gap-3">
-				<Icon name="lucide:check" class="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-				<p class="font-body text-sm leading-relaxed opacity-80">{r}</p>
+				<Icon name="lucide:check" class="w-4 h-4 text-primary group-hover:text-secondary-fixed mt-0.5 flex-shrink-0" />
+				<p class="font-body text-sm leading-relaxed opacity-80 group-hover:opacity-90">{r}</p>
 			</div>
 		))}
 	</div>
 
 	<!-- Info adicional -->
 	{(dias || ofrenda || contacto) && (
-		<div class="pt-6 border-t border-on-surface/10 space-y-2 text-sm">
+		<div class="pt-6 border-t border-outline-variant/20 group-hover:border-inverse-on-surface/20 space-y-2 text-sm">
 			{dias && (
-				<div class="flex items-center gap-2 opacity-70">
+				<div class="flex items-center gap-2 opacity-70 group-hover:opacity-80">
 					<Icon name="lucide:calendar" class="w-4 h-4" />
 					<span>{dias}</span>
 				</div>
 			)}
 			{ofrenda && (
-				<div class="flex items-center gap-2 opacity-70">
+				<div class="flex items-center gap-2 opacity-70 group-hover:opacity-80">
 					<Icon name="lucide:banknote" class="w-4 h-4" />
 					<span>Ofrenda: {ofrenda}</span>
 				</div>
 			)}
 			{contacto && (
-				<div class="flex items-center gap-2 text-primary font-bold">
+				<div class="flex items-center gap-2 text-primary group-hover:text-secondary-fixed font-bold">
 					<Icon name="mdi:whatsapp" class="w-4 h-4" />
 					<span>{contacto}</span>
 				</div>

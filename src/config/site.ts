@@ -68,20 +68,20 @@ export const siteConfig: SiteConfig = {
   slogan: "Salvados por Cristo, enviados al mundo",
   description:
     "Sitio oficial de la Parroquia El Salvador del Mundo — Tegucigalpa, Honduras. Una comunidad de fe moderna y organizada.",
-  url: "https://parroquiasalvadordelmundo.hn",
+  url: "https://www.elsalvadordelmundo.org",
   locale: "es-HN",
   currency: "HNL",
   currencySymbol: "L",
   timezone: "America/Tegucigalpa",
   foundedYear: 1996,
-  parroco: "Juan Enrique Mártinez Cerrato",
+  parroco: "Juan Enrique Martínez Cerrato",
 
   mision:
-    "Somos una parroquia en salida, enviados por Nuestro Señor Jesucristo para hacer discípulos a todas las Gentes.",
+    "Somos una parroquia en salida, enviados por Nuestro Señor Jesucristo para hacer discípulos a todas las gentes.",
   vision:
     "Ser una comunidad parroquial evangelizada y evangelizadora, mostrando el Rostro del Salvador del Mundo a todos los creyentes y no creyentes.",
   resenaHistorica:
-    "Fundada en 1996, la Parroquia El Salvador del Mundo es una comunidad de fieles de la Arquidiócesis de Tegucigalpa, conformada por diversos movimientos y apostolados para la misión cristiana. Actualmente está organizada en cuatro sectores: Santa Cruz, Salvador del Mundo, Santa Rosa de Lima y Sagrado Corazón de Jesús.",
+    "Fundada en 1996, la Parroquia El Salvador del Mundo es una comunidad de fieles de la Arquidiócesis de Tegucigalpa, conformada por diversos movimientos y apostolados para la misión cristiana. Actualmente está organizada en diez sectores y comunidades: San José del Potrero, El Lolo, Zona 8, Las Flores, COA Abajo, Aldea Cerro Grande, Río Abajo, Villa Franca, Zona 2 y Zona 4 — Sede Parroquial.",
 
   contact: {
     telefono: "22240263",

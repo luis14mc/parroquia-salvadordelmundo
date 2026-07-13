@@ -10,6 +10,9 @@ const allSectores = await getCollection('sectores');
 const sectores = allSectores
 	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
 	.map(s => s.data);
+
+const sede = sectores.find(s => s.nombre === 'Zona 4');
+const sectoresRestantes = sectores.filter(s => s.nombre !== 'Zona 4');
 ---
 
 <Layout title="Inicio">
@@ -95,63 +98,61 @@ const sectores = allSectores
         <div class="h-1 w-24 bg-secondary mx-auto rounded-full"></div>
       </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-        <!-- Bautismo (7/12 cols) -->
-        <div class="md:col-span-7 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-1">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Bautismo -->
+        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-1 h-full">
           <div>
-            <div class="flex gap-4 items-start mb-6">
-              <div class="bg-primary-fixed/30 p-4 rounded-full text-primary flex items-center justify-center">
-                <span class="material-symbols-outlined text-4xl">water_drop</span>
-              </div>
-              <div>
-                <h3 class="font-display text-2xl font-bold text-primary mb-2">Bautismo</h3>
-                <p class="font-body text-sm text-on-surface-variant leading-relaxed">El fundamento de toda la vida cristiana, el pórtico de la vida en el espíritu. Realizamos bautizos comunitarios todos los fines de semana.</p>
-              </div>
+            <div class="bg-primary-fixed/30 p-3 rounded-full w-fit mb-5 text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl">water_drop</span>
             </div>
+            <h3 class="font-display text-lg font-bold text-primary mb-2">Bautismo</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">El fundamento de toda la vida cristiana, el pórtico de la vida en el espíritu.</p>
           </div>
           <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all" href="/sacramentos/bautismo">
             Requisitos <span class="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
         </div>
 
-        <!-- Eucaristía (5/12 cols) -->
-        <div class="md:col-span-5 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal stagger-2">
+        <!-- Eucaristía -->
+        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-2 h-full">
           <div>
-            <div class="bg-secondary-fixed/30 p-4 rounded-full w-fit mb-6 text-secondary flex items-center justify-center">
-              <span class="material-symbols-outlined text-4xl">restaurant_menu</span>
+            <div class="bg-secondary-fixed/30 p-3 rounded-full w-fit mb-5 text-secondary flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl">restaurant_menu</span>
             </div>
-            <h3 class="font-display text-2xl font-bold text-primary mb-2">Eucaristía</h3>
-            <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">Fuente y culmen de nuestra vida cristiana en comunidad.</p>
+            <h3 class="font-display text-lg font-bold text-primary mb-2">Eucaristía</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">Fuente y culmen de nuestra vida cristiana en comunidad.</p>
           </div>
           <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all" href="/oficina">
             Horarios <span class="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
         </div>
 
-        <!-- Confirmación (5/12 cols) -->
-        <div class="md:col-span-5 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 flex flex-col justify-between reveal stagger-3">
+        <!-- Confirmación -->
+        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-3 h-full">
           <div>
-            <div class="bg-tertiary-fixed/50 p-4 rounded-full w-fit mb-6 text-primary flex items-center justify-center">
-              <span class="material-symbols-outlined text-4xl">local_fire_department</span>
+            <div class="bg-tertiary-fixed/50 p-3 rounded-full w-fit mb-5 text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl">local_fire_department</span>
             </div>
-            <h3 class="font-display text-2xl font-bold text-primary mb-2">Confirmación</h3>
-            <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">Fortalece nuestra fe y sella nuestros dones con el Espíritu Santo.</p>
+            <h3 class="font-display text-lg font-bold text-primary mb-2">Confirmación</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">Fortalece nuestra fe y sella nuestros dones con el Espíritu Santo.</p>
           </div>
           <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all" href="/sacramentos/confirmacion">
             Requisitos <span class="material-symbols-outlined text-sm">arrow_forward</span>
           </a>
         </div>
 
-        <!-- Matrimonio (7/12 cols) -->
-        <div class="md:col-span-7 bg-primary text-on-primary p-8 rounded-xl overflow-hidden relative group flex flex-col justify-between reveal stagger-4">
+        <!-- Matrimonio -->
+        <div class="bg-primary text-on-primary p-6 rounded-xl overflow-hidden relative group flex flex-col justify-between reveal stagger-4 h-full">
           <div class="relative z-10">
-            <h3 class="font-display text-2xl font-bold mb-2 text-primary-fixed">Matrimonio</h3>
-            <p class="font-body text-sm text-on-primary/80 mb-6 max-w-md leading-relaxed">La alianza matrimonial constituida entre el varón y la mujer para toda la vida. Cursos prematrimoniales periódicos.</p>
+            <div class="bg-on-primary/10 p-3 rounded-full w-fit mb-5 flex items-center justify-center">
+              <span class="material-symbols-outlined text-3xl">favorite</span>
+            </div>
+            <h3 class="font-display text-lg font-bold mb-2 text-primary-fixed">Matrimonio</h3>
+            <p class="font-body text-sm text-on-primary/80 mb-6 leading-relaxed">La alianza matrimonial constituida entre el varón y la mujer para toda la vida.</p>
           </div>
-          <a href="/sacramentos/matrimonio" class="w-fit z-10 bg-surface-container-lowest text-primary px-6 py-2.5 rounded-lg font-label text-xs font-bold uppercase tracking-widest hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow">
+          <a href="/sacramentos/matrimonio" class="w-fit z-10 bg-surface-container-lowest text-primary px-5 py-2 rounded-lg font-label text-xs font-bold uppercase tracking-widest hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow">
             Requisitos
           </a>
-          <span class="material-symbols-outlined absolute -right-8 -bottom-8 text-[12rem] text-primary-container opacity-20 transform -rotate-12 group-hover:rotate-0 transition-transform duration-700 pointer-events-none">favorite</span>
         </div>
       </div>
       
@@ -174,21 +175,48 @@ const sectores = allSectores
       <div class="h-1 w-24 bg-secondary mx-auto rounded-full mt-2"></div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {sectores.map((s, i) => (
-        <div class={`group bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-primary/20 shadow-sm hover:shadow-lg transition-all duration-500 overflow-hidden reveal stagger-${i+1}`}>
+    {/* Sede Parroquial — card principal */}
+    {sede && (
+      <div class="mb-8 max-w-lg mx-auto reveal">
+        <div class="group bg-primary text-on-primary rounded-lg overflow-hidden relative shadow-lg hover:shadow-xl transition-all duration-500 h-full flex flex-col">
+          <div class="aspect-video overflow-hidden relative">
+            <img
+              src={sede.imagen}
+              alt={sede.nombre}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          </div>
+          <div class="p-6 flex flex-col justify-between flex-1">
+            <div>
+              <span class="font-label text-[10px] font-bold uppercase tracking-[.2em] text-secondary-fixed mb-2 inline-block">Sede Parroquial</span>
+              <h3 class="font-display text-lg font-bold mb-2">{sede.nombre}</h3>
+              <p class="font-body text-xs text-on-primary/80 leading-relaxed">{sede.descripcion}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {/* Sectores restantes — grilla 3x3 */}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sectoresRestantes.map((s, i) => (
+        <div class={`group bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-primary/20 shadow-sm hover:shadow-lg transition-all duration-500 overflow-hidden reveal stagger-${(i % 6) + 1} h-full`}>
           <div class="aspect-video overflow-hidden relative bg-surface-variant">
-            <img 
-              src={s.imagen} 
-              alt={s.nombre} 
+            <img
+              src={s.imagen}
+              alt={s.nombre}
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               loading="lazy"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
           </div>
-          <div class="p-6">
-            <h3 class="font-display text-base font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">{s.nombre}</h3>
-            <p class="font-body text-xs lg:text-sm text-on-surface-variant leading-relaxed">{s.descripcion}</p>
+          <div class="p-6 flex flex-col justify-between h-full">
+            <div>
+              <h3 class="font-display text-base font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">{s.nombre}</h3>
+              <p class="font-body text-xs lg:text-sm text-on-surface-variant leading-relaxed">{s.descripcion}</p>
+            </div>
           </div>
         </div>
       ))}

@@ -16,7 +16,10 @@ const grupos = allGrupos
 	.map(g => g.data);
 ---
 
-<Layout title="Nosotros">
+<Layout
+	title="Nosotros"
+	description="Conoce la historia, misión, visión y sectores de la Parroquia El Salvador del Mundo en Tegucigalpa, Honduras."
+>
 	<Hero
 		title="Nuestra Identidad"
 		subtitle="Conoce la historia, misión y visión de nuestra comunidad parroquial comprometida con la fe."
@@ -81,7 +84,7 @@ const grupos = allGrupos
 				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background">Nuestros Sectores</h2>
 			</div>
 
-			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+			<div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
 				{sectores.map(s => (
 					<div class="group bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm hover:shadow-lg transition-all duration-500 overflow-hidden reveal">
 						<div class="aspect-video overflow-hidden relative">
@@ -94,7 +97,12 @@ const grupos = allGrupos
 							<div class="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent"></div>
 						</div>
 						<div class="p-6">
-							<h3 class="font-display text-base font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">{s.nombre}</h3>
+							<div class="flex items-center gap-2 mb-2">
+								<h3 class="font-display text-base font-bold text-on-surface group-hover:text-primary transition-colors">{s.nombre}</h3>
+								{s.descripcion === 'Sede parroquial.' && (
+									<span class="font-label text-[10px] font-bold uppercase tracking-wider bg-primary text-on-primary px-2 py-0.5 rounded-full">Sede</span>
+								)}
+							</div>
 							<p class="font-body text-sm text-on-surface-variant leading-relaxed">{s.descripcion}</p>
 						</div>
 					</div>

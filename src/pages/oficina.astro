@@ -15,7 +15,10 @@ const secretariaData = allHorarios.find(h => h.data.tipo === 'secretaria');
 const secretaria = secretariaData?.data.items ?? [];
 ---
 
-<Layout title="Oficina y Horarios">
+<Layout
+	title="Oficina y Horarios"
+	description="Horarios de misa, confesiones y secretaría parroquial. Contacto, ubicación y servicios de la Parroquia El Salvador del Mundo."
+>
   <!-- Hero Section -->
   <header class="relative w-full h-[400px] flex items-center overflow-hidden bg-primary hero-clip">
     <div class="absolute inset-0 opacity-40 mix-blend-overlay">

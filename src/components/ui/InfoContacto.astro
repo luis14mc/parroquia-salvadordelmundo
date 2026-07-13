@@ -6,7 +6,7 @@ import { siteConfig } from '../../config/site';
 const { contact, address } = siteConfig;
 ---
 
-<section class="section-padding bg-surface border-t-2 border-on-surface">
+<section class="section-padding bg-surface border-t-2 border-outline">
 	<div class="container-tight">
 		<!-- Header -->
 		<div class="mb-12 lg:mb-16 reveal">
@@ -17,9 +17,9 @@ const { contact, address } = siteConfig;
 		</div>
 
 		<!-- Grid de 2 columnas -->
-		<div class="grid lg:grid-cols-2 gap-0 border-2 border-on-surface">
+		<div class="grid lg:grid-cols-2 gap-0 border-2 border-outline">
 			<!-- Info -->
-			<div class="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r-2 border-on-surface reveal stagger-1">
+			<div class="p-8 lg:p-12 border-b lg:border-b-0 lg:border-r-2 border-outline reveal stagger-1">
 				<div class="space-y-6">
 					<div class="flex items-start gap-4">
 						<Icon name="lucide:map-pin" class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -54,15 +54,15 @@ const { contact, address } = siteConfig;
 					</div>
 				</div>
 
-				<!-- Botones -->
-				<div class="flex gap-0 mt-8 border-t-2 border-on-surface">
-					<a href={address.googleMapsUrl} target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary font-label text-xs font-bold uppercase tracking-wider hover:bg-primary-container transition-colors">
-						Google Maps
-					</a>
-					<a href={address.wazeUrl} target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 border-l-2 border-on-surface text-on-surface font-label text-xs font-bold uppercase tracking-wider hover:bg-on-surface hover:text-on-surface transition-colors">
-						Waze
-					</a>
-				</div>
+<!-- Botones -->
+			<div class="flex gap-0 mt-8 border-t-2 border-outline">
+				<a href={address.googleMapsUrl} target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-primary text-on-primary font-label text-xs font-bold uppercase tracking-wider hover:bg-primary-container transition-colors">
+					Google Maps
+				</a>
+				<a href={address.wazeUrl} target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 border-l-2 border-outline text-on-surface font-label text-xs font-bold uppercase tracking-wider hover:bg-inverse-surface hover:text-inverse-on-surface transition-colors">
+					Waze
+				</a>
+			</div>
 			</div>
 
 			<!-- Mapa -->

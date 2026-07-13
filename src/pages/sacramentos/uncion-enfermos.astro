@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
+import { whatsappLink } from '../../config/site';
 
 const situaciones = [
 	{
@@ -168,12 +169,12 @@ const efectos = [
 							</p>
 							<div class="flex flex-wrap gap-3">
 								<a
-									href="https://wa.me/50495345899"
+									href={whatsappLink()}
 									target="_blank"
 									class="inline-flex items-center gap-2 font-body text-sm text-primary hover:text-primary-container transition-colors"
 								>
 									<Icon name="mdi:whatsapp" class="w-4 h-4" />
-									<span class="font-label font-semibold">95345899</span>
+									<span class="font-label font-semibold">9534-5899</span>
 								</a>
 								<a
 									href="tel:22240263"
@@ -228,7 +229,7 @@ const efectos = [
 			</p>
 			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 				<a
-					href="https://wa.me/50495345899?text=Hola,%20necesito%20solicitar%20la%20Unción%20de%20los%20Enfermos"
+					href={whatsappLink('Hola, necesito solicitar la Unción de los Enfermos')}
 					target="_blank"
 					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-on-primary text-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-label text-sm font-semibold hover:bg-surface-container-low transition-all duration-300"
 				>

@@ -21,9 +21,9 @@ const confesionItems = confesionData?.data.items ?? [];
 		</div>
 
 		<!-- Grid de 2 columnas -->
-		<div class="grid md:grid-cols-2 gap-0 border-2 border-on-surface">
+		<div class="grid md:grid-cols-2 gap-0 border-2 border-outline">
 			<!-- Eucaristía -->
-			<div class="p-8 lg:p-12 border-b md:border-b-0 md:border-r-2 border-on-surface reveal stagger-1">
+			<div class="p-8 lg:p-12 border-b md:border-b-0 md:border-r-2 border-outline reveal stagger-1">
 				<div class="flex items-center gap-3 mb-8">
 					<Icon name="lucide:cross" class="w-6 h-6 text-primary" />
 					<h3 class="font-display text-2xl font-bold">Eucaristía</h3>
@@ -31,7 +31,7 @@ const confesionItems = confesionData?.data.items ?? [];
 
 				<div class="space-y-0">
 					{eucaristia.map((item, i) => (
-						<div class={`flex flex-col sm:flex-row sm:items-baseline sm:justify-between py-4 gap-1 ${i < eucaristia.length - 1 ? 'border-b border-on-surface/10' : ''}`}>
+						<div class={`flex flex-col sm:flex-row sm:items-baseline sm:justify-between py-4 gap-1 ${i < eucaristia.length - 1 ? 'border-b border-outline-variant/40' : ''}`}>
 							<span class="font-body text-sm text-on-surface-variant">{item.dias}</span>
 							<span class="font-display text-xl font-bold text-primary">{item.horas}</span>
 						</div>
@@ -40,13 +40,13 @@ const confesionItems = confesionData?.data.items ?? [];
 			</div>
 
 			<!-- Confesiones -->
-			<div class="p-8 lg:p-12 bg-on-surface text-on-primary reveal stagger-2">
+			<div class="p-8 lg:p-12 bg-inverse-surface text-inverse-on-surface reveal stagger-2">
 				<div class="flex items-center gap-3 mb-8">
-					<Icon name="lucide:heart" class="w-6 h-6 text-primary" />
+					<Icon name="lucide:heart" class="w-6 h-6 text-secondary-fixed" />
 					<h3 class="font-display text-2xl font-bold">Reconciliación</h3>
 				</div>
 
-				<div class="font-body text-sm text-on-primary/70 leading-relaxed">
+				<div class="font-body text-sm text-inverse-on-surface/70 leading-relaxed">
 					{confesionItems.map((item, i) => (
 						<>{item.dias}: {item.horas}{i < confesionItems.length - 1 ? '. ' : '.'}</>
 					))}

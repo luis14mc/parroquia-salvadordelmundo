@@ -6,47 +6,80 @@ import Layout from '../../layouts/Layout.astro';
   title="Registro de Hogar Visitado | Parroquia El Salvador del Mundo"
   description="Formulario pastoral para registrar hogares visitados durante la misión parroquial."
 >
-  <section class="mission-page">
-    <header class="mission-header">
-      <div>
-        <p class="eyebrow">Misión parroquial</p>
-        <h1>Registro de hogar visitado</h1>
-        <p>Formulario móvil para seguimiento pastoral, sacramentos, necesidades y próxima visita.</p>
+  <main class="flex-grow flex flex-col items-center py-12 px-4 md:px-0 bg-background min-h-screen">
+    <div class="w-full max-w-4xl">
+      <!-- Header Section -->
+      <div class="mb-10 text-center animate-[fade-in_0.5s_ease-out]">
+        <h2 class="text-headline-lg font-headline-lg text-primary mb-2 font-bold">Registro de Hogar Visitado</h2>
+        <p class="text-body-lg font-body-lg text-on-surface-variant font-medium">Misión Parroquial: Evangelización y Servicio</p>
       </div>
-      <aside class="progress-card" aria-live="polite">
-        <span id="stepCount">Paso 1 de 7</span>
-        <strong id="stepName">Visita</strong>
-        <div class="track"><i id="bar"></i></div>
-      </aside>
-    </header>
 
-    <form id="missionForm" class="mission-form" novalidate>
-      <div id="steps"></div>
-      <p id="submitStatus" class="submit-status" aria-live="polite"></p>
-      <div class="actions">
-        <button type="button" class="secondary" id="prev">Anterior</button>
-        <button type="button" class="secondary" id="draft">Guardar borrador</button>
-        <button type="button" id="next">Siguiente</button>
-        <button type="submit" id="download" hidden>Enviar registro</button>
+      <!-- Progress Tracker -->
+      <div class="relative mb-16 px-4">
+        <div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-container-high -translate-y-1/2 z-0"></div>
+        <div class="absolute top-1/2 left-0 h-0.5 bg-primary -translate-y-1/2 z-0 step-transition" id="progress-bar" style="width: 0%;"></div>
+        <div class="relative z-10 flex justify-between items-center" id="steps-container">
+          <!-- Progress dots will be dynamically injected here -->
+        </div>
       </div>
-    </form>
-  </section>
+
+      <!-- Form Card Container -->
+      <div class="bg-surface-container-low border border-outline-variant p-6 md:p-12 shadow-[0_8px_30px_rgba(0,0,0,0.03)] rounded-2xl min-h-[500px] flex flex-col transition-all">
+        <form class="flex-grow flex flex-col" id="missionForm" novalidate>
+          <div id="steps" class="flex-grow">
+            <!-- Steps elements will be dynamically injected here -->
+          </div>
+          
+          <!-- Submit Status Display -->
+          <p id="submitStatus" class="submit-status text-center font-bold text-sm my-6 transition-all" aria-live="polite"></p>
+
+          <!-- Navigation Buttons -->
+          <div class="mt-12 pt-8 border-t border-outline-variant flex flex-col sm:flex-row justify-between items-center gap-6">
+            <button type="button" class="flex items-center gap-2 text-primary font-bold uppercase tracking-widest disabled:opacity-30 disabled:cursor-not-allowed group transition-all text-xs" disabled id="prev-btn">
+              <span class="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
+              <span>Anterior</span>
+            </button>
+            
+            <button type="button" class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-wider" id="draft-btn">
+              Guardar Borrador
+            </button>
+            
+            <div class="text-label-lg font-label-lg text-outline-variant font-bold text-xs tracking-wider">
+              <span id="current-step-display">1</span> / 9
+            </div>
+            
+            <button type="submit" class="bg-primary text-on-primary px-8 py-3 rounded-xl flex items-center gap-2 font-bold uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-md group text-xs" id="next-btn">
+              <span id="next-text">Siguiente</span>
+              <span class="material-symbols-outlined transition-transform group-hover:translate-x-1" id="next-icon">arrow_forward</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Step dot template -->
+  <template id="step-node-template">
+    <div class="flex flex-col items-center relative">
+      <div class="step-circle w-10 h-10 rounded-full flex items-center justify-center border-2 step-transition bg-background font-bold text-sm cursor-pointer hover:scale-105 active:scale-95 z-10"></div>
+      <span class="step-label absolute top-12 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider hidden md:block w-24 text-center whitespace-nowrap transition-colors"></span>
+    </div>
+  </template>
 
   <script>
     const schema = [
       {
-        title: 'Visita',
+        title: 'Datos de la visita',
+        icon: 'location_on',
         fields: [
           ['textarea', 'direccion_referencia', 'Dirección o referencia', true],
-          ['text', 'misionero_nombre', 'Nombre del misionero', true],
-          ['date', 'fecha_visita', 'Fecha de visita', true],
-          ['time', 'hora_visita', 'Hora'],
-          ['number', 'duracion_minutos', 'Duración aproximada en minutos'],
-          ['text', 'sector_zona', 'Sector o zona']
+          ['date', 'fecha_visita', 'Fecha de la visita', true],
+          ['time', 'hora_visita', 'Hora']
         ]
       },
       {
-        title: 'Hogar',
+        title: 'Composición del hogar',
+        icon: 'groups',
         fields: [
           ['number', 'total_personas', 'Número total de personas'],
           ['number', 'adultos', 'Adultos'],
@@ -57,94 +90,208 @@ import Layout from '../../layouts/Layout.astro';
       },
       {
         title: 'Identidad religiosa',
+        icon: 'diversity_3',
         fields: [
           ['radio', 'religion_predominante', 'Religión predominante', ['Católico', 'Evangélico', 'Otra', 'Indiferente']],
-          ['text', 'religion_otra', 'Especificar si aplica'],
+          ['text', 'religion_otra', 'Especificar'],
           ['radio', 'desea_ingresar_iglesia', '¿Algún miembro desea ingresar a la Iglesia católica?', ['Sí', 'No']],
           ['textarea', 'ingreso_detalles', 'Detalles']
         ]
       },
       {
         title: 'Sacramentos',
+        icon: 'auto_awesome',
         fields: ['Bautismo', 'Primera Comunión', 'Confirmación', 'Matrimonio sacramental', 'Unción de los enfermos'].map((name) => ['sacrament', name])
       },
       {
-        title: 'Respuesta y seguimiento',
+        title: 'Respuesta al Kerigma y seguimiento',
+        icon: 'campaign',
         fields: [
           ['radio', 'respuesta_anuncio', 'Respuesta al anuncio', ['Aceptó', 'Interesado', 'Indiferente', 'Rechazó']],
           ['textarea', 'comentario_kerigma', 'Comentario breve'],
-          ['radio', 'acepta_seguimiento', '¿Aceptan seguimiento de la parroquia?', ['Sí', 'No']],
+          ['radio', 'acepta_seguimiento', '¿Están de acuerdo con algún seguimiento?', ['Sí', 'No']],
           ['checkbox', 'tipo_seguimiento', 'Tipo de seguimiento', ['Catequesis', 'Preparación sacramental', 'Visita social', 'Oración', 'Otro']],
-          ['text', 'interes_grupo_detalle', 'Interés en grupo, movimiento, asociación o comunidad']
+          ['text', 'seguimiento_otro', 'Otro tipo de seguimiento']
+        ]
+      },
+      {
+        title: 'Integración comunitaria',
+        icon: 'volunteer_activism',
+        fields: [
+          ['radio', 'interes_grupo', '¿Interés en integrarse a algún grupo, movimiento, asociación o comunidad?', ['Sí', 'No']],
+          ['textarea', 'interes_grupo_detalle', 'Detalle']
         ]
       },
       {
         title: 'Necesidades y riesgos',
+        icon: 'report',
         fields: [
           ['checkbox', 'necesidades', 'Necesidades detectadas', ['Salud', 'Alimentos', 'Acompañamiento', 'Otro']],
-          ['textarea', 'necesidades_detalle', 'Detalle de necesidades'],
+          ['text', 'necesidades_otro', 'Otra necesidad'],
+          ['textarea', 'necesidades_detalle', 'Detalle'],
           ['radio', 'tiene_riesgos', 'Riesgos o situaciones particulares', ['Sí', 'No']],
-          ['textarea', 'riesgos_descripcion', 'Descripción de riesgos'],
+          ['textarea', 'riesgos_descripcion', 'Describa'],
           ['textarea', 'medidas_seguridad', 'Medidas recomendadas para seguridad']
         ]
       },
       {
-        title: 'Cierre',
+        title: 'Acciones realizadas',
+        icon: 'edit_note',
         fields: [
+          ['number', 'duracion_minutos', 'Duración aproximada de la visita (minutos)'],
           ['date', 'fecha_proxima_visita', 'Fecha de próxima visita o convocatoria'],
           ['time', 'hora_proxima_visita', 'Hora'],
-          ['text', 'responsable_proxima_visita', 'Responsable de próxima visita'],
-          ['tel', 'telefono_responsable', 'Teléfono del responsable'],
-          ['textarea', 'observaciones_siguiente', 'Observaciones para la siguiente visita'],
-          ['text', 'coordinador_grupo', 'Firma o nombre del coordinador del grupo'],
-          ['date', 'fecha_entrega_zonal', 'Fecha de entrega al Coordinador Zonal'],
-          ['checkbox-single', 'privacidad_aceptada', 'Confirmo uso exclusivo para seguimiento pastoral y operativo de la misión parroquial', true]
+          ['text', 'responsable_proxima_visita', 'Responsable de la próxima visita (nombre / teléfono)'],
+          ['textarea', 'observaciones_siguiente', 'Observaciones para la siguiente visita o convocatoria'],
+          ['text', 'misionero_nombre', 'Nombre del misionero que llenó este registro', true],
+          ['text', 'coordinador_grupo', 'Firma del coordinador del grupo'],
+          ['date', 'fecha_entrega_zonal', 'Fecha en que se entregará al Coordinador Zonal']
         ]
       }
     ];
 
     const stepsRoot = document.getElementById('steps');
-    const form = document.getElementById('missionForm');
-    const prev = document.getElementById('prev');
-    const next = document.getElementById('next');
-    const draft = document.getElementById('draft');
-    const download = document.getElementById('download');
+    const form = document.getElementById('missionForm') as HTMLFormElement;
+    const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+    const draftBtn = document.getElementById('draft-btn');
+    const nextText = document.getElementById('next-text');
+    const nextIcon = document.getElementById('next-icon');
     const submitStatus = document.getElementById('submitStatus');
-    const stepCount = document.getElementById('stepCount');
-    const stepName = document.getElementById('stepName');
-    const bar = document.getElementById('bar');
+    const currentStepDisplay = document.getElementById('current-step-display');
+    const progressBar = document.getElementById('progress-bar');
+    const stepsContainer = document.getElementById('steps-container');
+    const stepTemplate = document.getElementById('step-node-template') as HTMLTemplateElement;
+    
     const key = 'hogar-visitado-mision';
     let active = 0;
+    const totalSteps = schema.length + 1; // 8 sections + 1 summary = 9 steps.
+    const stepLabels = ["Visita", "Hogar", "Religión", "Sacramentos", "Kerigma", "Comunidad", "Riesgos", "Acciones", "Fin"];
 
-    const safeName = (value) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
+    const safeName = (value: string) => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '');
 
-    const fieldHtml = (field) => {
+    const fieldHtml = (field: any[]) => {
       const [type, name, label, extra] = field;
       if (type === 'sacrament') {
         const id = `sacramento_${safeName(name)}`;
-        return `<div class="sacrament"><strong>${name}</strong><label><input type="radio" name="${id}" value="Sí"> Sí</label><label><input type="radio" name="${id}" value="No"> No</label><input name="${id}_quien" placeholder="Quién" /></div>`;
+        return `
+          <div class="sacrament col-span-2 bg-surface-container p-4 rounded-xl border border-outline-variant/30 flex flex-wrap items-center justify-between gap-4 transition-all">
+            <span class="text-body-md font-semibold text-primary">${name}</span>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer text-sm font-medium">
+                <input type="radio" name="${id}" value="Sí" class="text-primary focus:ring-primary h-4 w-4 border-outline" /> Sí
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer text-sm font-medium">
+                <input type="radio" name="${id}" value="No" class="text-primary focus:ring-primary h-4 w-4 border-outline" /> No
+              </label>
+            </div>
+            <input name="${id}_quien" placeholder="¿Quiénes?" class="w-full md:w-1/2 bg-transparent border-0 border-b border-outline text-sm py-1 focus:ring-0 focus:border-primary transition-all" />
+          </div>
+        `;
       }
       if (type === 'radio' || type === 'checkbox') {
-        return `<fieldset class="choices"><legend>${label}</legend>${extra.map((option) => `<label><input type="${type}" name="${name}" value="${option}"> ${option}</label>`).join('')}</fieldset>`;
+        return `
+          <fieldset class="choices-fieldset col-span-2 flex flex-col gap-4 border-0 p-0 m-0">
+            <legend class="text-label-lg font-label-lg text-primary uppercase mb-2">${label}</legend>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              ${extra.map((option: string) => `
+                <label class="flex items-center gap-3 p-4 border border-outline-variant rounded-xl cursor-pointer hover:bg-surface-container transition-all">
+                  <input type="${type}" name="${name}" value="${option}" class="text-primary focus:ring-primary h-5 w-5 border-outline rounded-${type === 'checkbox' ? 'md' : 'full'}" />
+                  <span class="text-body-md text-on-surface font-medium">${option}</span>
+                </label>
+              `).join('')}
+            </div>
+          </fieldset>
+        `;
       }
       if (type === 'checkbox-single') {
-        return `<label class="privacy"><input type="checkbox" name="${name}" value="Sí" ${extra ? 'required' : ''}> ${label}</label>`;
+        return `
+          <div class="col-span-2 p-6 bg-secondary-container/10 border-l-4 border-secondary rounded-r-xl">
+            <label class="flex items-start gap-4 cursor-pointer">
+              <input type="checkbox" name="${name}" value="Sí" ${extra ? 'required' : ''} class="mt-1 h-5 w-5 text-primary border-outline-variant rounded focus:ring-primary" />
+              <div class="flex flex-col">
+                <span class="font-bold text-on-surface">${label}</span>
+              </div>
+            </label>
+          </div>
+        `;
       }
+      
       const required = extra === true ? 'required' : '';
       const control = type === 'textarea'
-        ? `<textarea name="${name}" rows="3" ${required}></textarea>`
-        : `<input type="${type}" name="${name}" ${type === 'number' ? 'min="0" inputmode="numeric"' : ''} ${required}>`;
-      return `<label>${label}${control}</label>`;
+        ? `<textarea name="${name}" rows="3" placeholder="Escribe detalles aquí..." ${required} class="bg-transparent border border-outline-variant rounded-xl p-4 text-body-md focus:ring-1 focus:ring-primary focus:border-primary w-full transition-all"></textarea>`
+        : `<input type="${type}" name="${name}" ${type === 'number' ? 'min="0" inputmode="numeric"' : ''} ${required} placeholder="Escribe aquí..." class="bg-transparent border-0 border-b border-outline text-body-md py-2 focus:ring-0 focus:border-primary w-full transition-all" />`;
+      
+      return `
+        <div class="flex flex-col gap-2 ${type === 'textarea' ? 'col-span-2' : ''}">
+          <label class="text-label-lg font-label-lg text-primary uppercase">${label}</label>
+          ${control}
+        </div>
+      `;
     };
 
+    // Render Steps
     stepsRoot.innerHTML = [
-      ...schema.map((step, index) => `<section class="step" data-title="${step.title}"><h2>${step.title}</h2><div class="fields ${index === 3 ? 'single' : ''}">${step.fields.map(fieldHtml).join('')}</div></section>`),
-      `<section class="step summary" data-title="Resumen"><h2>Resumen del registro</h2><div id="summary"></div><p>Los datos se usarán exclusivamente para seguimiento pastoral y operativo de la misión de la Parroquia El Salvador del Mundo.</p></section>`
+      ...schema.map((step, index) => `
+        <section class="form-step hidden step-transition" data-step="${index + 1}" data-title="${step.title}">
+          <div class="flex items-center gap-4 mb-8">
+            <span class="material-symbols-outlined text-primary text-4xl">${step.icon}</span>
+            <h3 class="text-headline-md font-headline-md text-primary font-bold">${step.title}</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+            ${step.fields.map(fieldHtml).join('')}
+          </div>
+        </section>
+      `),
+      `
+        <section class="form-step hidden step-transition" data-step="${schema.length + 1}" data-title="Resumen y privacidad">
+          <div class="flex items-center gap-4 mb-8">
+            <span class="material-symbols-outlined text-primary text-4xl">task_alt</span>
+            <h3 class="text-headline-md font-headline-md text-primary font-bold">Resumen y Privacidad</h3>
+          </div>
+          
+          <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/30 mb-8 space-y-4 shadow-sm" id="summary">
+            <!-- Summary rows will be injected here -->
+          </div>
+
+          <div class="p-6 bg-secondary-container/10 border-l-4 border-secondary rounded-r-xl space-y-4">
+            <label class="flex items-start gap-4 cursor-pointer">
+              <input type="checkbox" name="privacidad_aceptada" value="Sí" required class="mt-1 h-5 w-5 text-primary border-outline-variant rounded focus:ring-primary" />
+              <div class="flex flex-col">
+                <span class="font-bold text-on-surface">Confirmación de datos y privacidad</span>
+                <span class="text-sm text-on-surface-variant leading-relaxed">
+                  He verificado que los datos son correctos y se ha informado a la familia sobre el tratamiento pastoral de la información conforme a las normas de la Arquidiócesis y la Parroquia El Salvador del Mundo.
+                </span>
+              </div>
+            </label>
+          </div>
+
+          <div class="mt-6 flex items-center gap-2 text-secondary font-semibold">
+            <span class="material-symbols-outlined text-xl animate-pulse">save</span>
+            <span class="text-label-sm uppercase tracking-widest">Borrador guardado localmente</span>
+          </div>
+        </section>
+      `
     ].join('');
 
-    const steps = Array.from(document.querySelectorAll('.step'));
+    const steps = Array.from(document.querySelectorAll('.form-step'));
+
+    // Initialize progress tracker nodes
+    for (let i = 1; i <= totalSteps; i++) {
+      const clone = stepTemplate.content.cloneNode(true) as HTMLElement;
+      const circle = clone.querySelector('.step-circle') as HTMLElement;
+      const label = clone.querySelector('.step-label') as HTMLElement;
+      
+      circle.textContent = String(i);
+      circle.id = `step-dot-${i}`;
+      circle.dataset.step = String(i - 1);
+      label.textContent = stepLabels[i - 1];
+      
+      stepsContainer?.appendChild(clone);
+    }
+
     const data = () => {
-      const result = {};
+      const result: Record<string, any> = {};
       new FormData(form).forEach((value, name) => {
         if (result[name]) result[name] = Array.isArray(result[name]) ? [...result[name], value] : [result[name], value];
         else result[name] = value;
@@ -155,10 +302,12 @@ import Layout from '../../layouts/Layout.astro';
     const fill = () => {
       const raw = localStorage.getItem(key);
       if (!raw) return;
-      Object.entries(JSON.parse(raw)).forEach(([name, value]) => {
+      const stored = JSON.parse(raw);
+      Object.entries(stored).forEach(([name, value]) => {
         const values = Array.isArray(value) ? value : [value];
         values.forEach((item) => {
-          const controls = Array.from(form.elements[name]?.length ? form.elements[name] : form.elements[name] ? [form.elements[name]] : []);
+          const controls = Array.from(form.querySelectorAll(`[name="${name}"]`)) as HTMLInputElement[];
+          if (!controls.length) return;
           const control = controls.find((el) => ['radio', 'checkbox'].includes(el.type) ? el.value === item : true);
           if (!control) return;
           if (['radio', 'checkbox'].includes(control.type)) control.checked = true;
@@ -168,52 +317,200 @@ import Layout from '../../layouts/Layout.astro';
     };
 
     const renderSummary = () => {
-      const rows = Object.entries(data()).filter(([, value]) => String(value).trim() !== '');
-      document.getElementById('summary').innerHTML = rows.length
-        ? rows.map(([name, value]) => `<div><span>${name.replaceAll('_', ' ')}</span><strong>${Array.isArray(value) ? value.join(', ') : value}</strong></div>`).join('')
-        : '<p>No hay datos para resumir.</p>';
+      const d = data();
+      const rows = Object.entries(d).filter(([k, value]) => {
+        if (k === 'privacidad_aceptada') return false;
+        if (Array.isArray(value)) return value.length > 0;
+        return String(value).trim() !== '';
+      });
+      
+      const summaryDiv = document.getElementById('summary');
+      if (summaryDiv) {
+        summaryDiv.innerHTML = rows.length
+          ? rows.map(([name, value]) => `
+              <div class="flex flex-col md:flex-row md:justify-between md:items-center border-b border-surface-container py-3 gap-1">
+                <span class="font-bold text-primary uppercase text-[11px] tracking-wider">${name.replaceAll('_', ' ')}</span>
+                <span class="text-on-surface text-sm font-medium bg-surface-container/30 px-3 py-1 rounded-lg">${Array.isArray(value) ? value.join(', ') : value}</span>
+              </div>
+            `).join('')
+          : '<p class="text-on-surface-variant text-sm text-center py-4">No hay datos registrados aún.</p>';
+      }
     };
 
-    const show = (index) => {
+    const conditionallyHide = () => {
+      const d = data();
+
+      const religionOtra = form.querySelector('[name="religion_otra"]');
+      const religionOtraWrapper = religionOtra?.closest('div');
+      if (religionOtraWrapper) religionOtraWrapper.style.display = d.religion_predominante === 'Otra' ? '' : 'none';
+
+      const ingresoDetalles = form.querySelector('[name="ingreso_detalles"]');
+      const ingresoDetallesWrapper = ingresoDetalles?.closest('div');
+      if (ingresoDetallesWrapper) ingresoDetallesWrapper.style.display = d.desea_ingresar_iglesia === 'Sí' ? '' : 'none';
+
+      const tipoSeguimiento = form.querySelector('[name="tipo_seguimiento"]')?.closest('fieldset');
+      if (tipoSeguimiento) tipoSeguimiento.style.display = d.acepta_seguimiento === 'Sí' ? '' : 'none';
+
+      const seguimientoOtro = form.querySelector('[name="seguimiento_otro"]');
+      const seguimientoOtroWrapper = seguimientoOtro?.closest('div');
+      const tipoValues = Array.isArray(d.tipo_seguimiento) ? d.tipo_seguimiento : d.tipo_seguimiento ? [d.tipo_seguimiento] : [];
+      if (seguimientoOtroWrapper) {
+        seguimientoOtroWrapper.style.display = (d.acepta_seguimiento === 'Sí' && tipoValues.includes('Otro')) ? '' : 'none';
+      }
+
+      const interesDetalle = form.querySelector('[name="interes_grupo_detalle"]');
+      const interesDetalleWrapper = interesDetalle?.closest('div');
+      if (interesDetalleWrapper) interesDetalleWrapper.style.display = d.interes_grupo === 'Sí' ? '' : 'none';
+
+      const necesidadesOtro = form.querySelector('[name="necesidades_otro"]');
+      const necesidadesOtroWrapper = necesidadesOtro?.closest('div');
+      const necesidadesValues = Array.isArray(d.necesidades) ? d.necesidades : d.necesidades ? [d.necesidades] : [];
+      if (necesidadesOtroWrapper) necesidadesOtroWrapper.style.display = necesidadesValues.includes('Otro') ? '' : 'none';
+
+      const riesgosDesc = form.querySelector('[name="riesgos_descripcion"]');
+      const riesgosDescWrapper = riesgosDesc?.closest('div');
+      const medidas = form.querySelector('[name="medidas_seguridad"]');
+      const medidasWrapper = medidas?.closest('div');
+      const hasRisks = d.tiene_riesgos === 'Sí';
+      if (riesgosDescWrapper) riesgosDescWrapper.style.display = hasRisks ? '' : 'none';
+      if (medidasWrapper) medidasWrapper.style.display = hasRisks ? '' : 'none';
+
+      const sacramentFields = form.querySelectorAll('.sacrament');
+      sacramentFields.forEach((el) => {
+        const radios = el.querySelectorAll('input[type="radio"]');
+        const quien = el.querySelector('input[name$="_quien"]') as HTMLInputElement;
+        if (!quien) return;
+        const isYes = Array.from(radios).some((r) => (r as HTMLInputElement).name.startsWith('sacramento_') && (r as HTMLInputElement).checked && (r as HTMLInputElement).value === 'Sí');
+        quien.style.display = isYes ? '' : 'none';
+      });
+    };
+
+    const show = (index: number) => {
       active = Math.max(0, Math.min(index, steps.length - 1));
-      steps.forEach((step, idx) => step.classList.toggle('active', idx === active));
+      
+      // Update form steps visibility
+      steps.forEach((step, idx) => {
+        if (idx === active) {
+          step.classList.remove('hidden');
+        } else {
+          step.classList.add('hidden');
+        }
+      });
+      
       const isSummary = active === steps.length - 1;
       if (isSummary) renderSummary();
-      stepCount.textContent = isSummary ? 'Resumen final' : `Paso ${active + 1} de ${schema.length}`;
-      stepName.textContent = steps[active].dataset.title;
-      bar.style.width = `${(active / (steps.length - 1)) * 100}%`;
-      prev.disabled = active === 0;
-      next.hidden = isSummary;
-      download.hidden = !isSummary;
+      
+      // Update step circle classes
+      for (let i = 1; i <= totalSteps; i++) {
+        const dot = document.getElementById(`step-dot-${i}`);
+        if (!dot) continue;
+        const label = dot.nextElementSibling;
+        
+        if (i - 1 < active) {
+          // Completed steps
+          dot.classList.add('bg-primary', 'text-on-primary', 'border-primary');
+          dot.classList.remove('text-primary', 'border-primary', 'progress-dot-active', 'text-on-surface-variant', 'border-outline-variant');
+          dot.innerHTML = `<span class="material-symbols-outlined text-[15px] font-bold">check</span>`;
+          label?.classList.add('text-primary', 'font-bold');
+          label?.classList.remove('text-on-surface-variant', 'font-semibold');
+        } else if (i - 1 === active) {
+          // Active step
+          dot.classList.add('border-primary', 'text-primary', 'progress-dot-active');
+          dot.classList.remove('bg-primary', 'text-on-primary', 'text-on-surface-variant', 'border-outline-variant');
+          dot.innerHTML = String(i);
+          label?.classList.add('text-primary', 'font-bold');
+          label?.classList.remove('text-on-surface-variant', 'font-semibold');
+        } else {
+          // Upcoming steps
+          dot.classList.add('text-on-surface-variant', 'border-outline-variant');
+          dot.classList.remove('bg-primary', 'text-on-primary', 'border-primary', 'progress-dot-active', 'text-primary');
+          dot.innerHTML = String(i);
+          label?.classList.add('text-on-surface-variant', 'font-semibold');
+          label?.classList.remove('text-primary', 'font-bold');
+        }
+      }
+      
+      // Update progress bar width
+      const progressPercent = (active / (totalSteps - 1)) * 100;
+      if (progressBar) progressBar.style.width = `${progressPercent}%`;
+      
+      // Update text displays
+      if (currentStepDisplay) currentStepDisplay.textContent = String(active + 1);
+      
+      // Update navigation buttons
+      prevBtn.disabled = active === 0;
+      if (isSummary) {
+        if (nextText) nextText.textContent = 'Enviar Registro';
+        if (nextIcon) nextIcon.textContent = 'check';
+        nextBtn.classList.remove('bg-primary');
+        nextBtn.classList.add('bg-secondary', 'text-on-secondary');
+      } else {
+        if (nextText) nextText.textContent = 'Siguiente';
+        if (nextIcon) nextIcon.textContent = 'arrow_forward';
+        nextBtn.classList.remove('bg-secondary', 'text-on-secondary');
+        nextBtn.classList.add('bg-primary');
+      }
+      
+      conditionallyHide();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const valid = () => {
-      const invalid = steps[active].querySelector('input:invalid, textarea:invalid, select:invalid');
+      const invalid = steps[active].querySelector('input:invalid, textarea:invalid, select:invalid') as HTMLInputElement;
       if (!invalid) return true;
       invalid.reportValidity();
       return false;
     };
 
-    form.addEventListener('input', () => localStorage.setItem(key, JSON.stringify(data())));
-    draft.addEventListener('click', () => {
+    // Step Nav Click Handlers
+    const dots = stepsContainer?.querySelectorAll('.step-circle');
+    dots?.forEach(dot => dot.addEventListener('click', () => {
+      const idx = parseInt((dot as HTMLElement).dataset.step || '0');
+      if (idx <= active || idx === active + 1) {
+        if (idx > active && !valid()) return;
+        if (idx > active) localStorage.setItem(key, JSON.stringify(data()));
+        show(idx);
+      }
+    }));
+
+    // Auto-save and draft buttons
+    form.addEventListener('input', () => {
       localStorage.setItem(key, JSON.stringify(data()));
-      draft.textContent = 'Borrador guardado';
-      setTimeout(() => draft.textContent = 'Guardar borrador', 1300);
+      conditionallyHide();
     });
-    prev.addEventListener('click', () => show(active - 1));
-    next.addEventListener('click', () => {
-      if (!valid()) return;
+
+    draftBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
       localStorage.setItem(key, JSON.stringify(data()));
-      show(active + 1);
+      const originalText = draftBtn.textContent;
+      draftBtn.textContent = '✓ Borrador Guardado';
+      setTimeout(() => draftBtn.textContent = originalText, 1500);
     });
+
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      show(active - 1);
+    });
+
+    nextBtn.addEventListener('click', (e) => {
+      if (active < steps.length - 1) {
+        e.preventDefault();
+        if (!valid()) return;
+        localStorage.setItem(key, JSON.stringify(data()));
+        show(active + 1);
+      }
+    });
+
+    // Form Submission
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!valid()) return;
 
-      download.disabled = true;
-      submitStatus.textContent = 'Guardando registro...';
-      submitStatus.dataset.state = 'loading';
+      nextBtn.disabled = true;
+      if (submitStatus) {
+        submitStatus.textContent = 'Guardando registro...';
+        submitStatus.dataset.state = 'loading';
+      }
 
       try {
         const response = await fetch('/api/mision/hogares', {
@@ -227,16 +524,20 @@ import Layout from '../../layouts/Layout.astro';
           throw new Error(result.error || 'No se pudo guardar el registro.');
         }
 
-        submitStatus.textContent = `Registro guardado correctamente. Código: ${result.id}`;
-        submitStatus.dataset.state = 'success';
+        if (submitStatus) {
+          submitStatus.textContent = `Registro guardado correctamente. Código: ${result.id}`;
+          submitStatus.dataset.state = 'success';
+        }
         localStorage.removeItem(key);
         form.reset();
         show(0);
       } catch (error) {
-        submitStatus.textContent = error instanceof Error ? error.message : 'No se pudo guardar el registro.';
-        submitStatus.dataset.state = 'error';
+        if (submitStatus) {
+          submitStatus.textContent = error instanceof Error ? error.message : 'No se pudo guardar el registro.';
+          submitStatus.dataset.state = 'error';
+        }
       } finally {
-        download.disabled = false;
+        nextBtn.disabled = false;
       }
     });
 
@@ -246,47 +547,19 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style is:global>
-  .mission-page {
-    min-height: 100vh;
-    padding: 48px 20px 72px;
-    background: linear-gradient(120deg, rgba(97, 0, 45, 0.08), rgba(115, 92, 0, 0.08)), var(--color-background);
+  .step-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .mission-header, .mission-form { width: min(1120px, 100%); margin: 0 auto; }
-  .mission-header { display: grid; grid-template-columns: 1fr minmax(260px, 360px); gap: 24px; align-items: end; margin-bottom: 24px; }
-  .eyebrow { color: var(--color-primary); font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
-  .mission-page h1 { color: var(--color-on-background); font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.4rem); line-height: 1; margin: 0; }
-  .mission-header p:not(.eyebrow) { color: var(--color-on-surface-variant); line-height: 1.7; max-width: 680px; }
-  .progress-card, .mission-form { border: 1px solid rgba(137,113,118,.22); background: rgba(255,255,255,.84); box-shadow: 0 24px 70px rgba(63,0,27,.09); backdrop-filter: blur(16px); border-radius: 8px; }
-  .progress-card { padding: 20px; }
-  .progress-card span { color: var(--color-on-surface-variant); display: block; font-size: .85rem; }
-  .progress-card strong { color: var(--color-primary); display: block; font-size: 1.35rem; margin-top: 4px; }
-  .track { height: 8px; background: var(--color-surface-container-highest); border-radius: 999px; margin-top: 18px; overflow: hidden; }
-  .track i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary-container)); transition: width .25s ease; }
-  .mission-form { padding: clamp(20px, 4vw, 40px); }
-  .step { display: none; }
-  .step.active { display: block; }
-  .mission-page h2 { color: var(--color-on-background); font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); margin: 0 0 24px; }
-  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-  .fields.single { grid-template-columns: 1fr; }
-  .mission-form label, .mission-form .choices legend { color: var(--color-on-surface); display: grid; gap: 8px; font-size: .9rem; font-weight: 750; }
-  .mission-form input, .mission-form textarea { width: 100%; min-height: 48px; border: 1px solid var(--color-outline-variant); border-radius: 8px; background: var(--color-surface-container-lowest); color: var(--color-on-surface); font: inherit; font-weight: 500; padding: 12px 14px; }
-  .mission-form textarea { resize: vertical; }
-  .mission-form input:focus, .mission-form textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 4px rgba(97,0,45,.12); outline: none; }
-  .choices { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; grid-column: 1 / -1; }
-  .choices legend { grid-column: 1 / -1; }
-  .choices label, .privacy { align-items: center; border: 1px solid var(--color-outline-variant); border-radius: 8px; display: flex; gap: 10px; min-height: 48px; padding: 12px 14px; }
-  .mission-form input[type='radio'], .mission-form input[type='checkbox'] { accent-color: var(--color-primary); min-height: auto; width: auto; }
-  .sacrament { align-items: center; border: 1px solid var(--color-outline-variant); border-radius: 8px; display: grid; gap: 12px; grid-template-columns: 1fr auto auto minmax(160px,240px); padding: 14px; }
-  .summary #summary { display: grid; gap: 10px; }
-  .summary #summary div { border-bottom: 1px solid var(--color-outline-variant); display: grid; gap: 4px; padding: 10px 0; }
-  .summary span { color: var(--color-on-surface-variant); font-size: .78rem; font-weight: 800; text-transform: uppercase; }
-  .summary strong { color: var(--color-on-surface); overflow-wrap: anywhere; }
-  .submit-status { color: var(--color-on-surface-variant); font-weight: 750; margin: 24px 0 0; min-height: 24px; }
-  .submit-status[data-state="success"] { color: #0f7a3b; }
-  .submit-status[data-state="error"] { color: var(--color-error); }
-  .actions { border-top: 1px solid var(--color-outline-variant); display: flex; gap: 12px; justify-content: flex-end; margin-top: 32px; padding-top: 22px; }
-  .mission-form button { border: 0; border-radius: 8px; background: var(--color-primary); color: var(--color-on-primary); cursor: pointer; font-weight: 800; min-height: 48px; padding: 0 20px; }
-  .mission-form button.secondary { background: transparent; border: 1px solid var(--color-outline-variant); color: var(--color-primary); }
-  .mission-form button:disabled { cursor: not-allowed; opacity: .45; }
-  @media (max-width: 820px) { .mission-header, .fields, .choices, .sacrament { grid-template-columns: 1fr; } .actions { display: grid; grid-template-columns: 1fr; } }
+  .progress-dot-active {
+    box-shadow: 0 0 0 4px rgba(97, 0, 45, 0.15);
+  }
+  .submit-status[data-state="success"] {
+    color: #0f7a3b;
+  }
+  .submit-status[data-state="error"] {
+    color: var(--color-error);
+  }
+  .submit-status[data-state="loading"] {
+    color: var(--color-primary);
+  }
 </style>

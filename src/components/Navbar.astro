@@ -13,11 +13,11 @@ const isActive = (href: string) => {
 const navLinks = mainNavigation.filter(item => !item.isCTA);
 const ctaItem = mainNavigation.find(item => item.isCTA);
 ---
-<header class="w-full h-22 top-0 sticky z-50 bg-surface/95 backdrop-blur-sm border-b border-outline-variant/30 transition-all ease-in-out duration-200" id="navbar" aria-label="Navegación principal">
+<header class="w-full h-navbar top-0 sticky z-50 bg-surface/95 backdrop-blur-sm border-b border-outline-variant/30 transition-all ease-in-out duration-200" id="navbar" aria-label="Navegación principal">
   <div class="flex justify-between items-center w-full h-full px-5 md:px-16 max-w-[1280px] mx-auto">
     <!-- Logo only -->
     <a href="/" class="shrink-0" aria-label={`${siteConfig.name} — Ir al inicio`}>
-      <img src="/logo_original.png" alt="Logo Parroquia El Salvador del Mundo" class="h-26 w-auto" />
+      <img src="/logo_original.png" alt="Logo Parroquia El Salvador del Mundo" class="h-logo-sm w-auto" />
     </a>
 
     <!-- Desktop Navigation Links -->

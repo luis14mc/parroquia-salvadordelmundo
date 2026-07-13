@@ -59,6 +59,9 @@
   --font-body: "Montserrat", sans-serif;
   --font-label: "Montserrat", sans-serif;
 
+  --spacing-logo-sm: 6.5rem;
+  --spacing-logo-lg: 8rem;
+
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -84,6 +87,26 @@
 
   .section-padding {
     @apply py-16 sm:py-20 lg:py-28;
+  }
+
+  /* Horizontal padding que iguala al gutter del container-tight */
+  .px-margin-desktop {
+    @apply px-6 lg:px-8;
+  }
+
+  /* Altura explícita del navbar (88px) — sticky header */
+  .h-navbar {
+    height: 88px;
+  }
+
+  /* Surface cards — nivel estándar */
+  .card-surface {
+    @apply bg-surface-container-lowest border border-outline-variant/30 rounded-xl;
+  }
+
+  /* Surface cards — elevado con sombra sutil */
+  .card-surface-elevated {
+    @apply bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm;
   }
 }
 

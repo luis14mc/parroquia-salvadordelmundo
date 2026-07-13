@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
+import { whatsappLink } from '../../config/site';
 
 const requisitos = [
 	"Presentar partida de nacimiento del bautizando",
@@ -167,7 +168,7 @@ const pasos = [
 			</p>
 			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
 				<a
-					href="https://wa.me/50495345899?text=Hola,%20quisiera%20información%20sobre%20el%20Bautismo"
+					href={whatsappLink('Hola, quisiera información sobre el Bautismo')}
 					target="_blank"
 					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-on-primary text-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-label text-sm font-semibold hover:bg-surface-container-low transition-all duration-300"
 				>

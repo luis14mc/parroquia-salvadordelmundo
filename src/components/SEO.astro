@@ -12,6 +12,7 @@ const {
 } = Astro.props;
 
 const fullTitle = title.includes(siteConfig.shortName) ? title : `${title} | ${siteConfig.name}`;
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url);
 ---
 
 <!-- Global Metadata -->
@@ -20,27 +21,31 @@ const fullTitle = title.includes(siteConfig.shortName) ? title : `${title} | ${s
 <link rel="icon" type="image/png" href="/logo_original.png" />
 <link rel="apple-touch-icon" href="/logo_original.png" />
 <meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#61002d" />
+<meta name="application-name" content={siteConfig.shortName} />
+<meta name="robots" content="index, follow, max-snippet:150, max-image-preview:large" />
 
 <!-- Primary Meta Tags -->
 <title>{fullTitle}</title>
 <meta name="title" content={fullTitle} />
 <meta name="description" content={description} />
-<link rel="canonical" href={Astro.url} />
+<link rel="canonical" href={canonicalUrl} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL('/logo_original.png', Astro.url)} />
+<meta property="og:image" content={new URL('/logo_original.png', siteConfig.url)} />
 <meta property="og:locale" content={siteConfig.locale} />
+<meta property="og:site_name" content={siteConfig.name} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={fullTitle} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL('/logo_original.png', Astro.url)} />
+<meta property="twitter:image" content={new URL('/logo_original.png', siteConfig.url)} />
 
 <!-- Fonts (con font-display=swap para rendimiento) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />

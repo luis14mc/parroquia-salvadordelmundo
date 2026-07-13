@@ -15,20 +15,38 @@ const { title, description } = Astro.props;
 
 const structuredData = {
 	"@context": "https://schema.org",
-	"@type": "Place",
+	"@type": "Church",
 	"name": siteConfig.name,
+	"alternateName": siteConfig.shortName,
 	"description": siteConfig.description,
+	"url": siteConfig.url,
+	"logo": new URL('/logo_original.png', siteConfig.url),
 	"address": {
 		"@type": "PostalAddress",
 		"streetAddress": siteConfig.address.street,
 		"addressLocality": siteConfig.address.locality,
+		"addressRegion": siteConfig.address.department,
 		"addressCountry": siteConfig.address.countryCode,
 	},
 	"telephone": `+504${siteConfig.contact.telefono}`,
+	"email": siteConfig.contact.email,
 	"geo": {
 		"@type": "GeoCoordinates",
 		"latitude": siteConfig.address.lat,
 		"longitude": siteConfig.address.lng,
+	},
+	"sameAs": siteConfig.social.map(s => s.url).filter(u => u !== '#'),
+	"founder": {
+		"@type": "Person",
+		"name": siteConfig.parroco,
+	},
+	"areaServed": {
+		"@type": "City",
+		"name": "Tegucigalpa",
+		"containedInPlace": {
+			"@type": "Country",
+			"name": "Honduras",
+		},
 	},
 };
 ---
