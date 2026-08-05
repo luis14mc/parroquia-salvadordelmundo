@@ -1,30 +1,44 @@
 [
   {
-    "id": "legion-maria",
-    "nombre": "Legión de María",
-    "icono": "lucide:users",
-    "descripcion": "Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de la Legión de María.",
+    "id": "camino-neocatecumenal",
+    "nombre": "Camino Neocatecumenal",
+    "icono": "lucide:footprints",
+    "descripcion": "Itinerario de formación cristiana en pequeñas comunidades, para el descubrimiento del Bautismo y la madurez de la fe.",
     "orden": 1
   },
   {
-    "id": "renovacion",
-    "nombre": "Renovación Carismática",
-    "icono": "lucide:flame",
-    "descripcion": "Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de la Renovación Carismática.",
+    "id": "jovenes-emproistas",
+    "nombre": "Jóvenes Emproistas",
+    "icono": "lucide:heart",
+    "descripcion": "Comunidad de jóvenes comprometida con la evangelización y el servicio misionero de la parroquia.",
     "orden": 2
   },
   {
-    "id": "jovenes",
-    "nombre": "Jóvenes",
-    "icono": "lucide:graduation-cap",
-    "descripcion": "Un espacio de crecimiento espiritual y servicio comunitario para la juventud de nuestra parroquia.",
+    "id": "jovenes-renovacion",
+    "nombre": "Jóvenes Renovación Carismática",
+    "icono": "lucide:flame",
+    "descripcion": "Jóvenes que viven la experiencia del Espíritu Santo a través de la oración, los dones y el servicio.",
     "orden": 3
   },
   {
-    "id": "catequesis",
-    "nombre": "Catequesis",
-    "icono": "lucide:book-open",
-    "descripcion": "Formación en la fe para niños, jóvenes y adultos de nuestra comunidad parroquial.",
+    "id": "pastoral-juvenil",
+    "nombre": "Pastoral Juvenil",
+    "icono": "lucide:users",
+    "descripcion": "Acompañamiento y formación integral de los jóvenes en su crecimiento humano y espiritual.",
     "orden": 4
+  },
+  {
+    "id": "infancia-misionera",
+    "nombre": "Infancia Misionera",
+    "icono": "lucide:globe",
+    "descripcion": "Niños y niñas formados en la fe y la conciencia misionera universal de la Iglesia.",
+    "orden": 5
+  },
+  {
+    "id": "delegados-de-la-palabra",
+    "nombre": "Delegados de la Palabra",
+    "icono": "lucide:megaphone",
+    "descripcion": "Laicos enviados a anunciar el Evangelio y llevar la Palabra de Dios a las comunidades.",
+    "orden": 6
   }
 ]

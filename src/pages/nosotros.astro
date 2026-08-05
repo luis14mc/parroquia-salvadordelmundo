@@ -202,7 +202,7 @@ const grupos = allGrupos
 						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Comunidad Extendida</span>
 					</div>
 					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
-						Diez sectores,<br/>
+						Cuatro sectores,<br/>
 						<span class="italic font-medium text-secondary">una sola fe</span>
 					</h2>
 				</div>
@@ -213,25 +213,25 @@ const grupos = allGrupos
 				</div>
 			</div>
 
-			<!-- Bento Grid -->
-			<div class="grid grid-cols-2 md:grid-cols-12 gap-4 lg:gap-6 auto-rows-[200px]">
+			<!-- Bento Grid: Sede featured (7 cols) + 3 sectores stacked (5 cols) -->
+			<div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
 
-				<!-- Sede Parroquial — featured grande (8 cols x 3 rows) -->
+				<!-- Sede Parroquial — featured (7 cols x 3 rows) -->
 				{sede && (
-					<article class="group md:col-span-8 md:row-span-3 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl overflow-hidden reveal hover:shadow-2xl hover:border-secondary/40 transition-all duration-700 flex flex-col">
-						<div class="relative flex-1 overflow-hidden bg-surface-variant min-h-[200px]">
+					<article class="md:col-span-7 md:row-span-3 group bg-surface-container-lowest reveal hover:bg-surface transition-colors duration-500 flex flex-col">
+						<div class="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-surface-variant">
 							<img
 								src={sede.imagen}
 								alt={sede.nombre}
 								class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
 								loading="lazy"
 							/>
-							<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+							<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r"></div>
 							<div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
 								Sede Parroquial
 							</div>
 						</div>
-						<div class="p-6 lg:p-8">
+						<div class="p-6 lg:p-8 flex flex-col justify-center flex-1">
 							<div class="flex items-end justify-between gap-4 mb-3">
 								<h3 class="font-display text-2xl lg:text-3xl font-bold text-primary leading-tight">{sede.nombre}</h3>
 								<span class="font-display text-3xl lg:text-4xl font-bold text-secondary leading-none tracking-tighter">01</span>
@@ -245,45 +245,20 @@ const grupos = allGrupos
 					</article>
 				)}
 
-				<!-- 3 sectores compactos apilados a la derecha (4 cols) -->
-				{sectoresRestantes.slice(0, 3).map((s, i) => (
-					<article class="md:col-span-4 group bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 reveal hover:bg-surface hover:border-secondary/40 transition-all duration-500 flex flex-col justify-between">
-						<div class="flex items-start justify-between mb-4">
+				<!-- 3 sectores restantes apilados a la derecha (5 cols) — sin foto -->
+				{sectoresRestantes.map((s, i) => (
+					<article class="md:col-span-5 group bg-surface-container-lowest reveal hover:bg-surface transition-colors duration-500 p-8 lg:p-10 flex flex-col justify-between min-h-[260px]">
+						<div class="flex items-start justify-between mb-6">
 							<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary">Sector</span>
-							<span class="font-display text-2xl font-bold text-outline-variant/60 group-hover:text-secondary transition-colors duration-500">{String(i + 2).padStart(2, '0')}</span>
+							<span class="font-display text-4xl lg:text-5xl font-bold text-outline-variant/40 group-hover:text-secondary transition-colors duration-500 leading-none tracking-tighter">{String(i + 2).padStart(2, '0')}</span>
 						</div>
-						<div>
-							<h3 class="font-display text-lg font-bold text-on-surface group-hover:text-primary transition-colors duration-500 mb-2 leading-tight">{s.nombre}</h3>
-							<p class="font-body text-xs text-on-surface-variant leading-relaxed">{s.descripcion}</p>
+						<div class="flex items-start gap-4 mb-4">
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500 flex-shrink-0">
+								<Icon name="lucide:church" class="w-6 h-6" />
+							</div>
+							<h3 class="font-display text-xl lg:text-2xl font-bold text-on-surface group-hover:text-primary transition-colors duration-500 leading-tight">{s.nombre}</h3>
 						</div>
-					</article>
-				))}
-
-				<!-- 4 sectores medianos (3 cols cada uno, 1 fila) -->
-				{sectoresRestantes.slice(3, 7).map((s, i) => (
-					<article class="md:col-span-3 group bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-6 reveal hover:bg-surface hover:border-secondary/40 transition-all duration-500 flex flex-col justify-between">
-						<div class="flex items-start justify-between mb-4">
-							<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary">Sector</span>
-							<span class="font-display text-2xl font-bold text-outline-variant/60 group-hover:text-secondary transition-colors duration-500">{String(i + 5).padStart(2, '0')}</span>
-						</div>
-						<div>
-							<h3 class="font-display text-base font-bold text-on-surface group-hover:text-primary transition-colors duration-500 mb-2 leading-tight">{s.nombre}</h3>
-							<p class="font-body text-xs text-on-surface-variant leading-relaxed line-clamp-3">{s.descripcion}</p>
-						</div>
-					</article>
-				))}
-
-				<!-- 2 sectores amplios al final (6 cols cada uno) -->
-				{sectoresRestantes.slice(7, 9).map((s, i) => (
-					<article class="md:col-span-6 group bg-primary text-on-primary rounded-2xl p-6 lg:p-8 reveal hover:shadow-2xl transition-all duration-500 flex flex-col justify-between">
-						<div class="flex items-start justify-between mb-4">
-							<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary-fixed">Sector</span>
-							<span class="font-display text-2xl font-bold text-secondary-fixed">{String(i + 9).padStart(2, '0')}</span>
-						</div>
-						<div>
-							<h3 class="font-display text-xl lg:text-2xl font-bold text-primary-fixed mb-3 leading-tight">{s.nombre}</h3>
-							<p class="font-body text-sm text-on-primary/85 leading-relaxed">{s.descripcion}</p>
-						</div>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">{s.descripcion}</p>
 					</article>
 				))}
 
@@ -307,29 +282,45 @@ const grupos = allGrupos
 	</section>
 
 	<!-- Grupos y Movimientos -->
-	<section class="section-padding bg-surface-container-low">
-		<div class="container-tight">
-			<div class="text-center mb-12 lg:mb-16 reveal">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-3 block font-label">Participación</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background">Grupos y Movimientos</h2>
-				<p class="font-body text-sm lg:text-base text-on-surface-variant mt-4 max-w-2xl mx-auto">
-					La vitalidad de nuestra parroquia se manifiesta a través de sus diversos carismas y servicios.
-				</p>
+	<section class="py-28 bg-surface-container-low border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Participación</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						Grupos<br/>
+						<span class="italic font-medium text-secondary">y Movimientos</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						La vitalidad de nuestra parroquia se manifiesta a través de sus diversos carismas y servicios a la comunidad.
+					</p>
+				</div>
 			</div>
 
-			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-				{grupos.map(g => (
-					<div class="group bg-surface-container-lowest p-8 rounded-xl border border-outline-variant shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-500 reveal">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-500">
-							<Icon name={g.icono} class="w-7 h-7 text-on-primary-fixed-variant group-hover:text-on-primary transition-colors duration-500" />
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+				{grupos.map((g, i) => (
+					<article class={`group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-${(i % 6) + 1} h-full min-h-[260px]`}>
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-xs font-semibold text-secondary tracking-widest">{String(i + 1).padStart(2, '0')}</span>
+							<div class="w-14 h-14 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name={g.icono} class="w-7 h-7" />
+							</div>
 						</div>
-						<h3 class="font-display text-lg font-bold text-on-surface mb-3 group-hover:text-primary transition-colors">{g.nombre}</h3>
-						<p class="font-body text-sm text-on-surface-variant leading-relaxed">
+						<h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">{g.nombre}</h3>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">
 							{g.descripcion ?? `Un espacio de crecimiento espiritual y servicio comunitario bajo el carisma de ${g.nombre}.`}
 						</p>
-					</div>
+					</article>
 				))}
 			</div>
+
 		</div>
 	</section>
 
