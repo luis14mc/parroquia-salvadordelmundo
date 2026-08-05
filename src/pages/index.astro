@@ -134,33 +134,37 @@ const vicario = sacerdotes.find(s => s.cargo === 'Vicario');
       <!-- Strip semanal limpia: 7 columnas con header -->
       <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl overflow-hidden reveal">
 
-        <!-- Header de días -->
-        <div class="grid grid-cols-7 border-b border-outline-variant/30">
-          {semana.map((d) => (
-            <div class={`text-center py-5 border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/10' : ''}`}>
-              <span class={`font-label text-xs font-bold uppercase tracking-[0.25em] block ${d.destacado ? 'text-primary' : 'text-on-surface-variant'}`}>
-                {d.completo}
-              </span>
-            </div>
-          ))}
-        </div>
+        <div class="overflow-x-auto md:overflow-visible">
 
-        <!-- Horas de misa -->
-        <div class="grid grid-cols-7">
-          {semana.map((d, idx) => (
-            <div class={`py-10 lg:py-14 px-3 flex flex-col items-center justify-center text-center border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/5' : ''}`}>
-              {d.masas.map((hora, midx) => (
-                <div class={`flex flex-col items-center ${midx > 0 ? 'mt-5 pt-5 border-t border-outline-variant/20 w-full' : ''}`}>
-                  <span class={`font-display text-2xl lg:text-3xl xl:text-4xl font-bold leading-none ${d.destacado ? 'text-primary' : 'text-primary'}`}>
-                    {hora.split(' ')[0]}
-                  </span>
-                  <span class={`font-label text-[10px] font-semibold uppercase tracking-wider mt-1 ${d.destacado ? 'text-secondary' : 'text-secondary'}`}>
-                    {hora.split(' ')[1]}
-                  </span>
-                </div>
-              ))}
-            </div>
-          ))}
+          <!-- Header de días -->
+          <div class="grid grid-cols-7 border-b border-outline-variant/30 min-w-[640px]">
+            {semana.map((d) => (
+              <div class={`text-center py-5 border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/10' : ''}`}>
+                <span class={`font-label text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] block ${d.destacado ? 'text-primary' : 'text-on-surface-variant'}`}>
+                  {d.completo}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Horas de misa -->
+          <div class="grid grid-cols-7 min-w-[640px]">
+            {semana.map((d, idx) => (
+              <div class={`py-10 lg:py-14 px-2 sm:px-3 flex flex-col items-center justify-center text-center border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/5' : ''}`}>
+                {d.masas.map((hora, midx) => (
+                  <div class={`flex flex-col items-center ${midx > 0 ? 'mt-5 pt-5 border-t border-outline-variant/20 w-full' : ''}`}>
+                    <span class={`font-display text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold leading-none ${d.destacado ? 'text-primary' : 'text-primary'}`}>
+                      {hora.split(' ')[0]}
+                    </span>
+                    <span class={`font-label text-[10px] font-semibold uppercase tracking-wider mt-1 ${d.destacado ? 'text-secondary' : 'text-secondary'}`}>
+                      {hora.split(' ')[1]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
         </div>
 
       </div>
