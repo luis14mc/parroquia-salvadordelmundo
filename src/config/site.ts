@@ -81,7 +81,7 @@ export const siteConfig: SiteConfig = {
   vision:
     "Ser una comunidad parroquial evangelizada y evangelizadora, mostrando el Rostro del Salvador del Mundo a todos los creyentes y no creyentes.",
   resenaHistorica:
-    "Fundada en 1996, la Parroquia El Salvador del Mundo es una comunidad de fieles de la Arquidiócesis de Tegucigalpa, conformada por diversos movimientos y apostolados para la misión cristiana. Actualmente está organizada en diez sectores y comunidades: San José del Potrero, El Lolo, Zona 8, Las Flores, COA Abajo, Aldea Cerro Grande, Río Abajo, Villa Franca, Zona 2 y Zona 4 — Sede Parroquial.",
+    "Fundada en 1996, la Parroquia El Salvador del Mundo es una comunidad de fieles de la Arquidiócesis de Tegucigalpa, conformada por diversos movimientos y apostolados para la misión cristiana. Actualmente está organizada en cuatro sectores: Santa Cruz, Salvador del Mundo (sede parroquial), Santa Rosa de Lima y Sagrado Corazón.",
 
   contact: {
     telefono: "22240263",

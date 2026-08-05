@@ -10,8 +10,8 @@ const sectores = allSectores
 	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
 	.map(s => s.data);
 
-const sede = sectores.find(s => s.nombre === 'Zona 4');
-const sectoresRestantes = sectores.filter(s => s.nombre !== 'Zona 4');
+const sede = sectores.find(s => s.nombre === 'Sector Salvador del Mundo');
+const sectoresRestantes = sectores.filter(s => s.nombre !== 'Sector Salvador del Mundo');
 
 const allGrupos = await getCollection('grupos');
 const grupos = allGrupos
@@ -74,7 +74,7 @@ const grupos = allGrupos
 						</div>
 						<div>
 							<p class="font-label text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-2">Vicario</p>
-							<p class="font-display text-lg lg:text-xl font-bold text-primary">P. Samuel</p>
+							<p class="font-display text-lg lg:text-xl font-bold text-primary">P. Samuel Salgado</p>
 						</div>
 					</div>
 				</div>

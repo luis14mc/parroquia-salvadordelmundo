@@ -1,72 +1,30 @@
 [
   {
-    "id": "san-jose-del-potrero",
-    "nombre": "San José del Potrero",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1445006844194-71be0dbc7bb1?q=80&w=800",
+    "id": "santa-cruz",
+    "nombre": "Sector Santa Cruz",
+    "descripcion": "Sector parroquial con su propia comunidad y centro de celebración.",
+    "imagen": "https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=1200",
     "orden": 1
   },
   {
-    "id": "el-lolo",
-    "nombre": "El Lolo",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=800",
+    "id": "salvador-del-mundo",
+    "nombre": "Sector Salvador del Mundo",
+    "descripcion": "Sede parroquial: corazón de la vida pastoral y litúrgica de la parroquia.",
+    "imagen": "/img/institucionales/templo-sede-exterior.webp",
     "orden": 2
   },
   {
-    "id": "zona-8",
-    "nombre": "Zona 8",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=800",
+    "id": "santa-rosa-de-lima",
+    "nombre": "Sector Santa Rosa de Lima",
+    "descripcion": "Sector parroquial con su propia comunidad y centro de celebración.",
+    "imagen": "https://images.unsplash.com/photo-1445006844194-71be0dbc7bb1?q=80&w=1200",
     "orden": 3
   },
   {
-    "id": "las-flores",
-    "nombre": "Las Flores",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1477672680933-0287a151330e?q=80&w=800",
+    "id": "sagrado-corazon",
+    "nombre": "Sector Sagrado Corazón",
+    "descripcion": "Sector parroquial con su propia comunidad y centro de celebración.",
+    "imagen": "https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=1200",
     "orden": 4
-  },
-  {
-    "id": "coa-abajo",
-    "nombre": "COA Abajo",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1445006844194-71be0dbc7bb1?q=80&w=800",
-    "orden": 5
-  },
-  {
-    "id": "aldea-cerro-grande",
-    "nombre": "Aldea Cerro Grande",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1548625361-195fe5772c97?q=80&w=800",
-    "orden": 6
-  },
-  {
-    "id": "rio-abajo",
-    "nombre": "Río Abajo",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1519491050282-ce00c729c8bf?q=80&w=800",
-    "orden": 7
-  },
-  {
-    "id": "villa-franca",
-    "nombre": "Villa Franca",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1477672680933-0287a151330e?q=80&w=800",
-    "orden": 8
-  },
-  {
-    "id": "zona-2",
-    "nombre": "Zona 2",
-    "descripcion": "Comunidad de fe en el sector.",
-    "imagen": "https://images.unsplash.com/photo-1445006844194-71be0dbc7bb1?q=80&w=800",
-    "orden": 9
-  },
-  {
-    "id": "zona-4-sede",
-    "nombre": "Zona 4",
-    "descripcion": "Sede parroquial.",
-    "imagen": "/img/institucionales/templo-sede-exterior.webp",
-    "orden": 10
   }
 ]

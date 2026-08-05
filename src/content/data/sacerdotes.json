@@ -9,10 +9,18 @@
   },
   {
     "id": "vicario",
-    "nombre": "P. Samuel",
+    "nombre": "P. Samuel Salgado",
     "cargo": "Vicario",
     "descripcion": "Acompañando el caminar espiritual de nuestros fieles y sectores.",
     "imagen": "/img/institucionales/padre-samuel.webp",
     "orden": 2
+  },
+  {
+    "id": "colaborador",
+    "nombre": "P. Lenin Cruz",
+    "cargo": "Colaborador",
+    "descripcion": "Apoyando la pastoral y los servicios litúrgicos de nuestra comunidad.",
+    "imagen": "https://images.unsplash.com/photo-1604881991720-f91add269d22?q=80&w=1000",
+    "orden": 3
   }
 ]
