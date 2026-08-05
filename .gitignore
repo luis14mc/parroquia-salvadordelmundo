@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Windows filesystem metadata
+*:Zone.Identifier
+
+# Untracked agent skills
+.agents/skills/zod/

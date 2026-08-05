@@ -3,8 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import { siteConfig } from '../config/site';
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
-import MapaInteractivo from '../components/ui/MapaInteractivo.astro';
-import FAQ from '../components/ui/FAQ.astro';
 
 const allSectores = await getCollection('sectores');
 const sectores = allSectores
@@ -13,15 +11,36 @@ const sectores = allSectores
 
 const sede = sectores.find(s => s.nombre === 'Zona 4');
 const sectoresRestantes = sectores.filter(s => s.nombre !== 'Zona 4');
+
+const allHorarios = await getCollection('horarios');
+const eucaristiaData = allHorarios.find(h => h.data.tipo === 'eucaristia');
+const eucaristias = eucaristiaData?.data.items ?? [];
+
+const semana = [
+	{ dia: 'Lun', completo: 'Lunes', masas: ['7:00 PM'], diaSemana: 1 },
+	{ dia: 'Mar', completo: 'Martes', masas: ['7:00 PM'], diaSemana: 2 },
+	{ dia: 'Mié', completo: 'Miércoles', masas: ['7:00 PM'], diaSemana: 3 },
+	{ dia: 'Jue', completo: 'Jueves', masas: ['7:00 PM'], diaSemana: 4 },
+	{ dia: 'Vie', completo: 'Viernes', masas: ['7:00 PM'], diaSemana: 5 },
+	{ dia: 'Sáb', completo: 'Sábado', masas: ['7:00 AM'], diaSemana: 6 },
+	{ dia: 'Dom', completo: 'Domingo', masas: ['9:00 AM', '11:00 AM', '5:30 PM'], diaSemana: 0, destacado: true },
+];
+
+const allSacerdotes = await getCollection('sacerdotes');
+const sacerdotes = allSacerdotes
+	.sort((a, b) => (a.data.orden ?? 0) - (b.data.orden ?? 0))
+	.map(s => s.data);
+const parroco = sacerdotes.find(s => s.cargo === 'Párroco');
+const vicario = sacerdotes.find(s => s.cargo === 'Vicario');
 ---
 
 <Layout title="Inicio">
   <!-- Hero Section -->
   <section class="relative h-[819px] flex items-center justify-center overflow-hidden bg-primary">
     <div class="absolute inset-0 z-0">
-      <div 
-        class="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105 opacity-55" 
-        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAztYR1-cgk0XRrXYv3JlYk9kqTM76G3kGdett6hCPmwYs0oaPK9-EYYiQjFdEcPYc0NHFgPECkMZ2Dzecaux23s57479eOK1FY5v69yWqz-Ts2B4yP2x02_tWwNr--V86xkjdu5qQC8lcMW1hn-as3VOjklPpLMj9B37z0Ei0DBl-bGC2tOcIZecSArsJDsfqoEZ5kfnHPGRrgnrlcUEn_pY6LJ1xpkKlSNVBe33Caj-pwMZSaLlR6I1c6NEZIF-M8PWUMdoFbJMs')"
+      <div
+        class="w-full h-full bg-cover bg-center transition-transform duration-1000 hover:scale-105 opacity-55"
+        style="background-image: url('/img/institucionales/templo-sede.webp')"
       >
       </div>
       <div class="absolute inset-0 hero-gradient"></div>
@@ -44,8 +63,8 @@ const sectoresRestantes = sectores.filter(s => s.nombre !== 'Zona 4');
         >
           Horarios de Misa
         </a>
-        <a 
-          href={siteConfig.contact.whatsappHref} 
+        <a
+          href="https://whatsapp.com/channel/0029Vb7CGfTC6Zvs7BBYE51P"
           target="_blank"
           rel="noopener"
           class="w-full sm:w-auto border border-surface-container-lowest text-surface-container-lowest px-8 py-4 rounded-xl font-label text-xs font-bold uppercase tracking-widest hover:bg-surface-container-lowest/10 transition-all"
@@ -60,10 +79,10 @@ const sectoresRestantes = sectores.filter(s => s.nombre !== 'Zona 4');
   <section class="py-24 px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
       <div class="md:col-span-5 relative reveal">
-        <div class="aspect-[3/4] rounded-2xl border-4 border-secondary/20 p-4 bg-surface-container-low shadow-sm">
-          <div 
-            class="w-full h-full rounded-xl bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700 shadow-inner" 
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB3S7FUcTW6lHcpEFfVKD81ypJQZ0ydAtbBLML6SKwkXIiEK0zRFxpt4VBMNNkGLAmQ7xdHxHbrC3jk0rg_funVCCdhexHEfd8W7mUi3EzMjYMqR3G9WA3sd4tLcPnrFnUVs3kQ50sUDwUsG72b82DxNxiL3pO-BITnPnnMj0GseJBKsJw7Q2Kn4wsrckiWbYe1mZ8GDVRYChopAmVqSydbtihocZOPnm8zEvon9SyLhxphQblmQViynz0U6kKN1mK8iVaRNT4Za7U')"
+        <div class="aspect-[3/4] rounded-2xl border-4 border-secondary/20 p-4 bg-surface-container-low shadow-sm overflow-hidden">
+          <div
+            class="w-full h-full rounded-xl bg-cover bg-center transition-transform duration-700 hover:scale-105 shadow-inner"
+            style="background-image: url('/img/institucionales/salvador-del-mundo.webp')"
           >
           </div>
         </div>
@@ -89,212 +108,368 @@ const sectoresRestantes = sectores.filter(s => s.nombre !== 'Zona 4');
     </div>
   </section>
 
-  <!-- Sacramentos (Bento Grid Pattern) -->
-  <section class="py-24 bg-surface-container-low border-y border-outline-variant/30">
+  <!-- Horarios de Misa (Liturgical Week) -->
+  <section class="py-24 lg:py-28 bg-surface border-y border-outline-variant/30">
     <div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
-      <div class="text-center mb-16 reveal">
-        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary mb-3 block">Gracia Divina</span>
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">Los Santos Sacramentos</h2>
-        <div class="h-1 w-24 bg-secondary mx-auto rounded-full"></div>
-      </div>
-      
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Bautismo -->
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-1 h-full">
-          <div>
-            <div class="bg-primary-fixed/30 p-3 rounded-full w-fit mb-5 text-primary flex items-center justify-center">
-              <span class="material-symbols-outlined text-3xl">water_drop</span>
-            </div>
-            <h3 class="font-display text-lg font-bold text-primary mb-2">Bautismo</h3>
-            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">El fundamento de toda la vida cristiana, el pórtico de la vida en el espíritu.</p>
+
+      <!-- Header editorial -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="h-px w-10 bg-secondary"></span>
+            <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Sede Parroquial</span>
           </div>
-          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all" href="/sacramentos/bautismo">
-            Requisitos <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+            Horarios<br/>
+            <span class="italic font-medium text-secondary">de Misa</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-5 lg:pb-3">
+          <p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+            Las celebraciones eucarísticas de nuestra sede parroquial, de lunes a domingo.
+          </p>
+        </div>
+      </div>
+
+      <!-- Strip semanal limpia: 7 columnas con header -->
+      <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl overflow-hidden reveal">
+
+        <!-- Header de días -->
+        <div class="grid grid-cols-7 border-b border-outline-variant/30">
+          {semana.map((d) => (
+            <div class={`text-center py-5 border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/10' : ''}`}>
+              <span class={`font-label text-xs font-bold uppercase tracking-[0.25em] block ${d.destacado ? 'text-primary' : 'text-on-surface-variant'}`}>
+                {d.completo}
+              </span>
+            </div>
+          ))}
         </div>
 
-        <!-- Eucaristía -->
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-2 h-full">
-          <div>
-            <div class="bg-secondary-fixed/30 p-3 rounded-full w-fit mb-5 text-secondary flex items-center justify-center">
-              <span class="material-symbols-outlined text-3xl">restaurant_menu</span>
+        <!-- Horas de misa -->
+        <div class="grid grid-cols-7">
+          {semana.map((d, idx) => (
+            <div class={`py-10 lg:py-14 px-3 flex flex-col items-center justify-center text-center border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/5' : ''}`}>
+              {d.masas.map((hora, midx) => (
+                <div class={`flex flex-col items-center ${midx > 0 ? 'mt-5 pt-5 border-t border-outline-variant/20 w-full' : ''}`}>
+                  <span class={`font-display text-2xl lg:text-3xl xl:text-4xl font-bold leading-none ${d.destacado ? 'text-primary' : 'text-primary'}`}>
+                    {hora.split(' ')[0]}
+                  </span>
+                  <span class={`font-label text-[10px] font-semibold uppercase tracking-wider mt-1 ${d.destacado ? 'text-secondary' : 'text-secondary'}`}>
+                    {hora.split(' ')[1]}
+                  </span>
+                </div>
+              ))}
             </div>
-            <h3 class="font-display text-lg font-bold text-primary mb-2">Eucaristía</h3>
-            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">Fuente y culmen de nuestra vida cristiana en comunidad.</p>
-          </div>
-          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all" href="/oficina">
-            Horarios <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
+          ))}
         </div>
+
+      </div>
+
+      <!-- Footer minimalista: solo ubicación -->
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 reveal">
+        <p class="flex items-center gap-2 font-body text-sm text-on-surface-variant">
+          <Icon name="lucide:map-pin" class="w-4 h-4 text-secondary" />
+          <span>Cerro Grande Zona 4, calle principal, Comayagüela</span>
+        </p>
+        <a
+          href="/oficina"
+          class="inline-flex items-center gap-3 font-label text-xs font-bold uppercase tracking-[0.2em] text-primary hover:text-secondary transition-colors group"
+        >
+          Ver horarios completos
+          <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sacramentos (Editorial Layout) -->
+  <section class="py-28 bg-surface border-y border-outline-variant/30">
+    <div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+      <!-- Header editorial: eyebrow + título grande a la izquierda, descripción a la derecha -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20 items-end reveal">
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="h-px w-10 bg-secondary"></span>
+            <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Gracia Divina</span>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+            Los Sacramentos<br/>
+            <span class="italic font-medium text-secondary">que nos unen</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-5 lg:pb-3">
+          <p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+            Siete sacramentos instituidos por Cristo, fuente y culmen de toda la vida cristiana. Conoce los que celebramos en nuestra parroquia y el camino para recibirlos.
+          </p>
+        </div>
+      </div>
+
+      <!-- Cards de sacramentos -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+
+        <!-- Bautismo -->
+        <article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col justify-between hover:bg-surface transition-colors duration-500 reveal stagger-1 h-full min-h-[360px]">
+          <div>
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-display text-xs font-semibold text-secondary tracking-widest">01</span>
+              <div class="w-14 h-14 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+                <Icon name="lucide:droplets" class="w-7 h-7" />
+              </div>
+            </div>
+            <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Bautismo</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-8">
+              El fundamento de toda la vida cristiana, el pórtico de entrada a la vida en el espíritu.
+            </p>
+          </div>
+          <a class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary flex items-center gap-3 group/link" href="/sacramentos/bautismo">
+            <span class="relative">
+              Conocer
+              <span class="absolute left-0 -bottom-1 h-px w-full bg-primary origin-left scale-x-50 group-hover/link:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+          </a>
+        </article>
+
+        <!-- Eucaristía (Primera Comunión) -->
+        <article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col justify-between hover:bg-surface transition-colors duration-500 reveal stagger-2 h-full min-h-[360px]">
+          <div>
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-display text-xs font-semibold text-secondary tracking-widest">02</span>
+              <div class="w-14 h-14 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+                <Icon name="lucide:wheat" class="w-7 h-7" />
+              </div>
+            </div>
+            <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Eucaristía</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-8">
+              Fuente y culmen de la vida cristiana: recibir el Cuerpo y la Sangre de Cristo en comunidad.
+            </p>
+          </div>
+          <a class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary flex items-center gap-3 group/link" href="/sacramentos/primera-comunion">
+            <span class="relative">
+              Conocer
+              <span class="absolute left-0 -bottom-1 h-px w-full bg-primary origin-left scale-x-50 group-hover/link:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+          </a>
+        </article>
 
         <!-- Confirmación -->
-        <div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant/20 hover:border-secondary hover:shadow-lg transition-all duration-300 group flex flex-col justify-between reveal stagger-3 h-full">
+        <article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col justify-between hover:bg-surface transition-colors duration-500 reveal stagger-3 h-full min-h-[360px]">
           <div>
-            <div class="bg-tertiary-fixed/50 p-3 rounded-full w-fit mb-5 text-primary flex items-center justify-center">
-              <span class="material-symbols-outlined text-3xl">local_fire_department</span>
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-display text-xs font-semibold text-secondary tracking-widest">03</span>
+              <div class="w-14 h-14 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+                <Icon name="lucide:flame" class="w-7 h-7" />
+              </div>
             </div>
-            <h3 class="font-display text-lg font-bold text-primary mb-2">Confirmación</h3>
-            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-6">Fortalece nuestra fe y sella nuestros dones con el Espíritu Santo.</p>
+            <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Confirmación</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-8">
+              Perfecciona la gracia bautismal y sella nuestros dones con la fuerza del Espíritu Santo.
+            </p>
           </div>
-          <a class="text-secondary font-label text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-4 transition-all" href="/sacramentos/confirmacion">
-            Requisitos <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          <a class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary flex items-center gap-3 group/link" href="/sacramentos/confirmacion">
+            <span class="relative">
+              Conocer
+              <span class="absolute left-0 -bottom-1 h-px w-full bg-primary origin-left scale-x-50 group-hover/link:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
           </a>
-        </div>
+        </article>
 
         <!-- Matrimonio -->
-        <div class="bg-primary text-on-primary p-6 rounded-xl overflow-hidden relative group flex flex-col justify-between reveal stagger-4 h-full">
-          <div class="relative z-10">
-            <div class="bg-on-primary/10 p-3 rounded-full w-fit mb-5 flex items-center justify-center">
-              <span class="material-symbols-outlined text-3xl">favorite</span>
+        <article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col justify-between hover:bg-surface transition-colors duration-500 reveal stagger-4 h-full min-h-[360px]">
+          <div>
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-display text-xs font-semibold text-secondary tracking-widest">04</span>
+              <div class="w-14 h-14 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+                <Icon name="lucide:heart-handshake" class="w-7 h-7" />
+              </div>
             </div>
-            <h3 class="font-display text-lg font-bold mb-2 text-primary-fixed">Matrimonio</h3>
-            <p class="font-body text-sm text-on-primary/80 mb-6 leading-relaxed">La alianza matrimonial constituida entre el varón y la mujer para toda la vida.</p>
+            <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Matrimonio</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed mb-8">
+              La alianza sagrada entre un varón y una mujer, elevada por Cristo a la dignidad de sacramento.
+            </p>
           </div>
-          <a href="/sacramentos/matrimonio" class="w-fit z-10 bg-surface-container-lowest text-primary px-5 py-2 rounded-lg font-label text-xs font-bold uppercase tracking-widest hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow">
-            Requisitos
+          <a class="font-label text-xs font-bold uppercase tracking-[0.2em] text-primary flex items-center gap-3 group/link" href="/sacramentos/matrimonio">
+            <span class="relative">
+              Conocer
+              <span class="absolute left-0 -bottom-1 h-px w-full bg-primary origin-left scale-x-50 group-hover/link:scale-x-100 transition-transform duration-500"></span>
+            </span>
+            <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
           </a>
-        </div>
+        </article>
+
       </div>
-      
-      <div class="text-center mt-12">
-        <a 
-          href="/sacramentos" 
-          class="inline-flex items-center gap-2 border border-primary text-primary px-8 py-3 rounded-lg font-label text-xs font-semibold uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300"
+
+      <!-- Footer -->
+      <div class="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 reveal">
+        <p class="font-body text-sm text-on-surface-variant italic max-w-md">
+          «Los sacramentos son signos sensibles y eficaces de la gracia, instituidos por Cristo y confiados a la Iglesia.»
+        </p>
+        <a
+          href="/sacramentos"
+          class="inline-flex items-center gap-3 font-label text-xs font-bold uppercase tracking-[0.2em] text-primary hover:text-secondary transition-colors group"
         >
           Ver todos los sacramentos
+          <Icon name="lucide:arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Sectores Section -->
-  <section class="py-24 px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
-    <div class="text-center mb-16 reveal">
-      <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary mb-3 block">Comunidad</span>
-      <h2 class="font-display text-3xl md:text-4xl font-bold text-primary">Nuestros Sectores</h2>
-      <div class="h-1 w-24 bg-secondary mx-auto rounded-full mt-2"></div>
-    </div>
+  <!-- Sectores Section (Editorial Layout) -->
+  <section class="py-28 bg-surface-container-low border-y border-outline-variant/30">
+    <div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
 
-    {/* Sede Parroquial — card principal */}
-    {sede && (
-      <div class="mb-8 max-w-lg mx-auto reveal">
-        <div class="group bg-primary text-on-primary rounded-lg overflow-hidden relative shadow-lg hover:shadow-xl transition-all duration-500 h-full flex flex-col">
-          <div class="aspect-video overflow-hidden relative">
+      <!-- Header editorial -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20 items-end reveal">
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="h-px w-10 bg-secondary"></span>
+            <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Geografía de Fe</span>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+            Nuestros<br/>
+            <span class="italic font-medium text-secondary">Sectores</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-5 lg:pb-3">
+          <p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+            Una parroquia organizada en comunidades, cada una con su propio caminar pastoral y unidas por una misma fe en Cristo Salvador.
+          </p>
+        </div>
+      </div>
+
+      {/* Sede Parroquial — featured */}
+      {sede && (
+        <article class="group bg-surface-container-lowest border border-outline-variant/30 rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 mb-12 reveal hover:shadow-2xl hover:border-secondary/40 transition-all duration-700">
+          <div class="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-surface-variant">
             <img
               src={sede.imagen}
               alt={sede.nombre}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+              Sede Parroquial
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent md:hidden"></div>
           </div>
-          <div class="p-6 flex flex-col justify-between flex-1">
-            <div>
-              <span class="font-label text-[10px] font-bold uppercase tracking-[.2em] text-secondary-fixed mb-2 inline-block">Sede Parroquial</span>
-              <h3 class="font-display text-lg font-bold mb-2">{sede.nombre}</h3>
-              <p class="font-body text-xs text-on-primary/80 leading-relaxed">{sede.descripcion}</p>
+          <div class="p-8 lg:p-12 flex flex-col justify-center">
+            <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3">PRINCIPAL</span>
+            <h3 class="font-display text-3xl lg:text-4xl font-bold text-primary mb-4 leading-tight">{sede.nombre}</h3>
+            <p class="font-body text-base text-on-surface-variant leading-relaxed mb-8">{sede.descripcion}</p>
+            <div class="flex items-center gap-2 font-label text-xs text-on-surface-variant pt-6 border-t border-outline-variant/40">
+              <Icon name="lucide:map-pin" class="w-4 h-4 text-secondary" />
+              <span>Colonia Cerro Grande, Tegucigalpa</span>
             </div>
           </div>
-        </div>
+        </article>
+      )}
+
+      {/* Sectores restantes — grilla numerada */}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+        {sectoresRestantes.map((s, i) => (
+          <article class={`group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-${(i % 6) + 1} h-full min-h-[220px]`}>
+            <div class="flex items-start justify-between mb-6">
+              <span class="font-display text-xs font-semibold text-secondary tracking-widest">{String(i + 1).padStart(2, '0')}</span>
+              <Icon name="lucide:map-pin" class="w-5 h-5 text-outline-variant group-hover:text-secondary transition-colors duration-500" />
+            </div>
+            <h3 class="font-display text-lg lg:text-xl font-bold text-primary mb-3 leading-tight">{s.nombre}</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">{s.descripcion}</p>
+          </article>
+        ))}
       </div>
-    )}
 
-    {/* Sectores restantes — grilla 3x3 */}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {sectoresRestantes.map((s, i) => (
-        <div class={`group bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:border-primary/20 shadow-sm hover:shadow-lg transition-all duration-500 overflow-hidden reveal stagger-${(i % 6) + 1} h-full`}>
-          <div class="aspect-video overflow-hidden relative bg-surface-variant">
-            <img
-              src={s.imagen}
-              alt={s.nombre}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-          </div>
-          <div class="p-6 flex flex-col justify-between h-full">
-            <div>
-              <h3 class="font-display text-base font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">{s.nombre}</h3>
-              <p class="font-body text-xs lg:text-sm text-on-surface-variant leading-relaxed">{s.descripcion}</p>
-            </div>
-          </div>
-        </div>
-      ))}
     </div>
   </section>
 
-  <!-- Oficina Parroquial (Interactive Section) -->
-  <section class="py-24 bg-surface-container-low border-t border-outline-variant/30" id="oficina-seccion">
-    <div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-        <div class="reveal">
-          <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary mb-4 block">Contacto</span>
-          <h2 class="font-display text-3xl lg:text-4xl font-bold text-primary mb-8">Oficina Parroquial</h2>
-          <div class="space-y-8">
-            <div class="flex gap-6 items-start">
-              <div class="bg-surface-container-high p-3 rounded-lg text-primary flex items-center justify-center">
-                <span class="material-symbols-outlined text-2xl">schedule</span>
-              </div>
-              <div>
-                <h4 class="font-label text-xs font-bold text-primary uppercase mb-1">Horarios de Atención</h4>
-                <p class="font-body text-sm text-on-surface-variant">Lunes, Miércoles, Jueves, Viernes: 2:00 PM - 6:15 PM</p>
-                <p class="font-body text-sm text-on-surface-variant">Martes: 4:00 PM - 6:15 PM | Sábado: 8:00 AM - 12:00 M</p>
-              </div>
+  <!-- Horarios de Misa — después de Mensaje del Párroco -->
+
+  <!-- Nuestros Sacerdotes (Editorial Layout) -->
+  {(parroco || vicario) && (
+    <section class="py-28 bg-surface border-y border-outline-variant/30">
+      <div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+        <!-- Header editorial -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-20 items-end reveal">
+          <div class="lg:col-span-7">
+            <div class="flex items-center gap-3 mb-6">
+              <span class="h-px w-10 bg-secondary"></span>
+              <span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Liderazgo Pastoral</span>
             </div>
-            
-            <div class="flex gap-6 items-start">
-              <div class="bg-surface-container-high p-3 rounded-lg text-primary flex items-center justify-center">
-                <span class="material-symbols-outlined text-2xl">location_on</span>
-              </div>
-              <div>
-                <h4 class="font-label text-xs font-bold text-primary uppercase mb-1">Dirección</h4>
-                <p class="font-body text-sm text-on-surface-variant">{siteConfig.address.street}</p>
-                <p class="font-body text-xs text-on-surface-variant opacity-70">{siteConfig.address.locality}, {siteConfig.address.country}</p>
-              </div>
-            </div>
-            
-            <div class="flex gap-6 items-start">
-              <div class="bg-surface-container-high p-3 rounded-lg text-primary flex items-center justify-center">
-                <span class="material-symbols-outlined text-2xl">mail</span>
-              </div>
-              <div>
-                <h4 class="font-label text-xs font-bold text-primary uppercase mb-1">Secretaría Parroquial</h4>
-                <p class="font-body text-sm text-on-surface-variant">Tel: {siteConfig.contact.telefonoDisplay}</p>
-                <p class="font-body text-sm text-on-surface-variant">Whatsapp: {siteConfig.contact.whatsappDisplay}</p>
-                <p class="font-body text-sm text-on-surface-variant">Correo: {siteConfig.contact.email}</p>
-              </div>
-            </div>
+            <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+              Nuestros<br/>
+              <span class="italic font-medium text-secondary">Sacerdotes</span>
+            </h2>
           </div>
-          
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a 
-              href={siteConfig.contact.telefonoHref} 
-              class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg font-label text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow"
-            >
-              <span class="material-symbols-outlined text-sm">call</span>
-              Llamar
-            </a>
-            <a 
-              href={`mailto:${siteConfig.contact.email}`} 
-              class="inline-flex items-center gap-2 border border-primary text-primary px-6 py-3 rounded-lg font-label text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all duration-300"
-            >
-              <span class="material-symbols-outlined text-sm">mail</span>
-              Enviar Correo
-            </a>
+          <div class="lg:col-span-5 lg:pb-3">
+            <p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+              Los pastores que Cristo ha puesto al servicio de nuestra comunidad para guiarnos, santificarnos y enseñarnos el Evangelio.
+            </p>
           </div>
         </div>
-        
-        <div class="rounded-2xl overflow-hidden h-[400px] shadow-2xl shadow-primary/10 border border-outline-variant/30 relative reveal stagger-1">
-          <MapaInteractivo />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+
+          {parroco && (
+            <article class="group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal h-full">
+              <div class="grid grid-cols-1 md:grid-cols-2 h-full">
+                <div class="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-surface-variant">
+                  <img
+                    src={parroco.imagen}
+                    alt={parroco.nombre}
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r"></div>
+                  <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+                    Párroco
+                  </div>
+                </div>
+                <div class="p-8 lg:p-10 flex flex-col justify-center">
+                  <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3">PRINCIPAL</span>
+                  <h3 class="font-display text-2xl lg:text-3xl font-bold text-primary mb-3 leading-tight">{parroco.nombre}</h3>
+                  <p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                    {parroco.descripcion}
+                  </p>
+                </div>
+              </div>
+            </article>
+          )}
+
+          {vicario && (
+            <article class="group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal stagger-1 h-full">
+              <div class="grid grid-cols-1 md:grid-cols-2 h-full">
+                <div class="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-surface-variant">
+                  <img
+                    src={vicario.imagen}
+                    alt={vicario.nombre}
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r"></div>
+                  <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+                    Vicario
+                  </div>
+                </div>
+                <div class="p-8 lg:p-10 flex flex-col justify-center">
+                  <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3">VICARIO</span>
+                  <h3 class="font-display text-2xl lg:text-3xl font-bold text-primary mb-3 leading-tight">{vicario.nombre}</h3>
+                  <p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                    {vicario.descripcion}
+                  </p>
+                </div>
+              </div>
+            </article>
+          )}
+
         </div>
+
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- FAQ Section -->
-  <section class="py-24 bg-surface">
-    <div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto reveal">
-      <FAQ />
-    </div>
-  </section>
 </Layout>

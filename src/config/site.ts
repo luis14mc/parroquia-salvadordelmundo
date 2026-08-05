@@ -74,7 +74,7 @@ export const siteConfig: SiteConfig = {
   currencySymbol: "L",
   timezone: "America/Tegucigalpa",
   foundedYear: 1996,
-  parroco: "Juan Enrique Martínez Cerrato",
+  parroco: "P. Juan Martínez",
 
   mision:
     "Somos una parroquia en salida, enviados por Nuestro Señor Jesucristo para hacer discípulos a todas las gentes.",
@@ -108,9 +108,9 @@ export const siteConfig: SiteConfig = {
   },
 
   social: [
-    { name: "Facebook", icon: "lucide:facebook", url: "#" },
-    { name: "Instagram", icon: "lucide:instagram", url: "#" },
-    { name: "TikTok", icon: "mdi:music-note", url: "#" },
+    { name: "Facebook", icon: "simple-icons:facebook", url: "#" },
+    { name: "Instagram", icon: "simple-icons:instagram", url: "#" },
+    { name: "TikTok", icon: "simple-icons:tiktok", url: "#" },
   ],
 
   rtn: "0801-9003-123456",

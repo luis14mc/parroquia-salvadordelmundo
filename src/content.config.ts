@@ -55,7 +55,10 @@ const sacerdoteSchema = z.object({
   nombre: z.string(),
   cargo: z.string(),
   descripcion: z.string(),
-  imagen: z.string().url(),
+  imagen: z.string().refine(
+    (v) => /^https?:\/\//.test(v) || v.startsWith("/") || v.startsWith("./"),
+    { message: "Debe ser una URL absoluta o una ruta local (ej: /img/...)" }
+  ),
   orden: z.number().default(0),
 });
 
@@ -91,7 +94,10 @@ const cuentaBancariaSchema = z.object({
 const sectorSchema = z.object({
   nombre: z.string(),
   descripcion: z.string(),
-  imagen: z.string().url(),
+  imagen: z.string().refine(
+    (v) => /^https?:\/\//.test(v) || v.startsWith("/") || v.startsWith("./"),
+    { message: "Debe ser una URL absoluta o una ruta local (ej: /img/...)" }
+  ),
   orden: z.number().default(0),
 });
 

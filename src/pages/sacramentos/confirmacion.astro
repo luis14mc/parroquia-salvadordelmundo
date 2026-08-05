@@ -4,8 +4,9 @@ import { Icon } from 'astro-icon/components';
 import { whatsappLink } from '../../config/site';
 
 const requisitos = [
-	"Edad de 9 años cumplidos",
-	"Partida de bautismo"
+	"Edad de 15 años cumplidos",
+	"Copia de constancia de Bautismo",
+	"Copia de constancia de Primera Comunión"
 ];
 
 const dones = [
@@ -17,6 +18,13 @@ const dones = [
 	{ nombre: "Piedad", icono: "lucide:heart", descripcion: "Para amar a Dios como Padre" },
 	{ nombre: "Temor de Dios", icono: "lucide:sparkles", descripcion: "Respeto reverencial hacia Dios" }
 ];
+
+const padrinos = [
+	"Tener 16 años cumplidos y haber recibido los tres sacramentos de iniciación (Bautismo, Primera Comunión y Confirmación)",
+	"Presentar constancia de Confirmación como prueba de haber recibido el sacramento",
+	"Llevar una vida coherente con la fe y la misión que va a asumir",
+	"Ser un modelo de fe y acompañar espiritualmente al confirmando"
+];
 ---
 
 <Layout
@@ -24,176 +32,301 @@ const dones = [
 	description="Información sobre el sacramento de la Confirmación: significado, requisitos y preparación para recibir los dones del Espíritu Santo."
 >
 	<!-- Hero -->
-	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-tertiary">
-		<div class="absolute inset-0 opacity-10">
-			<div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-primary hero-clip">
+		<div class="absolute inset-0 opacity-30 mix-blend-overlay">
+			<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/img/institucionales/santisimo.webp');"></div>
 		</div>
+		<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
 
 		<div class="container-tight relative z-10 text-center">
 			<div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-sm mb-8">
-				<Icon name="lucide:flame" class="w-10 h-10 text-on-tertiary" />
+				<Icon name="lucide:flame" class="w-10 h-10 text-on-primary" />
 			</div>
-			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-tertiary mb-6">Confirmación</h1>
-			<p class="font-body text-lg lg:text-xl text-tertiary-fixed-dim max-w-2xl mx-auto">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-primary mb-6">Confirmación</h1>
+			<p class="font-body text-lg lg:text-xl text-primary-fixed max-w-2xl mx-auto">
 				El sacramento que perfecciona la gracia bautismal y fortalece el don del Espíritu Santo.
 			</p>
 		</div>
 	</section>
 
 	<!-- ¿Qué es? -->
-	<section class="section-padding bg-surface">
-		<div class="container-tight max-w-4xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Sacramento de Iniciación</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">¿Qué es la Confirmación?</h2>
-			</div>
+	<section class="py-24 lg:py-28 bg-surface border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
 
-			<div class="space-y-8">
-				<div class="bg-surface-container-low rounded-xl p-6 lg:p-8">
-					<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed mb-4">
-						La Confirmación es el sacramento que completa la gracia bautismal. Por medio de este sacramento, los bautizados son enriquecidos con el don del Espíritu Santo y quedan vinculados más perfectamente a la Iglesia. Este sacramento da fuerza especial para dar testimonio de la fe cristiana.
-					</p>
-					<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed mb-0">
-						En Pentecostés, el Espíritu Santo descendió sobre los apóstoles y los transformó en valientes testigos de Cristo. De manera similar, la Confirmación fortalece a los confirmandos para ser testigos de Jesús en el mundo de hoy.
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Sacramento de Iniciación</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						¿Qué es la<br/>
+						<span class="italic font-medium text-secondary">Confirmación?</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						El sacramento que perfecciona la gracia bautismal y fortalece el don del Espíritu Santo en el creyente.
 					</p>
 				</div>
-
-				<div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-					<div class="text-center">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mx-auto mb-4">
-							<Icon name="lucide:zap" class="w-7 h-7 text-on-primary-fixed-variant" />
-						</div>
-						<h3 class="font-label text-sm font-semibold text-on-surface mb-2">Fortaleza</h3>
-						<p class="font-body text-xs lg:text-sm text-on-surface-variant">Para vivir la fe con valentía</p>
-					</div>
-
-					<div class="text-center">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mx-auto mb-4">
-							<Icon name="lucide:send" class="w-7 h-7 text-on-primary-fixed-variant" />
-						</div>
-						<h3 class="font-label text-sm font-semibold text-on-surface mb-2">Misión</h3>
-						<p class="font-body text-xs lg:text-sm text-on-surface-variant">Enviados a evangelizar</p>
-					</div>
-
-					<div class="text-center">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mx-auto mb-4">
-							<Icon name="lucide:flame" class="w-7 h-7 text-on-primary-fixed-variant" />
-						</div>
-						<h3 class="font-label text-sm font-semibold text-on-surface mb-2">Espíritu Santo</h3>
-						<p class="font-body text-xs lg:text-sm text-on-surface-variant">Sellados con sus dones</p>
-					</div>
-				</div>
 			</div>
+
+			<!-- Descripción principal -->
+			<div class="bg-surface-container-low rounded-2xl p-8 lg:p-12 mb-16 border border-outline-variant/30 reveal">
+				<p class="font-display text-xl lg:text-2xl italic text-on-surface leading-relaxed border-l-2 border-secondary pl-6 lg:pl-8 max-w-4xl">
+					"La Confirmación completa la gracia bautismal. Por medio de este sacramento, los bautizados son enriquecidos con el don del Espíritu Santo y quedan vinculados más perfectamente a la Iglesia. Da fuerza especial para dar testimonio de la fe cristiana."
+				</p>
+			</div>
+
+			<!-- Pilares — 3 cards numeradas -->
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+				<article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal h-full min-h-[260px]">
+					<div class="flex items-start justify-between mb-6">
+						<span class="font-display text-xs font-semibold text-secondary tracking-widest">01</span>
+						<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+							<Icon name="lucide:zap" class="w-6 h-6" />
+						</div>
+					</div>
+					<h3 class="font-display text-lg lg:text-xl font-bold text-primary mb-2 leading-tight">Fortaleza</h3>
+					<p class="font-body text-sm text-on-surface-variant leading-relaxed">Para vivir la fe con valentía.</p>
+				</article>
+				<article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-1 h-full min-h-[260px]">
+					<div class="flex items-start justify-between mb-6">
+						<span class="font-display text-xs font-semibold text-secondary tracking-widest">02</span>
+						<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+							<Icon name="lucide:send" class="w-6 h-6" />
+						</div>
+					</div>
+					<h3 class="font-display text-lg lg:text-xl font-bold text-primary mb-2 leading-tight">Misión</h3>
+					<p class="font-body text-sm text-on-surface-variant leading-relaxed">Enviados a evangelizar el mundo.</p>
+				</article>
+				<article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-2 h-full min-h-[260px]">
+					<div class="flex items-start justify-between mb-6">
+						<span class="font-display text-xs font-semibold text-secondary tracking-widest">03</span>
+						<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+							<Icon name="lucide:flame" class="w-6 h-6" />
+						</div>
+					</div>
+					<h3 class="font-display text-lg lg:text-xl font-bold text-primary mb-2 leading-tight">Espíritu Santo</h3>
+					<p class="font-body text-sm text-on-surface-variant leading-relaxed">Sellados con sus siete dones.</p>
+				</article>
+			</div>
+
 		</div>
 	</section>
 
 	<!-- Los 7 Dones del Espíritu Santo -->
-	<section class="section-padding bg-surface-container-low">
-		<div class="container-tight max-w-5xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Espíritu Santo</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">Los Siete Dones</h2>
-				<p class="font-body text-sm lg:text-base text-on-surface-variant max-w-2xl mx-auto">
-					El Espíritu Santo otorga siete dones especiales a quienes reciben la Confirmación.
-				</p>
+	<section class="py-24 lg:py-28 bg-surface-container-low">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Espíritu Santo</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						Los Siete<br/>
+						<span class="italic font-medium text-secondary">Dones</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						Siete dones especiales que el Espíritu Santo otorga a quienes reciben la Confirmación, para crecer en la vida cristiana.
+					</p>
+				</div>
 			</div>
 
-			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-				{dones.map(don => (
-					<div class="card-surface p-6 rounded-xl hover:shadow-lg transition-all duration-300 group">
-						<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
-							<Icon name={don.icono} class="w-6 h-6 text-on-primary-fixed-variant" />
+			<!-- 7 cards en grid bento -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+				{dones.map((don, i) => (
+					<article class={`group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-${(i % 6) + 1} h-full min-h-[220px]`}>
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-xs font-semibold text-secondary tracking-widest">{String(i + 1).padStart(2, '0')}</span>
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name={don.icono} class="w-6 h-6" />
+							</div>
 						</div>
-						<h3 class="font-display text-base lg:text-lg font-bold text-on-surface mb-2">{don.nombre}</h3>
-						<p class="font-body text-sm text-on-surface-variant leading-relaxed">{don.descripcion}</p>
-					</div>
+						<h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">{don.nombre}</h3>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">{don.descripcion}</p>
+					</article>
 				))}
 			</div>
+
 		</div>
 	</section>
 
 	<!-- Requisitos -->
-	<section class="section-padding bg-surface">
-		<div class="container-tight max-w-4xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Documentación</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">Requisitos</h2>
+	<section class="py-24 lg:py-28 bg-surface border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Documentación</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						Requisitos<br/>
+						<span class="italic font-medium text-secondary">Necesarios</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						Lo que necesitás presentar y el camino de preparación catequética para este sacramento.
+					</p>
+				</div>
 			</div>
 
-			<div class="card-surface-elevated p-6 lg:p-8">
-				<div class="space-y-4 mb-8">
-					{requisitos.map(req => (
-						<div class="flex items-start gap-4">
-							<div class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0 mt-0.5">
-								<Icon name="lucide:check" class="w-4 h-4 text-on-primary-fixed-variant" />
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+
+				<!-- Requisitos (8 cols) -->
+				<div class="lg:col-span-8 bg-surface-container-lowest p-8 lg:p-12 reveal">
+					<div class="space-y-6">
+						{requisitos.map((req, i) => (
+							<div class="flex items-start gap-5 pb-5 border-b border-outline-variant/30 last:border-0 last:pb-0">
+								<span class="font-display text-2xl font-bold text-outline-variant/60 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
+								<div class="flex-1 pt-1">
+									<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed">{req}</p>
+								</div>
+								<Icon name="lucide:check" class="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
 							</div>
-							<p class="font-body text-sm lg:text-base text-on-surface leading-relaxed">{req}</p>
-						</div>
-					))}
-				</div>
-
-				<div class="pt-8 border-t border-outline-variant/30">
-					<h3 class="font-display text-base lg:text-lg font-bold text-on-surface mb-4">Preparación Catequética</h3>
-					<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed mb-4">
-						Los candidatos a la Confirmación deben completar un programa de preparación catequética que incluye:
-					</p>
-					<ul class="space-y-2">
-						<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
-							<Icon name="lucide:circle-dot" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-							<span>Formación doctrinal sobre los fundamentos de la fe católica</span>
-						</li>
-						<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
-							<Icon name="lucide:circle-dot" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-							<span>Participación activa en la vida sacramental de la Iglesia</span>
-						</li>
-						<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
-							<Icon name="lucide:circle-dot" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-							<span>Servicio comunitario y testimonio de vida cristiana</span>
-						</li>
-					</ul>
-				</div>
-
-				<div class="mt-8 pt-8 border-t border-outline-variant/30 flex items-center gap-3">
-					<Icon name="lucide:calendar" class="w-5 h-5 text-outline" />
-					<div>
-						<p class="font-label text-xs text-on-surface-variant">Inscripciones</p>
-						<p class="font-body text-sm font-medium text-on-surface">Mes de enero en horarios de oficina</p>
+						))}
 					</div>
 				</div>
+
+				<!-- Sidebar (4 cols, dark) -->
+				<aside class="lg:col-span-4 bg-primary text-on-primary p-8 lg:p-10 reveal stagger-1">
+					<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary-fixed mb-6 block">Información Práctica</span>
+					<div class="space-y-8">
+						<div class="flex items-start gap-4">
+							<div class="w-10 h-10 rounded-full border border-on-primary/30 flex items-center justify-center flex-shrink-0 text-primary-fixed">
+								<Icon name="lucide:calendar" class="w-5 h-5" />
+							</div>
+							<div>
+								<p class="font-label text-xs text-on-primary/70 uppercase tracking-wider mb-1">Inscripciones</p>
+								<p class="font-body text-sm font-medium text-primary-fixed">Mes de enero</p>
+							</div>
+						</div>
+						<div class="flex items-start gap-4">
+							<div class="w-10 h-10 rounded-full border border-on-primary/30 flex items-center justify-center flex-shrink-0 text-primary-fixed">
+								<Icon name="lucide:clock" class="w-5 h-5" />
+							</div>
+							<div>
+								<p class="font-label text-xs text-on-primary/70 uppercase tracking-wider mb-1">Horario</p>
+								<p class="font-body text-sm font-medium text-primary-fixed">En horarios de oficina</p>
+							</div>
+						</div>
+					</div>
+				</aside>
 			</div>
+
+			<!-- Preparación Catequética -->
+			<div class="mt-12 lg:mt-16 reveal">
+				<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary mb-4 block">Formación</span>
+				<h3 class="font-display text-2xl lg:text-3xl font-bold text-primary mb-8 leading-tight">
+					Preparación<br/>
+					<span class="italic font-medium text-secondary">Catequética</span>
+				</h3>
+				<div class="grid grid-cols-1 sm:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+					<article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal h-full min-h-[200px]">
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-5xl lg:text-6xl font-bold text-secondary leading-none tracking-tighter">01</span>
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name="lucide:book-open" class="w-6 h-6" />
+							</div>
+						</div>
+						<h4 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Formación doctrinal</h4>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">Sobre los fundamentos de la fe católica.</p>
+					</article>
+					<article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-1 h-full min-h-[200px]">
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-5xl lg:text-6xl font-bold text-secondary leading-none tracking-tighter">02</span>
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name="lucide:church" class="w-6 h-6" />
+							</div>
+						</div>
+						<h4 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Vida sacramental</h4>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">Participación activa en la vida de la Iglesia.</p>
+					</article>
+					<article class="group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-2 h-full min-h-[200px]">
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-5xl lg:text-6xl font-bold text-secondary leading-none tracking-tighter">03</span>
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name="lucide:users" class="w-6 h-6" />
+							</div>
+						</div>
+						<h4 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">Servicio y testimonio</h4>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">Compromiso comunitario y vida cristiana.</p>
+					</article>
+				</div>
+			</div>
+
 		</div>
 	</section>
 
 	<!-- El Padrino -->
-	<section class="section-padding bg-surface-container-low">
-		<div class="container-tight max-w-4xl">
-			<div class="card-surface-elevated p-8 lg:p-12 rounded-xl">
-				<div class="flex items-start gap-6 mb-6">
-					<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
-						<Icon name="lucide:user-check" class="w-7 h-7 text-on-primary-fixed-variant" />
+	<section class="py-24 lg:py-28 bg-surface-container-low border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Testigo de Fe</span>
 					</div>
-					<div>
-						<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-background mb-4">El Padrino de Confirmación</h2>
-						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed mb-4">
-							El padrino o madrina debe ser una persona que:
-						</p>
-						<ul class="space-y-2">
-							<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
-								<Icon name="lucide:check" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-								<span>Tenga 16 años cumplidos y haya recibido los tres sacramentos de iniciación</span>
-							</li>
-							<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
-								<Icon name="lucide:check" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-								<span>Lleve una vida coherente con la fe y la misión que va a asumir</span>
-							</li>
-							<li class="flex items-start gap-2 font-body text-sm lg:text-base text-on-surface-variant">
-								<Icon name="lucide:check" class="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-								<span>Sea un modelo de fe y acompañe espiritualmente al confirmando</span>
-							</li>
-						</ul>
-					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						El Padrino<br/>
+						<span class="italic font-medium text-secondary">de Confirmación</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						El padrino o madrina acompaña al confirmando en este paso importante. Estos son los requisitos que debe cumplir:
+					</p>
 				</div>
 			</div>
+
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+
+				<!-- Requisitos padrino (8 cols) -->
+				<div class="lg:col-span-8 bg-surface-container-lowest p-8 lg:p-12 reveal">
+					<div class="space-y-6">
+						{padrinos.map((req, i) => (
+							<div class="flex items-start gap-5 pb-5 border-b border-outline-variant/30 last:border-0 last:pb-0">
+								<span class="font-display text-2xl font-bold text-outline-variant/60 flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
+								<div class="flex-1 pt-1">
+									<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed" set:html={req.replace(/(Confirmación)/g, '<strong class="text-primary font-semibold">$1</strong>')}></p>
+								</div>
+								<Icon name="lucide:check" class="w-5 h-5 text-secondary flex-shrink-0 mt-1" />
+							</div>
+						))}
+					</div>
+				</div>
+
+				<!-- Sidebar (4 cols, dark) -->
+				<aside class="lg:col-span-4 bg-primary text-on-primary p-8 lg:p-10 reveal stagger-1 flex flex-col justify-between">
+					<div>
+						<div class="w-14 h-14 rounded-full border border-on-primary/30 flex items-center justify-center text-primary-fixed mb-6">
+							<Icon name="lucide:user-check" class="w-7 h-7" />
+						</div>
+						<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary-fixed mb-3 block">Dato importante</span>
+						<p class="font-display text-xl lg:text-2xl italic text-primary-fixed leading-snug">
+							"La fe se fortalece en comunidad: el padrino testimonia el compromiso bautismal."
+						</p>
+					</div>
+					<div class="mt-8 pt-6 border-t border-on-primary/20">
+						<p class="font-body text-xs text-on-primary/80 leading-relaxed">
+							Si tienen dudas sobre los requisitos, contáctennos por WhatsApp.
+						</p>
+					</div>
+				</aside>
+			</div>
+
 		</div>
 	</section>
 

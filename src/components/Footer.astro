@@ -2,50 +2,110 @@
 import { Icon } from 'astro-icon/components';
 import { siteConfig } from '../config/site';
 import { mainNavigation } from '../config/navigation';
+
+const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-inverse-surface border-t border-primary/10 transition-all ease-in-out duration-200">
-  <div class="flex flex-col items-center w-full py-16 px-6 md:px-margin-desktop max-w-[1280px] mx-auto space-y-8">
-    <!-- Logo -->
-    <a href="/" aria-label={`${siteConfig.name} — Ir al inicio`}>
-      <img src="/logo_white.png" alt={siteConfig.name} class="h-logo-lg w-auto" />
-    </a>
+<footer class="bg-stone-900 text-stone-300">
+	<!-- Top: Logo + tagline -->
+	<div class="border-b border-stone-800">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto py-12 lg:py-16">
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+				<div class="lg:col-span-5">
+					<a href="/" aria-label={`${siteConfig.name} — Ir al inicio`} class="inline-block">
+						<img
+							src="/logo_white.png"
+							alt={siteConfig.name}
+							class="h-logo-lg w-auto"
+						/>
+					</a>
+				</div>
+				<div class="lg:col-span-7 lg:text-right">
+					<p class="font-display text-xl lg:text-2xl italic text-stone-200 leading-snug max-w-md lg:ml-auto">
+						«Una comunidad de fe, oración y servicio bajo la guía de Cristo Salvador.»
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- Navigation Links -->
-    <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4" aria-label="Navegación del pie de página">
-      {mainNavigation.map(item => (
-        <a 
-          href={item.href} 
-          class="font-body text-sm font-medium text-surface-variant/80 hover:text-secondary-fixed transition-colors"
-        >
-          {item.label}
-        </a>
-      ))}
-    </nav>
+	<!-- Middle: Columnas -->
+	<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto py-12 lg:py-16">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
 
-    <!-- Social Icons -->
-    <div class="flex gap-6 mt-4">
-      {siteConfig.social.map(s => (
-        <a 
-          href={s.url} 
-          class="text-surface-variant/80 hover:text-secondary-fixed transition-all duration-300 transform hover:scale-110 flex items-center justify-center" 
-          aria-label={s.name}
-        >
-          <Icon name={s.icon} class="w-6 h-6" />
-        </a>
-      ))}
-    </div>
+			<!-- Navegación -->
+			<div>
+				<h4 class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary mb-6">Navegación</h4>
+				<nav class="space-y-3" aria-label="Navegación del pie de página">
+					{mainNavigation.map(item => (
+						<a
+							href={item.href}
+							class="block font-body text-sm text-stone-300 hover:text-secondary transition-colors duration-300"
+						>
+							{item.label}
+						</a>
+					))}
+				</nav>
+			</div>
 
-    <!-- Contact & Copyright -->
-    <div class="text-center font-body text-xs text-surface-variant/60 space-y-2">
-      <p>
-        Teléfono: <a href={siteConfig.contact.telefonoHref} class="hover:text-secondary-fixed transition-colors">{siteConfig.contact.telefonoDisplay}</a> 
-        | Whatsapp: <a href={siteConfig.contact.whatsappHref} target="_blank" rel="noopener" class="hover:text-secondary-fixed transition-colors">{siteConfig.contact.whatsappDisplay}</a> 
-        | Correo: <a href={`mailto:${siteConfig.contact.email}`} class="hover:text-secondary-fixed transition-colors">{siteConfig.contact.email}</a>
-      </p>
-      <p>
-        &copy; {new Date().getFullYear()} {siteConfig.name}. Todos los derechos reservados.
-      </p>
-    </div>
-  </div>
+			<!-- Contacto -->
+			<div>
+				<h4 class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary mb-6">Contacto</h4>
+				<ul class="space-y-3 font-body text-sm text-stone-300">
+					<li class="flex items-start gap-3">
+						<Icon name="lucide:phone" class="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+						<a href={siteConfig.contact.telefonoHref} class="hover:text-secondary transition-colors">
+							{siteConfig.contact.telefonoDisplay}
+						</a>
+					</li>
+					<li class="flex items-start gap-3">
+						<Icon name="mdi:whatsapp" class="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+						<a href={siteConfig.contact.whatsappHref} target="_blank" rel="noopener" class="hover:text-secondary transition-colors">
+							{siteConfig.contact.whatsappDisplay}
+						</a>
+					</li>
+					<li class="flex items-start gap-3">
+						<Icon name="lucide:mail" class="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+						<a href={`mailto:${siteConfig.contact.email}`} class="hover:text-secondary transition-colors break-all">
+							{siteConfig.contact.email}
+						</a>
+					</li>
+					<li class="flex items-start gap-3">
+						<Icon name="lucide:map-pin" class="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
+						<span>{siteConfig.address.street}<br/>{siteConfig.address.locality}, {siteConfig.address.country}</span>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Síguenos -->
+			<div>
+				<h4 class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary mb-6">Síguenos</h4>
+				<div class="flex flex-wrap gap-3 mb-6">
+					{siteConfig.social.map(s => (
+						<a
+							href={s.url}
+							aria-label={s.name}
+							class="w-11 h-11 rounded-full border border-stone-700 flex items-center justify-center text-stone-300 hover:bg-secondary hover:text-stone-900 hover:border-secondary transition-all duration-300"
+						>
+							<Icon name={s.icon} class="w-5 h-5" />
+						</a>
+					))}
+				</div>
+				<p class="font-body text-xs text-stone-400 leading-relaxed max-w-xs">
+					Síguenos para conocer nuestras actividades, celebraciones y vida parroquial.
+				</p>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Bottom: Copyright -->
+	<div class="border-t border-stone-800">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto py-6">
+			<div class="flex flex-col sm:flex-row items-center justify-between gap-3 font-body text-xs text-stone-400">
+				<p>© {currentYear} {siteConfig.name}. Todos los derechos reservados.</p>
+				<p>Hecho con devoción por {siteConfig.developerName}</p>
+			</div>
+		</div>
+	</div>
 </footer>

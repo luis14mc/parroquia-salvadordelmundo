@@ -6,8 +6,12 @@ import Layout from '../layouts/Layout.astro';
 	title="Página no encontrada"
 	description="La página que buscas no existe o fue movida."
 >
-	<section class="min-h-[70vh] flex items-center justify-center px-6">
-		<div class="text-center max-w-lg">
+	<section class="relative min-h-[70vh] flex items-center justify-center px-6 overflow-hidden bg-surface">
+		<div class="absolute inset-0 opacity-10">
+			<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/img/institucionales/capilla-santisimo.webp');"></div>
+			<div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+		</div>
+		<div class="relative z-10 text-center max-w-lg">
 			<span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary mb-4 block">Error 404</span>
 			<h1 class="font-display text-5xl md:text-7xl font-bold text-primary mb-6">Página no encontrada</h1>
 			<p class="font-body text-on-surface-variant mb-10 leading-relaxed">

@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
-import { whatsappLink } from '../../config/site';
+import { whatsappLink, siteConfig } from '../../config/site';
 
 const situaciones = [
 	{
@@ -36,186 +36,254 @@ const efectos = [
 	description="Sacramento de la Unción de los Enfermos: significado, cuándo recibirlo y cómo coordinar la visita pastoral."
 >
 	<!-- Hero -->
-	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-tertiary">
-		<div class="absolute inset-0 opacity-10">
-			<div class="absolute inset-0" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+	<section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-primary hero-clip">
+		<div class="absolute inset-0 opacity-30 mix-blend-overlay">
+			<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/img/institucionales/capilla-santisimo.webp');"></div>
 		</div>
+		<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
 
 		<div class="container-tight relative z-10 text-center">
 			<div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-sm mb-8">
-				<Icon name="lucide:cross" class="w-10 h-10 text-on-tertiary" />
+				<Icon name="lucide:cross" class="w-10 h-10 text-on-primary" />
 			</div>
-			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-tertiary mb-6">Unción de los Enfermos</h1>
-			<p class="font-body text-lg lg:text-xl text-tertiary-fixed-dim max-w-2xl mx-auto">
+			<h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-primary mb-6">Unción de los Enfermos</h1>
+			<p class="font-body text-lg lg:text-xl text-primary-fixed max-w-2xl mx-auto">
 				Sacramento de sanación y fortaleza para quienes enfrentan enfermedad grave o vejez.
 			</p>
 		</div>
 	</section>
 
 	<!-- ¿Qué es? -->
-	<section class="section-padding bg-surface">
-		<div class="container-tight max-w-4xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Sacramento de Sanación</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">¿Qué es la Unción de los Enfermos?</h2>
-			</div>
+	<section class="py-24 lg:py-28 bg-surface border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
 
-			<div class="space-y-8">
-				<div class="bg-surface-container-low rounded-xl p-6 lg:p-8">
-					<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed mb-4">
-						La Unción de los Enfermos es un sacramento instituido por Cristo mediante el cual la Iglesia encomienda a los enfermos a la Pasión y Glorificación del Señor para que los alivie y los salve. Esta unción sagrada aporta al cristiano enfermo la gracia del Espíritu Santo con la cual el hombre es suscitado y alentado a confiar en Dios.
-					</p>
-					<p class="font-body text-base lg:text-lg text-on-surface leading-relaxed mb-0">
-						No es un sacramento exclusivo de los moribundos, sino un sacramento para los enfermos. Puede recibirse cada vez que un cristiano cae gravemente enfermo, así como cuando el enfermo, después de haberlo recibido, recae de nuevo o cuando la enfermedad se agrava.
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Sacramento de Sanación</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						¿Qué es la Unción<br/>
+						<span class="italic font-medium text-secondary">de los Enfermos?</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						Sacramento de sanación y fortaleza para quienes enfrentan enfermedad grave ovejez.
 					</p>
 				</div>
+			</div>
 
-				<div class="bg-surface-container-low rounded-xl p-6 lg:p-8 border border-outline-variant/30">
-					<div class="flex items-start gap-4 mb-4">
-						<Icon name="lucide:quote" class="w-8 h-8 text-primary flex-shrink-0" />
-						<div>
-							<p class="font-body text-base lg:text-lg italic text-on-surface leading-relaxed mb-2">
-								"¿Está enfermo alguno entre vosotros? Llame a los presbíteros de la Iglesia, que oren sobre él y le unjan con óleo en el nombre del Señor. Y la oración de la fe salvará al enfermo, y el Señor hará que se levante."
-							</p>
-							<p class="font-label text-sm text-on-surface-variant">— Santiago 5, 14-15</p>
+			<!-- Descripción principal -->
+			<div class="bg-surface-container-low rounded-2xl p-8 lg:p-12 mb-12 border border-outline-variant/30 reveal">
+				<p class="font-display text-xl lg:text-2xl italic text-on-surface leading-relaxed border-l-2 border-secondary pl-6 lg:pl-8 max-w-4xl mb-6">
+					"La Unción de los Enfermos es un sacramento instituido por Cristo mediante el cual la Iglesia encomienda a los enfermos a la Pasión y Glorificación del Señor para que los alivie y los salve."
+				</p>
+				<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+					No es un sacramento exclusivo de los moribundos, sino un sacramento para los enfermos. Puede recibirse cada vez que un cristiano cae gravemente enfermo, así como cuando el enfermo, después de haberlo recibido, recae de nuevo o cuando la enfermedad se agrava.
+				</p>
+			</div>
+
+			<!-- Cita bíblica destacada -->
+			<div class="bg-primary text-on-primary rounded-2xl p-8 lg:p-12 reveal shadow-xl">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-center">
+					<div class="md:col-span-2 flex justify-center md:justify-start">
+						<div class="w-16 h-16 rounded-full border border-on-primary/30 flex items-center justify-center text-primary-fixed">
+							<Icon name="lucide:quote" class="w-8 h-8" />
 						</div>
+					</div>
+					<div class="md:col-span-10">
+						<p class="font-display text-lg lg:text-xl italic text-primary-fixed leading-snug mb-3">
+							"¿Está enfermo alguno entre vosotros? Llame a los presbíteros de la Iglesia, que oren sobre él y le unjan con óleo en el nombre del Señor. Y la oración de la fe salvará al enfermo, y el Señor hará que se levante."
+						</p>
+						<p class="font-label text-xs uppercase tracking-[0.25em] text-secondary-fixed">— Santiago 5, 14-15</p>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</section>
 
 	<!-- ¿Cuándo recibirlo? -->
-	<section class="section-padding bg-surface-container-low">
-		<div class="container-tight max-w-4xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Momento apropiado</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">¿Cuándo solicitar la Unción?</h2>
-				<p class="font-body text-sm lg:text-base text-on-surface-variant max-w-2xl mx-auto">
-					Este sacramento puede recibirse en diversas situaciones:
-				</p>
+	<section class="py-24 lg:py-28 bg-surface-container-low">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Momento Apropiado</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						¿Cuándo solicitar<br/>
+						<span class="italic font-medium text-secondary">la Unción?</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						Este sacramento puede recibirse en diversas situaciones de enfermedad o fragilidad.
+					</p>
+				</div>
 			</div>
 
-			<div class="grid md:grid-cols-3 gap-6">
-				{situaciones.map(sit => (
-					<div class="card-surface p-6 lg:p-8 rounded-xl hover:shadow-lg transition-all duration-300">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center mb-6">
-							<Icon name={sit.icono} class="w-7 h-7 text-on-primary-fixed-variant" />
+			<!-- 3 cards en grid con gap-px -->
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+				{situaciones.map((sit, i) => (
+					<article class={`group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-${(i % 4) + 1} h-full min-h-[260px]`}>
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-xs font-semibold text-secondary tracking-widest">{String(i + 1).padStart(2, '0')}</span>
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name={sit.icono} class="w-6 h-6" />
+							</div>
 						</div>
-						<h3 class="font-display text-base lg:text-lg font-bold text-on-surface mb-3">{sit.titulo}</h3>
-						<p class="font-body text-sm text-on-surface-variant leading-relaxed">{sit.descripcion}</p>
-					</div>
+						<h3 class="font-display text-lg lg:text-xl font-bold text-primary mb-3 leading-tight">{sit.titulo}</h3>
+						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">{sit.descripcion}</p>
+					</article>
 				))}
 			</div>
 
-			<div class="mt-8 card-surface p-6 lg:p-8 rounded-xl">
-				<div class="flex items-start gap-4">
-					<Icon name="lucide:info" class="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-					<div>
-						<h3 class="font-display text-base lg:text-lg font-bold text-on-surface mb-2">Nota importante</h3>
-						<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">
-							Es mejor pedir la Unción cuando el enfermo está todavía consciente y puede participar en el sacramento. No debe esperarse hasta el último momento. Cuanto antes se reciba, mayor será el consuelo y la gracia que el sacramento proporciona.
+			<!-- Nota importante -->
+			<div class="mt-12 lg:mt-16 bg-primary text-on-primary rounded-2xl p-8 lg:p-10 reveal shadow-xl">
+				<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+					<div class="md:col-span-2 flex justify-center md:justify-start">
+						<div class="w-14 h-14 rounded-full border border-on-primary/30 flex items-center justify-center text-primary-fixed">
+							<Icon name="lucide:info" class="w-7 h-7" />
+						</div>
+					</div>
+					<div class="md:col-span-10">
+						<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary-fixed mb-2 block">Nota importante</span>
+						<p class="font-display text-lg lg:text-xl italic text-primary-fixed leading-snug">
+							Es mejor pedir la Unción cuando el enfermo está todavía <strong class="not-italic font-semibold">consciente</strong> y puede participar en el sacramento. No debe esperarse hasta el último momento.
 						</p>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</section>
 
 	<!-- Efectos del Sacramento -->
-	<section class="section-padding bg-surface">
-		<div class="container-tight max-w-4xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Gracia Divina</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">Efectos del Sacramento</h2>
-				<p class="font-body text-sm lg:text-base text-on-surface-variant max-w-2xl mx-auto">
-					La Unción de los Enfermos otorga gracias especiales al cristiano que enfrenta la prueba del sufrimiento:
-				</p>
+	<section class="py-24 lg:py-28 bg-surface border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Gracia Divina</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						Efectos<br/>
+						<span class="italic font-medium text-secondary">del Sacramento</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						La Unción de los Enfermos otorga gracias especiales al cristiano que enfrenta la prueba del sufrimiento.
+					</p>
+				</div>
 			</div>
 
-			<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-				{efectos.map(efecto => (
-					<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/30 hover:border-primary/20 transition-all duration-300">
-						<div class="flex items-center gap-3">
-							<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center flex-shrink-0">
-								<Icon name={efecto.icono} class="w-5 h-5 text-primary" />
+			<!-- 6 efectos en grid 3-col con gap-px -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+				{efectos.map((efecto, i) => (
+					<article class={`group bg-surface-container-lowest p-8 lg:p-10 flex flex-col hover:bg-surface transition-colors duration-500 reveal stagger-${(i % 6) + 1} h-full min-h-[180px]`}>
+						<div class="flex items-start justify-between mb-6">
+							<span class="font-display text-xs font-semibold text-secondary tracking-widest">{String(i + 1).padStart(2, '0')}</span>
+							<div class="w-12 h-12 rounded-full border border-outline-variant/60 flex items-center justify-center text-primary group-hover:border-secondary group-hover:text-secondary transition-all duration-500">
+								<Icon name={efecto.icono} class="w-6 h-6" />
 							</div>
-							<p class="font-body text-sm font-medium text-on-surface">{efecto.nombre}</p>
 						</div>
-					</div>
+						<h3 class="font-display text-lg font-bold text-primary leading-tight">{efecto.nombre}</h3>
+					</article>
 				))}
 			</div>
+
 		</div>
 	</section>
 
-	<!-- Cómo solicitar -->
-	<section class="section-padding bg-surface-container-low">
-		<div class="container-tight max-w-4xl">
-			<div class="text-center mb-12 lg:mb-16">
-				<span class="text-xs font-bold uppercase tracking-[0.3em] text-primary mb-4 block font-label">Coordinación</span>
-				<h2 class="font-display text-3xl lg:text-4xl font-bold text-on-background mb-6">¿Cómo solicitar la Unción?</h2>
+	<!-- ¿Cómo solicitar? -->
+	<section class="py-24 lg:py-28 bg-surface-container-low border-y border-outline-variant/30">
+		<div class="px-6 md:px-margin-desktop max-w-[1280px] mx-auto">
+
+			<!-- Header editorial -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-20 items-end reveal">
+				<div class="lg:col-span-7">
+					<div class="flex items-center gap-3 mb-6">
+						<span class="h-px w-10 bg-secondary"></span>
+						<span class="font-label text-xs font-bold uppercase tracking-[0.3em] text-secondary">Coordinación</span>
+					</div>
+					<h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary leading-[1.05] tracking-tight">
+						¿Cómo solicitar<br/>
+						<span class="italic font-medium text-secondary">la Unción?</span>
+					</h2>
+				</div>
+				<div class="lg:col-span-5 lg:pb-3">
+					<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">
+						Te acompañamos en este momento importante. Estas son las vías para coordinar el sacramento.
+					</p>
+				</div>
 			</div>
 
-			<div class="space-y-6">
-				<div class="card-surface p-6 lg:p-8 rounded-xl">
-					<div class="flex items-start gap-6">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
-							<span class="font-display text-xl font-bold text-on-primary-fixed-variant">1</span>
-						</div>
-						<div class="flex-1">
-							<h3 class="font-display text-lg lg:text-xl font-bold text-on-surface mb-2">Contacto directo</h3>
-							<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed mb-4">
-								Puedes coordinar directamente con un ministro extraordinario de la comunión o llamar a la parroquia para solicitar la visita pastoral.
-							</p>
-							<div class="flex flex-wrap gap-3">
-								<a
-									href={whatsappLink()}
-									target="_blank"
-									class="inline-flex items-center gap-2 font-body text-sm text-primary hover:text-primary-container transition-colors"
-								>
-									<Icon name="mdi:whatsapp" class="w-4 h-4" />
-									<span class="font-label font-semibold">9534-5899</span>
-								</a>
-								<a
-									href="tel:22240263"
-									class="inline-flex items-center gap-2 font-body text-sm text-primary hover:text-primary-container transition-colors"
-								>
-									<Icon name="lucide:phone" class="w-4 h-4" />
-									<span class="font-label font-semibold">2224-0263</span>
-								</a>
+			<!-- Bento: Contacto (8 cols) + Sidebar oscura (4 cols) -->
+			<div class="grid grid-cols-1 lg:grid-cols-12 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+
+				<!-- Pasos principales (8 cols) -->
+				<div class="lg:col-span-8 bg-surface-container-lowest p-8 lg:p-12 reveal">
+					<div class="space-y-8">
+						{[
+							{ titulo: "Contacto directo", descripcion: "Puedes coordinar directamente con un ministro extraordinario de la comunión o llamar a la parroquia para solicitar la visita pastoral." },
+							{ titulo: "Visitas a hospitales", descripcion: "Para visitas a hospitales públicos, es necesario comunicarse con anticipación para programar el traslado del sacerdote y obtener los permisos de acceso." },
+							{ titulo: "Celebración comunitaria", descripcion: "Nuestra parroquia organiza celebraciones comunitarias de la Unción. Consulta las fechas disponibles en la secretaría parroquial." }
+						].map((paso, i) => (
+							<div class="flex items-start gap-5 pb-6 border-b border-outline-variant/30 last:border-0 last:pb-0">
+								<span class="font-display text-4xl lg:text-5xl font-bold text-secondary leading-none tracking-tighter flex-shrink-0">{String(i + 1).padStart(2, '0')}</span>
+								<div class="flex-1 pt-1">
+									<h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-2 leading-tight">{paso.titulo}</h3>
+									<p class="font-body text-base lg:text-lg text-on-surface-variant leading-relaxed">{paso.descripcion}</p>
+								</div>
 							</div>
-						</div>
+						))}
 					</div>
 				</div>
 
-				<div class="card-surface p-6 lg:p-8 rounded-xl">
-					<div class="flex items-start gap-6">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
-							<span class="font-display text-xl font-bold text-on-primary-fixed-variant">2</span>
-						</div>
-						<div class="flex-1">
-							<h3 class="font-display text-lg lg:text-xl font-bold text-on-surface mb-2">Visitas a hospitales</h3>
-							<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">
-								Para visitas a hospitales públicos, es necesario comunicarse con <strong>anticipación</strong> para poder programar el traslado del sacerdote y obtener los permisos de acceso necesarios.
-							</p>
-						</div>
+				<!-- Sidebar: Contacto directo (4 cols, dark) -->
+				<aside class="lg:col-span-4 bg-primary text-on-primary p-8 lg:p-10 reveal stagger-1">
+					<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary-fixed mb-6 block">Contacto Directo</span>
+					<div class="space-y-6">
+						<a
+							href={whatsappLink('Hola, necesito solicitar la Unción de los Enfermos')}
+							target="_blank"
+							class="flex items-center gap-4 p-4 bg-on-primary/10 border border-on-primary/30 rounded-xl hover:bg-on-primary/20 transition-all duration-300 group"
+						>
+							<div class="w-12 h-12 rounded-full border border-on-primary/30 flex items-center justify-center flex-shrink-0 text-primary-fixed group-hover:border-secondary-fixed group-hover:text-secondary-fixed transition-all duration-300">
+								<Icon name="mdi:whatsapp" class="w-6 h-6" />
+							</div>
+							<div>
+								<p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-primary/70 mb-1">WhatsApp</p>
+								<p class="font-display text-lg font-bold text-primary-fixed">{siteConfig.contact.whatsappDisplay}</p>
+							</div>
+						</a>
+						<a
+							href={siteConfig.contact.telefonoHref}
+							class="flex items-center gap-4 p-4 bg-on-primary/10 border border-on-primary/30 rounded-xl hover:bg-on-primary/20 transition-all duration-300 group"
+						>
+							<div class="w-12 h-12 rounded-full border border-on-primary/30 flex items-center justify-center flex-shrink-0 text-primary-fixed group-hover:border-secondary-fixed group-hover:text-secondary-fixed transition-all duration-300">
+								<Icon name="lucide:phone" class="w-6 h-6" />
+							</div>
+							<div>
+								<p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-primary/70 mb-1">Teléfono</p>
+								<p class="font-display text-lg font-bold text-primary-fixed">{siteConfig.contact.telefonoDisplay}</p>
+							</div>
+						</a>
 					</div>
-				</div>
-
-				<div class="card-surface p-6 lg:p-8 rounded-xl">
-					<div class="flex items-start gap-6">
-						<div class="w-14 h-14 rounded-2xl bg-primary-fixed flex items-center justify-center flex-shrink-0">
-							<span class="font-display text-xl font-bold text-on-primary-fixed-variant">3</span>
-						</div>
-						<div class="flex-1">
-							<h3 class="font-display text-lg lg:text-xl font-bold text-on-surface mb-2">Celebración comunitaria</h3>
-							<p class="font-body text-sm lg:text-base text-on-surface-variant leading-relaxed">
-								Nuestra parroquia también organiza celebraciones comunitarias de la Unción de los Enfermos. Consulta las fechas disponibles en la secretaría parroquial.
-							</p>
-						</div>
-					</div>
-				</div>
+				</aside>
 			</div>
+
 		</div>
 	</section>
 

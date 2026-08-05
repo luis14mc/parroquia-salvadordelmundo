@@ -4,7 +4,37 @@ const lat = 14.1219;
 const lng = -87.2206;
 ---
 
-<div id="map" class="w-full h-full"></div>
+<div class="relative w-full h-full">
+	<div id="map" class="w-full h-full"></div>
+
+	<!-- Botones de acción flotantes -->
+	<div class="absolute top-4 right-4 z-[400] flex flex-col gap-2">
+		<a
+			href={`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`}
+			target="_blank"
+			rel="noopener"
+			aria-label="Abrir en Google Maps"
+			class="group flex items-center gap-3 bg-primary text-on-primary pl-3 pr-4 py-2.5 rounded-xl font-label text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-primary-container hover:text-primary transition-all duration-300"
+		>
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="flex-shrink-0">
+				<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+			</svg>
+			<span>Maps</span>
+		</a>
+		<a
+			href={`https://waze.com/ul?ll=${lat},${lng}&navigate=yes`}
+			target="_blank"
+			rel="noopener"
+			aria-label="Abrir en Waze"
+			class="group flex items-center gap-3 bg-[#33CCFF] text-white pl-3 pr-4 py-2.5 rounded-xl font-label text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-[#1AB7E8] transition-all duration-300"
+		>
+			<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" class="flex-shrink-0">
+				<path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+			</svg>
+			<span>Waze</span>
+		</a>
+	</div>
+</div>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -80,77 +110,6 @@ const lng = -87.2206;
 
 		// Agregar marcador
 		const marker = L.marker([14.1219, -87.2206], { icon: customIcon }).addTo(map);
-		
-		// Popup personalizado con colores de la parroquia
-		marker.bindPopup(`
-			<div style="padding: 16px; font-family: 'Montserrat', system-ui, sans-serif;">
-				<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-					<div style="
-						width: 8px;
-						height: 8px;
-						border-radius: 50%;
-						background: linear-gradient(135deg, #841443 0%, #f9cb33 100%);
-						box-shadow: 0 0 8px rgba(132, 20, 67, 0.4);
-					"></div>
-					<h3 style="font-weight: 700; color: #841443; margin: 0; font-size: 14px;">
-						Parroquia El Salvador del Mundo
-					</h3>
-				</div>
-				<p style="margin: 0 0 12px 0; font-size: 12px; color: #64748b; line-height: 1.5;">
-					Colonia Cerro Grande Zona 4<br>
-					Comayagüela, Tegucigalpa
-				</p>
-				<div style="display: flex; gap: 6px;">
-					<a 
-						href="https://www.google.com/maps/dir/?api=1&destination=14.1219,-87.2206" 
-						target="_blank"
-						style="
-							flex: 1;
-							display: inline-flex;
-							align-items: center;
-							justify-content: center;
-							gap: 4px;
-							padding: 8px 10px;
-							background: #841443;
-							color: white;
-							text-decoration: none;
-							border-radius: 8px;
-							font-size: 11px;
-							font-weight: 600;
-						"
-					>
-						<svg width="12" height="12" fill="white" viewBox="0 0 24 24">
-							<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-						</svg>
-						Maps
-					</a>
-					<a 
-						href="https://waze.com/ul?ll=14.1219,-87.2206&navigate=yes" 
-						target="_blank"
-						style="
-							flex: 1;
-							display: inline-flex;
-							align-items: center;
-							justify-content: center;
-							gap: 4px;
-							padding: 8px 10px;
-							background: white;
-							color: #841443;
-							text-decoration: none;
-							border-radius: 8px;
-							font-size: 11px;
-							font-weight: 600;
-							border: 2px solid #841443;
-						"
-					>
-						<svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
-							<path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
-						</svg>
-						Waze
-					</a>
-				</div>
-			</div>
-		`);
 
 		// Ajustar el mapa cuando cambia el tamaño
 		window.addEventListener('resize', () => {
@@ -176,21 +135,6 @@ const lng = -87.2206;
 
 	:global(.leaflet-container) {
 		font-family: 'Montserrat', system-ui, sans-serif;
-	}
-
-	:global(.leaflet-popup-content-wrapper) {
-		background: white !important;
-		border-radius: 16px !important;
-		box-shadow: 0 10px 40px rgba(132, 20, 67, 0.15), 0 0 0 1px rgba(132, 20, 67, 0.1) !important;
-		padding: 0 !important;
-	}
-
-	:global(.leaflet-popup-tip) {
-		background: white !important;
-	}
-
-	:global(.leaflet-popup-content) {
-		margin: 0 !important;
 	}
 
 	:global(.custom-marker) {

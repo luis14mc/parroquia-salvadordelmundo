@@ -24,8 +24,9 @@
     }
   ],
   "requisitos": [
-    "Edad de 9 años cumplidos",
-    "Partida de bautismo"
+    "Edad de 15 años cumplidos",
+    "Copia de constancia de Bautismo",
+    "Copia de constancia de Primera Comunión"
   ],
   "inscripciones": "Mes de enero en horarios de oficina",
   "ctaTitulo": "Fortalécete en la fe",
@@ -50,7 +51,8 @@
       "tipo": "padrino",
       "titulo": "El Padrino de Confirmación",
       "contenido": [
-        "Tenga 16 años cumplidos y haya recibido los tres sacramentos de iniciación",
+        "Tenga 16 años cumplidos y haya recibido los tres sacramentos de iniciación (Bautismo, Primera Comunión y Confirmación)",
+        "Presente constancia de Confirmación como prueba de haber recibido el sacramento",
         "Lleve una vida coherente con la fe y la misión que va a asumir",
         "Sea un modelo de fe y acompañe espiritualmente al confirmando"
       ]

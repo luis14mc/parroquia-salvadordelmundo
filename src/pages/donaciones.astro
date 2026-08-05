@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/ui/Hero.astro';
 import { Icon } from 'astro-icon/components';
 import { getCollection } from 'astro:content';
-import { siteConfig } from '../config/site';
+import { siteConfig, whatsappLink } from '../config/site';
 
 const allCuentas = await getCollection('cuentasBancarias');
 const cuentas = allCuentas
@@ -18,7 +18,7 @@ const cuentas = allCuentas
 	<Hero
 		title="Apoya nuestra misión"
 		subtitle="Tus ofrendas nos permiten continuar con la labor evangelizadora y el mantenimiento de nuestra comunidad parroquial."
-		image="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=2400"
+		image="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2400"
 	/>
 
 	<section class="section-padding bg-surface">
@@ -78,6 +78,33 @@ const cuentas = allCuentas
 						</p>
 					</div>
 				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="section-padding bg-primary">
+		<div class="container-tight max-w-3xl text-center">
+			<Icon name="mdi:whatsapp" class="w-12 h-12 lg:w-16 lg:h-16 text-on-primary mx-auto mb-6" />
+			<h2 class="font-display text-2xl lg:text-3xl font-bold text-on-primary mb-4">¿Deseas hacer una ofrenda especial?</h2>
+			<p class="font-body text-base lg:text-lg text-on-primary/90 mb-8">
+				Para ofrendas específicas, intenciones de misa o colaboraciones especiales, contáctanos directamente por WhatsApp.
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+				<a
+					href={whatsappLink('Hola, quisiera información sobre las donaciones')}
+					target="_blank"
+					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-on-primary text-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-label text-sm font-semibold hover:bg-surface-container-low transition-all duration-300"
+				>
+					<Icon name="mdi:whatsapp" class="w-5 h-5" />
+					Contactar por WhatsApp
+				</a>
+				<a
+					href="/oficina"
+					class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-on-primary text-on-primary px-6 lg:px-8 py-3 lg:py-4 rounded-lg font-label text-sm font-semibold hover:bg-white/10 transition-all duration-300"
+				>
+					Ver horarios de oficina
+				</a>
 			</div>
 		</div>
 	</section>
