@@ -132,40 +132,74 @@ const colaborador = sacerdotes.find(s => s.cargo === 'Colaborador');
         </div>
       </div>
 
-      <!-- Strip semanal limpia: 7 columnas con header -->
-      <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl overflow-hidden reveal">
+      <!-- Bento: entre semana + fin de semana -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden reveal">
 
-        <div class="overflow-x-auto md:overflow-visible">
-
-          <!-- Header de días -->
-          <div class="grid grid-cols-7 border-b border-outline-variant/30 min-w-[640px]">
-            {semana.map((d) => (
-              <div class={`text-center py-5 border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/10' : ''}`}>
-                <span class={`font-label text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] block ${d.destacado ? 'text-primary' : 'text-on-surface-variant'}`}>
-                  {d.completo}
+        <!-- Entre semana (7 cols) -->
+        <div class="md:col-span-7 bg-surface-container-lowest">
+          <div class="px-6 lg:px-8 py-5 border-b border-outline-variant/30 flex items-center justify-between">
+            <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary">Entre semana</span>
+            <span class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">Lun — Vie</span>
+          </div>
+          {semana.slice(0, 5).map((d, idx) => (
+            <div class={`group flex items-center justify-between gap-4 px-6 lg:px-8 py-5 border-b border-outline-variant/30 last:border-0 hover:bg-surface transition-colors duration-300`}>
+              <div class="flex items-center gap-4">
+                <span class="font-display text-lg sm:text-xl font-bold text-outline-variant/50 group-hover:text-secondary transition-colors duration-300 w-7 flex-shrink-0">
+                  {String(idx + 1).padStart(2, '0')}
                 </span>
+                <span class="font-display text-base sm:text-lg font-bold text-on-surface">{d.completo}</span>
               </div>
-            ))}
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-display text-xl sm:text-2xl font-bold text-primary leading-none">{d.masas[0].split(' ')[0]}</span>
+                <span class="font-label text-[10px] font-bold uppercase tracking-wider text-secondary">{d.masas[0].split(' ')[1]}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Fin de semana (5 cols) -->
+        <div class="md:col-span-5 flex flex-col">
+          <div class="px-6 lg:px-8 py-5 border-b border-outline-variant/30 flex items-center justify-between bg-secondary/10">
+            <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary">Fin de semana</span>
+            <span class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Sáb — Dom</span>
           </div>
 
-          <!-- Horas de misa -->
-          <div class="grid grid-cols-7 min-w-[640px]">
-            {semana.map((d, idx) => (
-              <div class={`py-10 lg:py-14 px-2 sm:px-3 flex flex-col items-center justify-center text-center border-r border-outline-variant/30 last:border-r-0 ${d.destacado ? 'bg-secondary/5' : ''}`}>
-                {d.masas.map((hora, midx) => (
-                  <div class={`flex flex-col items-center ${midx > 0 ? 'mt-5 pt-5 border-t border-outline-variant/20 w-full' : ''}`}>
-                    <span class={`font-display text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold leading-none ${d.destacado ? 'text-primary' : 'text-primary'}`}>
-                      {hora.split(' ')[0]}
-                    </span>
-                    <span class={`font-label text-[10px] font-semibold uppercase tracking-wider mt-1 ${d.destacado ? 'text-secondary' : 'text-secondary'}`}>
-                      {hora.split(' ')[1]}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ))}
+          <!-- Sábado -->
+          <div class="group bg-surface-container-lowest px-6 lg:px-8 py-6 border-b border-outline-variant/30 flex items-center justify-between hover:bg-surface transition-colors duration-300 flex-1">
+            <div class="flex items-center gap-4">
+              <span class="font-display text-lg sm:text-xl font-bold text-outline-variant/50 w-7 flex-shrink-0">06</span>
+              <span class="font-display text-base sm:text-lg font-bold text-on-surface">Sábado</span>
+            </div>
+            <div class="flex items-baseline gap-1.5">
+              <span class="font-display text-xl sm:text-2xl font-bold text-primary leading-none">7:00</span>
+              <span class="font-label text-[10px] font-bold uppercase tracking-wider text-secondary">AM</span>
+            </div>
           </div>
 
+          <!-- Domingo (destacado) -->
+          <div class="group bg-primary text-on-primary px-6 lg:px-8 py-6 flex flex-col justify-between flex-1">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-4">
+                <span class="font-display text-lg sm:text-xl font-bold text-secondary-fixed w-7 flex-shrink-0">07</span>
+                <span class="font-display text-base sm:text-lg font-bold text-primary-fixed">Domingo</span>
+              </div>
+              <span class="font-label text-[10px] font-bold uppercase tracking-[0.2em] text-secondary-fixed">Principal</span>
+            </div>
+            <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2 justify-end">
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-display text-xl sm:text-2xl font-bold text-primary-fixed leading-none">9:00</span>
+                <span class="font-label text-[10px] font-bold uppercase tracking-wider text-secondary-fixed">AM</span>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-display text-xl sm:text-2xl font-bold text-primary-fixed leading-none">11:00</span>
+                <span class="font-label text-[10px] font-bold uppercase tracking-wider text-secondary-fixed">AM</span>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-display text-xl sm:text-2xl font-bold text-primary-fixed leading-none">5:30</span>
+                <span class="font-label text-[10px] font-bold uppercase tracking-wider text-secondary-fixed">PM</span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -417,82 +451,76 @@ const colaborador = sacerdotes.find(s => s.cargo === 'Colaborador');
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
 
           {parroco && (
-            <article class="md:col-span-2 lg:col-span-7 lg:row-span-2 group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal">
-              <div class="grid grid-cols-1 md:grid-cols-2 h-full">
-                <div class="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-surface-variant">
-                  <img
-                    src={parroco.imagen}
-                    alt={parroco.nombre}
-                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-r"></div>
-                  <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-                    Párroco
-                  </div>
+            <article class="group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal">
+              <div class="relative aspect-[4/3] overflow-hidden bg-surface-variant">
+                <img
+                  src={parroco.imagen}
+                  alt={parroco.nombre}
+                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+                  Párroco
                 </div>
-                <div class="p-8 lg:p-10 flex flex-col justify-center">
-                  <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3">PRINCIPAL</span>
-                  <h3 class="font-display text-2xl lg:text-3xl font-bold text-primary mb-3 leading-tight">{parroco.nombre}</h3>
-                  <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-                    {parroco.descripcion}
-                  </p>
-                </div>
+              </div>
+              <div class="p-8 lg:p-10">
+                <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3 block">PRINCIPAL</span>
+                <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">{parroco.nombre}</h3>
+                <p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                  {parroco.descripcion}
+                </p>
               </div>
             </article>
           )}
 
           {vicario && (
-            <article class="md:col-span-1 lg:col-span-5 group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal stagger-1">
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 h-full">
-                <div class="relative aspect-[4/3] sm:aspect-auto overflow-hidden bg-surface-variant">
-                  <img
-                    src={vicario.imagen}
-                    alt={vicario.nombre}
-                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent sm:bg-transparent"></div>
-                  <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-                    Vicario
-                  </div>
+            <article class="group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal stagger-1">
+              <div class="relative aspect-[4/3] overflow-hidden bg-surface-variant">
+                <img
+                  src={vicario.imagen}
+                  alt={vicario.nombre}
+                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+                  Vicario
                 </div>
-                <div class="p-6 lg:p-8 flex flex-col justify-center">
-                  <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-2">VICARIO</span>
-                  <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-2 leading-tight">{vicario.nombre}</h3>
-                  <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-                    {vicario.descripcion}
-                  </p>
-                </div>
+              </div>
+              <div class="p-8 lg:p-10">
+                <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3 block">VICARIO</span>
+                <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">{vicario.nombre}</h3>
+                <p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                  {vicario.descripcion}
+                </p>
               </div>
             </article>
           )}
 
           {colaborador && (
-            <article class="md:col-span-1 lg:col-span-5 group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal stagger-2">
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 h-full">
-                <div class="relative aspect-[4/3] sm:aspect-auto overflow-hidden bg-surface-variant">
-                  <img
-                    src={colaborador.imagen}
-                    alt={colaborador.nombre}
-                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent sm:bg-transparent"></div>
-                  <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-                    Colaborador
-                  </div>
+            <article class="group bg-surface-container-lowest hover:bg-surface transition-colors duration-500 reveal stagger-2">
+              <div class="relative aspect-[4/3] overflow-hidden bg-surface-variant">
+                <img
+                  src={colaborador.imagen}
+                  alt={colaborador.nombre}
+                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                <div class="absolute top-4 left-4 bg-secondary text-on-secondary font-label text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+                  Colaborador
                 </div>
-                <div class="p-6 lg:p-8 flex flex-col justify-center">
-                  <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-2">COLABORADOR</span>
-                  <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-2 leading-tight">{colaborador.nombre}</h3>
-                  <p class="font-body text-sm text-on-surface-variant leading-relaxed">
-                    {colaborador.descripcion}
-                  </p>
-                </div>
+              </div>
+              <div class="p-8 lg:p-10">
+                <span class="font-display text-xs font-semibold text-secondary tracking-widest mb-3 block">COLABORADOR</span>
+                <h3 class="font-display text-xl lg:text-2xl font-bold text-primary mb-3 leading-tight">{colaborador.nombre}</h3>
+                <p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                  {colaborador.descripcion}
+                </p>
               </div>
             </article>
           )}

@@ -45,10 +45,6 @@ export interface SiteConfig {
   description: string;
   url: string;
   locale: string;
-  currency: string;
-  currencySymbol: string;
-  timezone: string;
-  foundedYear: number;
   parroco: string;
   mision: string;
   vision: string;
@@ -56,9 +52,6 @@ export interface SiteConfig {
   contact: ContactInfo;
   address: Address;
   social: SocialLink[];
-  rtn: string;
-  developerName: string;
-  developerUrl: string;
 }
 
 // ── Configuración ────────────────────────────────────────────────
@@ -70,10 +63,6 @@ export const siteConfig: SiteConfig = {
     "Sitio oficial de la Parroquia El Salvador del Mundo — Tegucigalpa, Honduras. Una comunidad de fe moderna y organizada.",
   url: "https://www.elsalvadordelmundo.org",
   locale: "es-HN",
-  currency: "HNL",
-  currencySymbol: "L",
-  timezone: "America/Tegucigalpa",
-  foundedYear: 1996,
   parroco: "P. Juan Martínez",
 
   mision:
@@ -108,14 +97,11 @@ export const siteConfig: SiteConfig = {
   },
 
   social: [
-    { name: "Facebook", icon: "simple-icons:facebook", url: "#" },
-    { name: "Instagram", icon: "simple-icons:instagram", url: "#" },
-    { name: "TikTok", icon: "simple-icons:tiktok", url: "#" },
+    { name: "Facebook", icon: "simple-icons:facebook", url: "https://www.facebook.com/SalvadordelMundoHN" },
+    { name: "Instagram", icon: "simple-icons:instagram", url: "https://www.instagram.com/pelsalvadordelmundohn/" },
+    { name: "TikTok", icon: "simple-icons:tiktok", url: "https://www.tiktok.com/@pelsalvadordelmun" },
+    { name: "WhatsApp", icon: "simple-icons:whatsapp", url: "https://whatsapp.com/channel/0029Vb7CGfTC6Zvs7BBYE51P" },
   ],
-
-  rtn: "0801-9003-123456",
-  developerName: "Luis Parroquia",
-  developerUrl: "#",
 };
 
 /**
