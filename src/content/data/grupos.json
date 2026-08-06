@@ -7,38 +7,45 @@
     "orden": 1
   },
   {
+    "id": "renovacion-carismatica",
+    "nombre": "Renovación Carismática",
+    "icono": "lucide:flame",
+    "descripcion": "Movimiento eclesial que vive la experiencia del Espíritu Santo a través de la oración, los dones y el servicio.",
+    "orden": 2
+  },
+  {
     "id": "jovenes-emproistas",
     "nombre": "Jóvenes Emproistas",
     "icono": "lucide:heart",
     "descripcion": "Comunidad de jóvenes comprometida con la evangelización y el servicio misionero de la parroquia.",
-    "orden": 2
+    "orden": 3
   },
   {
     "id": "jovenes-renovacion",
     "nombre": "Jóvenes Renovación Carismática",
-    "icono": "lucide:flame",
+    "icono": "lucide:sparkles",
     "descripcion": "Jóvenes que viven la experiencia del Espíritu Santo a través de la oración, los dones y el servicio.",
-    "orden": 3
+    "orden": 4
   },
   {
     "id": "pastoral-juvenil",
     "nombre": "Pastoral Juvenil",
     "icono": "lucide:users",
     "descripcion": "Acompañamiento y formación integral de los jóvenes en su crecimiento humano y espiritual.",
-    "orden": 4
+    "orden": 5
   },
   {
     "id": "infancia-misionera",
     "nombre": "Infancia Misionera",
     "icono": "lucide:globe",
     "descripcion": "Niños y niñas formados en la fe y la conciencia misionera universal de la Iglesia.",
-    "orden": 5
+    "orden": 6
   },
   {
     "id": "delegados-de-la-palabra",
     "nombre": "Delegados de la Palabra",
     "icono": "lucide:megaphone",
     "descripcion": "Laicos enviados a anunciar el Evangelio y llevar la Palabra de Dios a las comunidades.",
-    "orden": 6
+    "orden": 7
   }
 ]
