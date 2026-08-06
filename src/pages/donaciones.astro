@@ -213,7 +213,19 @@ const puntos = [
 
 					<div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-outline-variant/30 border border-outline-variant/30 rounded-xl overflow-hidden">
 						<div class="bg-surface-container-lowest p-6 lg:p-8">
-							<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary mb-2 block">Número de Cuenta</span>
+							<div class="flex items-center justify-between gap-3 mb-2">
+								<span class="font-label text-[10px] font-bold uppercase tracking-[0.25em] text-secondary">Número de Cuenta</span>
+								<button
+									type="button"
+									onclick="copyAccount('21-300-032384-0', this)"
+									class="copy-btn flex items-center gap-1.5 font-label text-[10px] font-bold uppercase tracking-[0.2em] text-secondary hover:text-primary transition-colors"
+									aria-label="Copiar número de cuenta"
+								>
+									<Icon name="lucide:copy" class="copy-icon w-3.5 h-3.5" />
+									<Icon name="lucide:check" class="check-icon w-3.5 h-3.5 hidden" />
+									<span class="copy-label">Copiar</span>
+								</button>
+							</div>
 							<p class="font-display text-2xl lg:text-3xl font-bold text-primary leading-tight tracking-tight">21-300-032384-0</p>
 						</div>
 						<div class="bg-surface-container-lowest p-6 lg:p-8">
@@ -245,6 +257,42 @@ const puntos = [
 
 		</div>
 	</section>
+
+	<script>
+		function copyAccount(accountNumber, btn) {
+			const fallback = () => {
+				const ta = document.createElement('textarea');
+				ta.value = accountNumber;
+				ta.style.position = 'fixed';
+				ta.style.opacity = '0';
+				document.body.appendChild(ta);
+				ta.select();
+				try { document.execCommand('copy'); } catch (_) {}
+				document.body.removeChild(ta);
+			};
+			const showCopied = () => {
+				const label = btn.querySelector('.copy-label');
+				const copyIcon = btn.querySelector('.copy-icon');
+				const checkIcon = btn.querySelector('.check-icon');
+				if (label) label.textContent = '¡Copiado!';
+				if (copyIcon) copyIcon.classList.add('hidden');
+				if (checkIcon) checkIcon.classList.remove('hidden');
+				btn.classList.add('text-primary');
+				setTimeout(() => {
+					if (label) label.textContent = 'Copiar';
+					if (copyIcon) copyIcon.classList.remove('hidden');
+					if (checkIcon) checkIcon.classList.add('hidden');
+					btn.classList.remove('text-primary');
+				}, 2000);
+			};
+			if (navigator.clipboard && window.isSecureContext) {
+				navigator.clipboard.writeText(accountNumber).then(showCopied).catch(() => { fallback(); showCopied(); });
+			} else {
+				fallback();
+				showCopied();
+			}
+		}
+	</script>
 
 	<!-- CTA -->
 	<section class="section-padding bg-primary">
