@@ -1,0 +1,342 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCatequesisPrograma } from '../../config/catequesis';
+
+export const prerender = false;
+
+const programa = getCatequesisPrograma(Astro.params.programa);
+
+if (!programa) {
+  return Astro.redirect('/404');
+}
+
+const esAdultos = programa.slug === 'adultos';
+const esPrimeraComunion = programa.slug === 'primera-comunion';
+const esConfirmacion = programa.slug === 'confirmacion';
+---
+
+<Layout
+  title={`Inscripción — ${programa.nombre}`}
+  description={`Formulario de inscripción para ${programa.nombre} en la Parroquia El Salvador del Mundo.`}
+>
+  <header class="relative overflow-hidden bg-primary text-on-primary">
+    <div class="absolute inset-0 opacity-25">
+      <img src={programa.imagen} alt="" class="h-full w-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/70"></div>
+    <div class="relative mx-auto max-w-[1280px] px-6 py-16 md:px-margin-desktop md:py-20">
+      <a href="/catequesis" class="mb-8 inline-flex items-center gap-2 font-label text-xs font-bold uppercase tracking-wider text-primary-fixed hover:text-secondary-fixed">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        Ver procesos de catequesis
+      </a>
+      <div class="max-w-3xl reveal">
+        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary-fixed">Inscripción en línea</span>
+        <h1 class="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">{programa.nombre}</h1>
+        <p class="mt-5 max-w-2xl font-body text-base leading-relaxed text-on-primary/85 sm:text-lg">{programa.descripcion}</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-surface py-16 md:py-20">
+    <div class="mx-auto grid max-w-[1280px] gap-10 px-6 md:px-margin-desktop lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+      <aside class="space-y-6 lg:sticky lg:top-28 lg:self-start">
+        <div class="rounded-2xl border border-outline-variant/30 bg-surface-container-low p-6 md:p-7 reveal">
+          <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">Antes de inscribirte</span>
+          <h2 class="mt-3 font-display text-2xl font-bold text-primary">Requisitos</h2>
+          <ul class="mt-6 space-y-4">
+            {programa.requisitos.map((requisito) => (
+              <li class="flex items-start gap-3 font-body text-sm leading-relaxed text-on-surface-variant">
+                <span class="material-symbols-outlined mt-0.5 text-lg text-secondary">check_circle</span>
+                <span>{requisito}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-2xl bg-primary p-6 text-on-primary md:p-7 reveal stagger-1">
+          <span class="material-symbols-outlined text-3xl text-secondary-fixed">phone_in_talk</span>
+          <h3 class="mt-3 font-display text-xl font-bold">Mantente atento al teléfono</h3>
+          <p class="mt-2 font-body text-sm leading-relaxed text-on-primary/80">
+            El número de contacto es obligatorio. El equipo parroquial utilizará este dato para dar seguimiento a tu inscripción.
+          </p>
+        </div>
+      </aside>
+
+      <div class="rounded-2xl border border-outline-variant/30 bg-surface-container-lowest p-6 shadow-sm md:p-9 reveal stagger-1">
+        <div class="mb-8 border-b border-outline-variant/30 pb-6">
+          <span class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">Datos de inscripción</span>
+          <h2 class="mt-2 font-display text-3xl font-bold text-primary">Completa el formulario</h2>
+          <p class="mt-3 font-body text-sm leading-relaxed text-on-surface-variant">
+            Los campos marcados con <span class="font-bold text-primary">*</span> son obligatorios.
+          </p>
+        </div>
+
+        <div id="form-alert" class="mb-6 hidden rounded-xl border px-4 py-3 font-body text-sm" role="alert" aria-live="polite"></div>
+
+        <form id="catequesis-form" class="space-y-7" data-programa={programa.slug} novalidate>
+          <input type="hidden" name="programa" value={programa.slug} />
+
+          <div class="hidden" aria-hidden="true">
+            <label for="website">Sitio web</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-2">
+            <div class="md:col-span-2">
+              <label for="nombre_completo" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                Nombre completo <span class="text-primary">*</span>
+              </label>
+              <input
+                id="nombre_completo"
+                name="nombre_completo"
+                type="text"
+                autocomplete="name"
+                required
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder={esAdultos ? 'Nombre y apellidos' : 'Nombre completo del catequizando'}
+              />
+              <p class="field-error mt-1 hidden text-xs text-red-700" data-error-for="nombre_completo"></p>
+            </div>
+
+            <div>
+              <label for="fecha_nacimiento" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                Fecha de nacimiento <span class="text-primary">*</span>
+              </label>
+              <input
+                id="fecha_nacimiento"
+                name="fecha_nacimiento"
+                type="date"
+                required
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+              />
+              <p class="field-error mt-1 hidden text-xs text-red-700" data-error-for="fecha_nacimiento"></p>
+            </div>
+
+            <div>
+              <label for="telefono_contacto" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                Número de contacto <span class="text-primary">*</span>
+              </label>
+              <input
+                id="telefono_contacto"
+                name="telefono_contacto"
+                type="tel"
+                inputmode="tel"
+                autocomplete="tel"
+                required
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="Ej. 9999-9999"
+              />
+              <p class="field-error mt-1 hidden text-xs text-red-700" data-error-for="telefono_contacto"></p>
+            </div>
+
+            <div>
+              <label for="correo" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">Correo electrónico</label>
+              <input
+                id="correo"
+                name="correo"
+                type="email"
+                autocomplete="email"
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="correo@ejemplo.com"
+              />
+              <p class="field-error mt-1 hidden text-xs text-red-700" data-error-for="correo"></p>
+            </div>
+
+            <div>
+              <label for="sector" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">Sector o comunidad</label>
+              <input
+                id="sector"
+                name="sector"
+                type="text"
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="Ej. Zona 4, Río Abajo, El Lolo..."
+              />
+            </div>
+
+            <div class="md:col-span-2">
+              <label for="direccion" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">Dirección o referencia</label>
+              <textarea
+                id="direccion"
+                name="direccion"
+                rows="3"
+                class="w-full resize-y rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="Colonia, barrio y una referencia breve"
+              ></textarea>
+            </div>
+          </div>
+
+          {!esAdultos && (
+            <div>
+              <label for="responsable_nombre" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                Padre, madre o encargado <span class="text-primary">*</span>
+              </label>
+              <input
+                id="responsable_nombre"
+                name="responsable_nombre"
+                type="text"
+                required
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="Nombre completo del responsable"
+              />
+              <p class="field-error mt-1 hidden text-xs text-red-700" data-error-for="responsable_nombre"></p>
+            </div>
+          )}
+
+          {esAdultos && (
+            <fieldset class="rounded-xl border border-outline-variant/40 bg-surface-container-low p-5">
+              <legend class="px-2 font-label text-xs font-bold uppercase tracking-wider text-primary">Situación sacramental</legend>
+              <label class="flex cursor-pointer items-start gap-3 font-body text-sm leading-relaxed text-on-surface-variant">
+                <input name="sin_sacramentos_confirmado" type="checkbox" value="true" class="mt-1 h-4 w-4 accent-primary" required />
+                <span>Confirmo que no he recibido los sacramentos de iniciación cristiana y deseo comenzar este proceso de formación. <strong class="text-primary">*</strong></span>
+              </label>
+              <p class="field-error mt-2 hidden text-xs text-red-700" data-error-for="sin_sacramentos_confirmado"></p>
+            </fieldset>
+          )}
+
+          {(esPrimeraComunion || esConfirmacion) && (
+            <fieldset class="rounded-xl border border-outline-variant/40 bg-surface-container-low p-5">
+              <legend class="px-2 font-label text-xs font-bold uppercase tracking-wider text-primary">Situación del Bautismo *</legend>
+              <div class="mt-2 grid gap-3 sm:grid-cols-2">
+                <label class="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 font-body text-sm text-on-surface">
+                  <input type="radio" name="estado_bautismo" value="tiene-fe" class="h-4 w-4 accent-primary" required />
+                  <span>Cuento con fe de Bautismo</span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 font-body text-sm text-on-surface">
+                  <input type="radio" name="estado_bautismo" value="no-bautizado" class="h-4 w-4 accent-primary" required />
+                  <span>No he recibido el Bautismo</span>
+                </label>
+              </div>
+              <p class="field-error mt-2 hidden text-xs text-red-700" data-error-for="estado_bautismo"></p>
+            </fieldset>
+          )}
+
+          {esConfirmacion && (
+            <fieldset class="rounded-xl border border-outline-variant/40 bg-surface-container-low p-5">
+              <legend class="px-2 font-label text-xs font-bold uppercase tracking-wider text-primary">Situación de Primera Comunión *</legend>
+              <div class="mt-2 grid gap-3 sm:grid-cols-2">
+                <label class="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 font-body text-sm text-on-surface">
+                  <input type="radio" name="estado_comunion" value="tiene-constancia" class="h-4 w-4 accent-primary" required />
+                  <span>Cuento con constancia de Comunión</span>
+                </label>
+                <label class="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 font-body text-sm text-on-surface">
+                  <input type="radio" name="estado_comunion" value="no-comunion" class="h-4 w-4 accent-primary" required />
+                  <span>No he recibido la Primera Comunión</span>
+                </label>
+              </div>
+              <p class="field-error mt-2 hidden text-xs text-red-700" data-error-for="estado_comunion"></p>
+            </fieldset>
+          )}
+
+          <div class="rounded-xl border border-secondary/20 bg-secondary-fixed/15 p-5">
+            <label class="flex cursor-pointer items-start gap-3 font-body text-sm leading-relaxed text-on-surface-variant">
+              <input name="privacidad_aceptada" type="checkbox" value="true" class="mt-1 h-4 w-4 accent-primary" required />
+              <span>
+                Autorizo a la Parroquia El Salvador del Mundo a utilizar estos datos exclusivamente para gestionar esta inscripción y brindar seguimiento pastoral. <strong class="text-primary">*</strong>
+              </span>
+            </label>
+            <p class="field-error mt-2 hidden text-xs text-red-700" data-error-for="privacidad_aceptada"></p>
+          </div>
+
+          <button
+            id="submit-button"
+            type="submit"
+            class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-7 py-4 font-label text-xs font-bold uppercase tracking-widest text-on-primary shadow-md transition hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+          >
+            <span id="submit-label">Enviar inscripción</span>
+            <span class="material-symbols-outlined text-lg">send</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>('#catequesis-form');
+    const alertBox = document.querySelector<HTMLDivElement>('#form-alert');
+    const submitButton = document.querySelector<HTMLButtonElement>('#submit-button');
+    const submitLabel = document.querySelector<HTMLSpanElement>('#submit-label');
+
+    function clearErrors() {
+      document.querySelectorAll<HTMLElement>('.field-error').forEach((element) => {
+        element.textContent = '';
+        element.classList.add('hidden');
+      });
+
+      alertBox?.classList.add('hidden');
+    }
+
+    function showAlert(message: string, success = false) {
+      if (!alertBox) return;
+      alertBox.textContent = message;
+      alertBox.className = `mb-6 rounded-xl border px-4 py-3 font-body text-sm ${
+        success
+          ? 'border-green-700/20 bg-green-50 text-green-800'
+          : 'border-red-700/20 bg-red-50 text-red-800'
+      }`;
+      alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      const payload = {
+        programa: String(formData.get('programa') ?? ''),
+        nombre_completo: String(formData.get('nombre_completo') ?? ''),
+        fecha_nacimiento: String(formData.get('fecha_nacimiento') ?? ''),
+        telefono_contacto: String(formData.get('telefono_contacto') ?? ''),
+        correo: String(formData.get('correo') ?? ''),
+        direccion: String(formData.get('direccion') ?? ''),
+        sector: String(formData.get('sector') ?? ''),
+        responsable_nombre: String(formData.get('responsable_nombre') ?? ''),
+        estado_bautismo: String(formData.get('estado_bautismo') ?? 'no-aplica'),
+        estado_comunion: String(formData.get('estado_comunion') ?? 'no-aplica'),
+        sin_sacramentos_confirmado: formData.get('sin_sacramentos_confirmado') === 'true',
+        privacidad_aceptada: formData.get('privacidad_aceptada') === 'true',
+        website: String(formData.get('website') ?? ''),
+      };
+
+      if (submitButton) submitButton.disabled = true;
+      if (submitLabel) submitLabel.textContent = 'Enviando...';
+
+      try {
+        const response = await fetch('/api/catequesis/inscripciones', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.ok) {
+          if (Array.isArray(result.issues)) {
+            result.issues.forEach((issue: { path?: string; message?: string }) => {
+              const fieldError = document.querySelector<HTMLElement>(`[data-error-for="${issue.path}"]`);
+              if (fieldError) {
+                fieldError.textContent = issue.message ?? 'Revisa este campo.';
+                fieldError.classList.remove('hidden');
+              }
+            });
+          }
+
+          showAlert(result.error ?? 'No se pudo enviar la inscripción.');
+          return;
+        }
+
+        form.reset();
+        showAlert('¡Inscripción recibida! La parroquia se comunicará contigo al número de contacto registrado.', true);
+      } catch {
+        showAlert('No fue posible conectar con el servidor. Inténtalo nuevamente en unos minutos.');
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+        if (submitLabel) submitLabel.textContent = 'Enviar inscripción';
+      }
+    });
+  </script>
+</Layout>
