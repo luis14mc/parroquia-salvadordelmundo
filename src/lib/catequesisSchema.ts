@@ -7,6 +7,11 @@ const phoneSchema = z
   .max(20, "El número de contacto es demasiado largo.")
   .refine((value) => value.replace(/\D/g, "").length >= 8, "Ingresa un número de contacto válido.");
 
+const dateSchema = z
+  .string()
+  .trim()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Ingresa una fecha de nacimiento válida.");
+
 function calculateAge(dateValue: string) {
   const birth = new Date(`${dateValue}T00:00:00`);
   const today = new Date();
@@ -24,7 +29,7 @@ export const catequesisRegistrationSchema = z
   .object({
     programa: z.enum(["adultos", "primera-comunion", "confirmacion"]),
     nombre_completo: z.string().trim().min(3, "Ingresa el nombre completo."),
-    fecha_nacimiento: z.string().date("Ingresa una fecha de nacimiento válida."),
+    fecha_nacimiento: dateSchema,
     telefono_contacto: phoneSchema,
     correo: z.string().trim().email("Ingresa un correo válido.").optional().or(z.literal("")),
     direccion: z.string().trim().max(300).optional().or(z.literal("")),
@@ -33,14 +38,16 @@ export const catequesisRegistrationSchema = z
     estado_bautismo: z.enum(["tiene-fe", "no-bautizado", "no-aplica"]).default("no-aplica"),
     estado_comunion: z.enum(["tiene-constancia", "no-comunion", "no-aplica"]).default("no-aplica"),
     sin_sacramentos_confirmado: z.boolean().default(false),
-    privacidad_aceptada: z.literal(true, { errorMap: () => ({ message: "Debes aceptar el aviso de privacidad." }) }),
+    privacidad_aceptada: z.literal(true, {
+      error: "Debes aceptar el aviso de privacidad.",
+    }),
     website: z.string().max(0).optional().or(z.literal("")),
   })
   .superRefine((input, ctx) => {
     const age = calculateAge(input.fecha_nacimiento);
     const minimumAge = input.programa === "adultos" ? 18 : input.programa === "confirmacion" ? 15 : 9;
 
-    if (age < minimumAge) {
+    if (!Number.isFinite(age) || age < minimumAge) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["fecha_nacimiento"],
