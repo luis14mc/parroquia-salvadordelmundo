@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import pg from "pg";
@@ -32,8 +32,10 @@ if (!connectionString) {
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const migrationPath = join(__dirname, "..", "db", "migrations", "001_mission_household_visits.sql");
-const sql = await readFile(migrationPath, "utf8");
+const migrationsDir = join(__dirname, "..", "db", "migrations");
+const migrationFiles = (await readdir(migrationsDir))
+  .filter((file) => file.endsWith(".sql"))
+  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
 const pool = new Pool({
   connectionString,
@@ -41,8 +43,14 @@ const pool = new Pool({
 });
 
 try {
-  await pool.query(sql);
-  console.log("Migrations completed.");
+  for (const file of migrationFiles) {
+    const migrationPath = join(migrationsDir, file);
+    const sql = await readFile(migrationPath, "utf8");
+    await pool.query(sql);
+    console.log(`Migration applied: ${file}`);
+  }
+
+  console.log(`Migrations completed (${migrationFiles.length}).`);
 } finally {
   await pool.end();
 }
