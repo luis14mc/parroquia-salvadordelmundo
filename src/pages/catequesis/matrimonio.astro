@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { siteConfig } from '../../config/site';
+
+const jornadas = [
+  {
+    nombre: 'Segunda catequesis',
+    fechas: ['16-17 de mayo', '23-24 de mayo'],
+    estado: 'realizada',
+  },
+  {
+    nombre: 'Tercera catequesis',
+    fechas: ['15-16 de agosto', '22-23 de agosto'],
+    estado: 'realizada',
+  },
+  {
+    nombre: 'Cuarta catequesis',
+    fechas: ['14-15 de noviembre', '21-22 de noviembre'],
+    estado: 'proxima',
+  },
+];
+
+const horarios = [
+  { dia: 'Sábados', hora: '2:00 PM - 5:00 PM' },
+  { dia: 'Domingos', hora: '9:00 AM - 1:00 PM' },
+];
+---
+
+<Layout
+  title="Catequesis Matrimonial 2026"
+  description="Programa de catequesis de preparación al sacramento del Matrimonio 2026 de la Parroquia El Salvador del Mundo."
+>
+  <header class="relative overflow-hidden bg-primary text-on-primary">
+    <div class="absolute inset-0 opacity-20">
+      <img src="/img/institucionales/templo_interior.webp" alt="" class="h-full w-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/75"></div>
+    <div class="relative mx-auto max-w-[1280px] px-6 py-20 md:px-margin-desktop md:py-28">
+      <div class="max-w-3xl reveal">
+        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary-fixed">Programa de Catequesis</span>
+        <h1 class="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">Preparación al sacramento del Matrimonio</h1>
+        <p class="mt-6 max-w-2xl font-body text-base leading-relaxed text-on-primary/85 sm:text-lg">
+          Calendario 2026 de formación para parejas que se preparan para celebrar el sacramento del Matrimonio en nuestra parroquia.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-surface py-20 md:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 md:px-margin-desktop">
+      <div class="mb-12 grid gap-8 lg:grid-cols-12 lg:items-end reveal">
+        <div class="lg:col-span-7">
+          <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary">Calendario 2026</span>
+          <h2 class="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">Jornadas de formación matrimonial</h2>
+        </div>
+        <div class="lg:col-span-5">
+          <p class="font-body leading-relaxed text-on-surface-variant">
+            Cada catequesis comprende 12 temas con aspectos doctrinales sobre el sacramento del Matrimonio y dimensiones relacionadas con la psicología de la vida conyugal.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-10 rounded-2xl border border-secondary/30 bg-secondary-fixed/20 p-6 md:p-8 reveal">
+        <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-secondary text-on-secondary">
+              <Icon name="lucide:calendar-check" class="h-6 w-6" />
+            </div>
+            <div>
+              <span class="font-label text-[11px] font-bold uppercase tracking-[0.2em] text-secondary">Próxima jornada</span>
+              <h3 class="mt-1 font-display text-xl font-bold text-primary md:text-2xl">Cuarta catequesis — noviembre 2026</h3>
+              <p class="mt-2 font-body text-sm text-on-surface-variant">14-15 de noviembre y 21-22 de noviembre.</p>
+            </div>
+          </div>
+          <a
+            href={siteConfig.contact.whatsappHref}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-label text-xs font-bold uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container"
+          >
+            <Icon name="mdi:whatsapp" class="h-5 w-5" />
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+        {jornadas.map((jornada, index) => (
+          <article class={`relative overflow-hidden rounded-2xl border bg-surface-container-lowest p-7 shadow-sm reveal stagger-${index + 1} ${jornada.estado === 'proxima' ? 'border-secondary shadow-lg' : 'border-outline-variant/30'}`}>
+            {jornada.estado === 'proxima' && (
+              <span class="absolute right-5 top-5 rounded-full bg-secondary px-3 py-1 font-label text-[10px] font-bold uppercase tracking-wider text-on-secondary">Próxima</span>
+            )}
+
+            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-primary-fixed/40 text-primary">
+              <Icon name="lucide:calendar-days" class="h-6 w-6" />
+            </div>
+
+            <p class="font-label text-[11px] font-bold uppercase tracking-[0.18em] text-secondary">{String(index + 2).padStart(2, '0')}</p>
+            <h3 class="mt-2 font-display text-2xl font-bold text-primary">{jornada.nombre}</h3>
+
+            <div class="mt-6 space-y-3">
+              {jornada.fechas.map((fecha) => (
+                <div class="flex items-center gap-3 rounded-xl bg-surface-container-low px-4 py-3">
+                  <Icon name="lucide:calendar" class="h-4 w-4 shrink-0 text-secondary" />
+                  <span class="font-body text-sm font-medium text-on-surface">{fecha}</span>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-10 overflow-hidden rounded-2xl border border-outline-variant/30 bg-primary text-on-primary reveal">
+        <div class="grid md:grid-cols-2">
+          <div class="p-7 md:p-9">
+            <span class="font-label text-[11px] font-bold uppercase tracking-[0.2em] text-secondary-fixed">Horarios</span>
+            <h3 class="mt-2 font-display text-2xl font-bold text-primary-fixed">Horario de cada fin de semana</h3>
+            <div class="mt-6 space-y-4">
+              {horarios.map((horario) => (
+                <div class="flex items-center justify-between gap-4 border-b border-on-primary/15 pb-4 last:border-0 last:pb-0">
+                  <span class="font-body text-sm text-on-primary/80">{horario.dia}</span>
+                  <span class="font-label text-sm font-bold text-secondary-fixed">{horario.hora}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="border-t border-on-primary/15 bg-on-primary/5 p-7 md:border-l md:border-t-0 md:p-9">
+            <span class="font-label text-[11px] font-bold uppercase tracking-[0.2em] text-secondary-fixed">Información</span>
+            <h3 class="mt-2 font-display text-2xl font-bold text-primary-fixed">¿Deseas participar?</h3>
+            <p class="mt-4 font-body text-sm leading-relaxed text-on-primary/80">
+              Para confirmar cupos, requisitos o cualquier cambio en las fechas, comunícate directamente con la oficina parroquial.
+            </p>
+
+            <div class="mt-6 space-y-3 font-body text-sm">
+              <a href={siteConfig.contact.telefonoHref} class="flex items-center gap-3 text-primary-fixed hover:text-secondary-fixed">
+                <Icon name="lucide:phone" class="h-4 w-4" />
+                {siteConfig.contact.telefonoDisplay}
+              </a>
+              <a href={siteConfig.contact.whatsappHref} target="_blank" rel="noopener" class="flex items-center gap-3 text-primary-fixed hover:text-secondary-fixed">
+                <Icon name="mdi:whatsapp" class="h-4 w-4" />
+                {siteConfig.contact.whatsappDisplay}
+              </a>
+              <a href={`mailto:${siteConfig.contact.email}`} class="flex items-center gap-3 text-primary-fixed hover:text-secondary-fixed">
+                <Icon name="lucide:mail" class="h-4 w-4" />
+                {siteConfig.contact.email}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center reveal">
+        <a href="/sacramentos/matrimonio" class="inline-flex items-center gap-2 font-label text-xs font-bold uppercase tracking-widest text-secondary hover:underline">
+          Ver requisitos del sacramento del Matrimonio
+          <Icon name="lucide:arrow-right" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
