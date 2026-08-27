@@ -1,0 +1,96 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { catequesisProgramas } from '../../config/catequesis';
+---
+
+<Layout
+  title="Inscripciones de Catequesis"
+  description="Inscripciones para catequesis de adultos, Primera Comunión y Confirmación en la Parroquia El Salvador del Mundo."
+>
+  <header class="relative overflow-hidden bg-primary text-on-primary">
+    <div class="absolute inset-0 opacity-20">
+      <img src="/img/institucionales/templo_interior.webp" alt="" class="h-full w-full object-cover" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/75"></div>
+    <div class="relative mx-auto max-w-[1280px] px-6 py-20 md:px-margin-desktop md:py-28">
+      <div class="max-w-3xl reveal">
+        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary-fixed">Formación en la fe</span>
+        <h1 class="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">Inscripciones de Catequesis</h1>
+        <p class="mt-6 max-w-2xl font-body text-base leading-relaxed text-on-primary/85 sm:text-lg">
+          Selecciona el proceso de formación correspondiente y completa la inscripción en línea. La oficina parroquial se comunicará al número de contacto registrado para dar seguimiento.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-surface py-20 md:py-24">
+    <div class="mx-auto max-w-[1280px] px-6 md:px-margin-desktop">
+      <div class="mb-12 max-w-2xl reveal">
+        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary">Procesos disponibles</span>
+        <h2 class="mt-3 font-display text-3xl font-bold text-primary md:text-4xl">Elige tu catequesis</h2>
+        <p class="mt-4 font-body text-on-surface-variant">
+          Consulta los requisitos de cada proceso antes de completar el formulario.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-3">
+        {catequesisProgramas.map((programa, index) => (
+          <article class={`group overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface-container-lowest shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl reveal stagger-${index + 1}`}>
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img
+                src={programa.imagen}
+                alt={programa.nombre}
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-primary/75 via-primary/15 to-transparent"></div>
+              <div class="absolute bottom-4 left-4 rounded-full bg-surface/95 px-3 py-1 font-label text-[11px] font-bold uppercase tracking-wider text-primary backdrop-blur-sm">
+                Desde {programa.edadMinima} años
+              </div>
+            </div>
+
+            <div class="flex h-full flex-col p-7">
+              <p class="font-label text-xs font-bold uppercase tracking-[0.18em] text-secondary">{programa.subtitulo}</p>
+              <h3 class="mt-3 font-display text-2xl font-bold text-primary">{programa.nombre}</h3>
+              <p class="mt-4 font-body text-sm leading-relaxed text-on-surface-variant">{programa.descripcion}</p>
+
+              <div class="mt-6 border-t border-outline-variant/30 pt-5">
+                <p class="mb-3 font-label text-xs font-bold uppercase tracking-wider text-on-surface">Requisitos principales</p>
+                <ul class="space-y-2">
+                  {programa.requisitos.slice(0, 3).map((requisito) => (
+                    <li class="flex items-start gap-2 font-body text-sm text-on-surface-variant">
+                      <span class="material-symbols-outlined mt-0.5 text-base text-secondary">check_circle</span>
+                      <span>{requisito}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a
+                href={`/catequesis/${programa.slug}`}
+                class="mt-7 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-label text-xs font-bold uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container"
+              >
+                Inscribirme
+                <span class="material-symbols-outlined text-lg">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-12 rounded-2xl border border-secondary/20 bg-secondary-fixed/20 p-6 md:p-8 reveal">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h3 class="font-display text-xl font-bold text-primary">Importante</h3>
+            <p class="mt-2 max-w-3xl font-body text-sm leading-relaxed text-on-surface-variant">
+              La inscripción en línea registra tus datos para iniciar el proceso. Los documentos indicados en los requisitos deberán presentarse a la parroquia cuando sean solicitados por el equipo de catequesis.
+            </p>
+          </div>
+          <a href="/oficina" class="shrink-0 font-label text-xs font-bold uppercase tracking-wider text-secondary hover:underline">
+            Contactar oficina parroquial
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
