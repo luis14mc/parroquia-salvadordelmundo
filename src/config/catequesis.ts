@@ -14,15 +14,16 @@ export interface CatequesisPrograma {
 export const catequesisProgramas: CatequesisPrograma[] = [
   {
     slug: "adultos",
-    nombre: "Catequesis para adultos",
+    nombre: "Catequesis Iniciación Cristiana para Adultos",
     subtitulo: "Iniciación cristiana para mayores de 18 años",
     descripcion:
-      "Abrimos este espacio para adultos mayores de 18 años que no han recibido ningún sacramento y desean comenzar su proceso de formación en vistas a recibir sus sacramentos en la Vigilia Pascual 2026.",
+      "Proceso de formación para personas mayores de 18 años que no han recibido los sacramentos de iniciación cristiana y desean prepararse para recibirlos en la Vigilia Pascual 2027.",
     imagen: "/img/institucionales/bautismo.webp",
     requisitos: [
+      "Ser mayor de 18 años.",
       "Inscribirse mediante este formulario.",
       "Presentar partida de nacimiento.",
-      "Presentar copia de identidad de los padrinos y su constancia de confirmación.",
+      "Presentar copia de identidad y constancia de Confirmación del padrino o madrina.",
       "Prepararse con diligencia y participar en los encuentros formativos.",
     ],
     edadMinima: 18,

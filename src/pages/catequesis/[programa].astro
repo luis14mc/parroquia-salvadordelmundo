@@ -13,6 +13,12 @@ if (!programa) {
 const esAdultos = programa.slug === 'adultos';
 const esPrimeraComunion = programa.slug === 'primera-comunion';
 const esConfirmacion = programa.slug === 'confirmacion';
+
+const edadMinima = esAdultos ? 18 : esConfirmacion ? 15 : 9;
+const hoy = new Date();
+const fechaMaximaNacimiento = new Date(hoy.getFullYear() - edadMinima, hoy.getMonth(), hoy.getDate());
+const fechaMaximaInput = fechaMaximaNacimiento.toISOString().split('T')[0];
+const mensajeEdad = `Debes tener al menos ${edadMinima} años para inscribirte en este proceso.`;
 ---
 
 <Layout
@@ -107,6 +113,10 @@ const esConfirmacion = programa.slug === 'confirmacion';
                 name="fecha_nacimiento"
                 type="date"
                 required
+                max={fechaMaximaInput}
+                data-min-age={edadMinima}
+                oninvalid={`this.setCustomValidity('${mensajeEdad}')`}
+                oninput="this.setCustomValidity('')"
                 class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
               />
               <p class="field-error mt-1 hidden text-xs text-red-700" data-error-for="fecha_nacimiento"></p>
