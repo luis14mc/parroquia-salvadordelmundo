@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
 import { getCatequesisPrograma } from '../../config/catequesis';
 
 export const prerender = false;
@@ -19,29 +20,28 @@ const hoy = new Date();
 const fechaMaximaNacimiento = new Date(hoy.getFullYear() - edadMinima, hoy.getMonth(), hoy.getDate());
 const fechaMaximaInput = fechaMaximaNacimiento.toISOString().split('T')[0];
 const mensajeEdad = `Debes tener al menos ${edadMinima} años para inscribirte en este proceso.`;
+
+const heroIcon = esAdultos ? 'lucide:users' : esPrimeraComunion ? 'lucide:wheat' : 'lucide:flame';
 ---
 
 <Layout
   title={`Inscripción — ${programa.nombre}`}
   description={`Formulario de inscripción para ${programa.nombre} en la Parroquia El Salvador del Mundo.`}
 >
-  <header class="relative overflow-hidden bg-primary text-on-primary">
-    <div class="absolute inset-0 opacity-25">
-      <img src={programa.imagen} alt="" class="h-full w-full object-cover" />
+  <section class="relative min-h-[50vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-primary hero-clip">
+    <div class="absolute inset-0 opacity-30 mix-blend-overlay">
+      <div class="absolute inset-0 bg-cover bg-center" style={`background-image: url('${programa.imagen}');`}></div>
     </div>
-    <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/70"></div>
-    <div class="relative mx-auto max-w-[1280px] px-6 py-16 md:px-margin-desktop md:py-20">
-      <a href="/catequesis" class="mb-8 inline-flex items-center gap-2 font-label text-xs font-bold uppercase tracking-wider text-primary-fixed hover:text-secondary-fixed">
-        <span class="material-symbols-outlined text-base">arrow_back</span>
-        Ver procesos de catequesis
-      </a>
-      <div class="max-w-3xl reveal">
-        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary-fixed">Inscripción en línea</span>
-        <h1 class="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">{programa.nombre}</h1>
-        <p class="mt-5 max-w-2xl font-body text-base leading-relaxed text-on-primary/85 sm:text-lg">{programa.descripcion}</p>
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+    <div class="container-tight relative z-10 text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-sm mb-8">
+        <Icon name={heroIcon} class="w-10 h-10 text-on-primary" />
       </div>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-on-primary mb-6">{programa.nombre}</h1>
+      <p class="font-body text-lg lg:text-xl text-primary-fixed max-w-2xl mx-auto">{programa.descripcion}</p>
     </div>
-  </header>
+  </section>
 
   <section class="bg-surface py-16 md:py-20">
     <div class="mx-auto grid max-w-[1280px] gap-10 px-6 md:px-margin-desktop lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
