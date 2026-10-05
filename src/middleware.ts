@@ -4,10 +4,7 @@ const ADMIN_USERNAME = process.env.ADMIN_USERNAME ?? 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? '';
 
 function isProtected(pathname: string) {
-  if (pathname === '/admin' || pathname === '/admin/') return false;
-  if (pathname.startsWith('/admin/')) return true;
-  if (pathname.startsWith('/api/admin')) return true;
-  return false;
+  return pathname.startsWith('/api/admin');
 }
 
 function unauthorized() {
