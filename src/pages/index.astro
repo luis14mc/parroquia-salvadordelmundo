@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HomeCatequesis from '../components/home/HomeCatequesis.astro';
 import { siteConfig } from '../config/site';
 import { getCollection } from 'astro:content';
 import { Icon } from 'astro-icon/components';
@@ -108,6 +109,9 @@ const colaborador = sacerdotes.find(s => s.cargo === 'Colaborador');
       </div>
     </div>
   </section>
+
+  <!-- Catequesis y formación (sección compacta — 2da posición) -->
+  <HomeCatequesis />
 
   <!-- Horarios de Misa (Liturgical Week) -->
   <section class="py-24 lg:py-28 bg-surface border-y border-outline-variant/30">

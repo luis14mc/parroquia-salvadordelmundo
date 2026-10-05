@@ -1,0 +1,392 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+export const prerender = false;
+
+const formularios = [
+  {
+    id: 'adultos',
+    nombre: 'Catequesis de Adultos',
+    descripcion: 'Inscripciones de catequesis de iniciación cristiana para mayores de 18 años.',
+    icono: 'lucide:users',
+    endpoint: '/api/admin/catequesis/adultos',
+    download: '/api/admin/excel/catequesis/adultos',
+  },
+  {
+    id: 'primera-comunion',
+    nombre: 'Primera Comunión',
+    descripcion: 'Inscripciones para niños y niñas desde 9 años.',
+    icono: 'lucide:wheat',
+    endpoint: '/api/admin/catequesis/primera-comunion',
+    download: '/api/admin/excel/catequesis/primera-comunion',
+  },
+  {
+    id: 'confirmacion',
+    nombre: 'Confirmación',
+    descripcion: 'Inscripciones para jóvenes mayores de 15 años.',
+    icono: 'lucide:flame',
+    endpoint: '/api/admin/catequesis/confirmacion',
+    download: '/api/admin/excel/catequesis/confirmacion',
+  },
+  {
+    id: 'gymkana',
+    nombre: 'Gymkana 2026',
+    descripcion: 'Inscripciones individuales para la gymkana juvenil del 25 de octubre.',
+    icono: 'lucide:tent',
+    endpoint: '/api/admin/gymkana',
+    download: '/api/admin/excel/gymkana',
+  },
+];
+---
+
+<Layout
+  title="Panel de Inscripciones"
+  description="Panel administrativo para revisar listados y descargar reportes de las inscripciones parroquiales."
+>
+  <section class="relative min-h-[40vh] flex items-center overflow-hidden bg-primary hero-clip">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+    <div class="container-tight relative z-10 text-on-primary">
+      <div class="max-w-2xl reveal">
+        <div class="inline-flex items-center gap-2 rounded-full border border-on-primary/25 bg-white/5 px-4 py-1.5 backdrop-blur-sm mb-6">
+          <Icon name="lucide:lock" class="h-4 w-4 text-secondary-fixed" />
+          <span class="font-label text-[11px] font-bold uppercase tracking-[0.22em] text-secondary-fixed">Acceso restringido</span>
+        </div>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.02] tracking-tight mb-4">
+          Panel de<br/>
+          <span class="italic font-medium text-secondary-fixed">Inscripciones</span>
+        </h1>
+        <p class="font-body text-base md:text-lg text-primary-fixed opacity-90 leading-relaxed">
+          Revisa los registros de cada formulario parroquial y descarga el reporte en Excel.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface py-12 lg:py-16 border-y border-outline-variant/30">
+    <div class="mx-auto max-w-[1280px] px-6 md:px-margin-desktop">
+
+      <!-- Selector de formulario -->
+      <div class="mb-10 reveal">
+        <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary">Selecciona el formulario</span>
+        <h2 class="mt-2 font-display text-2xl font-bold text-primary md:text-3xl">1. Elegir proceso</h2>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12 reveal">
+        {formularios.map((form, i) => (
+          <label
+            class={`group cursor-pointer rounded-2xl border-2 border-outline-variant/30 bg-surface-container-lowest p-5 transition-all hover:border-secondary/40 hover:shadow-md has-[:checked]:border-primary has-[:checked]:bg-primary has-[:checked]:text-on-primary reveal stagger-${(i % 6) + 1}`}
+          >
+            <input
+              type="radio"
+              name="formulario"
+              value={form.id}
+              data-endpoint={form.endpoint}
+              data-download={form.download}
+              data-nombre={form.nombre}
+              class="peer sr-only"
+              checked={i === 0}
+            />
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full border border-outline-variant/60 text-primary peer-checked:border-on-primary/30 peer-checked:text-secondary-fixed transition-colors">
+                <Icon name={form.icono} class="h-5 w-5" />
+              </div>
+              <Icon name="lucide:circle-check" class="h-5 w-5 text-secondary-fixed hidden peer-checked:block" />
+            </div>
+            <p class="font-display text-base font-bold leading-tight mb-1">{form.nombre}</p>
+            <p class="font-body text-xs leading-relaxed opacity-80">{form.descripcion}</p>
+          </label>
+        ))}
+      </div>
+
+      <!-- Tabla de registros -->
+      <div class="rounded-2xl border border-outline-variant/30 bg-surface-container-lowest overflow-hidden reveal">
+        <div class="flex flex-col gap-4 border-b border-outline-variant/30 p-6 md:flex-row md:items-center md:justify-between md:p-7">
+          <div>
+            <span class="font-label text-xs font-bold uppercase tracking-[0.25em] text-secondary">Listado</span>
+            <h2 class="mt-1 font-display text-2xl font-bold text-primary" id="tabla-titulo">Cargando…</h2>
+            <p class="mt-1 font-body text-sm text-on-surface-variant" id="tabla-meta">Selecciona un formulario para ver los registros.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <button
+              id="logout-btn"
+              type="button"
+              class="inline-flex items-center gap-2 rounded-xl border border-outline-variant/40 bg-surface px-4 py-2.5 font-label text-xs font-bold uppercase tracking-widest text-on-surface transition-all hover:bg-surface-container-low"
+            >
+              <Icon name="lucide:log-out" class="h-3.5 w-3.5" />
+              Cerrar sesión
+            </button>
+            <button
+              id="download-btn"
+              type="button"
+              class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 font-label text-xs font-bold uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-50"
+              disabled
+            >
+              <Icon name="lucide:download" class="h-4 w-4" />
+              <span>Descargar Excel</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="loading" class="hidden p-12 text-center text-on-surface-variant">
+          <Icon name="lucide:loader" class="mx-auto h-8 w-8 animate-spin text-secondary" />
+          <p class="mt-3 font-body text-sm">Cargando registros…</p>
+        </div>
+
+        <div id="error-box" class="hidden m-6 rounded-xl border border-red-700/20 bg-red-50 p-4 font-body text-sm text-red-800"></div>
+
+        <div id="empty-state" class="hidden p-12 text-center">
+          <Icon name="lucide:inbox" class="mx-auto h-12 w-12 text-outline-variant" />
+          <p class="mt-3 font-display text-lg font-bold text-primary">Sin registros</p>
+          <p class="mt-1 font-body text-sm text-on-surface-variant">Aún no hay inscripciones para este formulario.</p>
+        </div>
+
+        <div id="tabla-wrapper" class="hidden overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-surface-container-low border-b border-outline-variant/30">
+              <tr id="tabla-head"></tr>
+            </thead>
+            <tbody id="tabla-body" class="divide-y divide-outline-variant/30"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    type Record = Record<string, unknown>;
+
+    const SESSION_KEY = 'adminBasicAuth';
+
+    const credentials = sessionStorage.getItem(SESSION_KEY);
+    if (!credentials) {
+      window.location.replace('/admin');
+    }
+
+    const tituloEl = document.querySelector<HTMLElement>('#tabla-titulo');
+    const metaEl = document.querySelector<HTMLElement>('#tabla-meta');
+    const headEl = document.querySelector<HTMLElement>('#tabla-head');
+    const bodyEl = document.querySelector<HTMLElement>('#tabla-body');
+    const tablaWrapper = document.querySelector<HTMLElement>('#tabla-wrapper');
+    const loadingEl = document.querySelector<HTMLElement>('#loading');
+    const errorEl = document.querySelector<HTMLElement>('#error-box');
+    const emptyEl = document.querySelector<HTMLElement>('#empty-state');
+    const downloadBtn = document.querySelector<HTMLButtonElement>('#download-btn');
+    const logoutBtn = document.querySelector<HTMLButtonElement>('#logout-btn');
+    const radios = document.querySelectorAll<HTMLInputElement>('input[name="formulario"]');
+
+    function hideAll() {
+      tablaWrapper?.classList.add('hidden');
+      loadingEl?.classList.add('hidden');
+      errorEl?.classList.add('hidden');
+      emptyEl?.classList.add('hidden');
+    }
+
+    function showError(message: string) {
+      hideAll();
+      if (!errorEl) return;
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    }
+
+    function showLoading() {
+      hideAll();
+      loadingEl?.classList.remove('hidden');
+    }
+
+    function showEmpty() {
+      hideAll();
+      emptyEl?.classList.remove('hidden');
+    }
+
+    function formatCell(value: unknown): string {
+      if (value === null || value === undefined || value === '') return '—';
+      if (value instanceof Date) return value.toISOString().split('T')[0];
+      if (typeof value === 'boolean') return value ? 'Sí' : 'No';
+      const str = String(value);
+      if (/^\d{4}-\d{2}-\d{2}T/.test(str)) return str.split('T')[0];
+      return str;
+    }
+
+    function ageAtEvent(birthDate: unknown) {
+      const eventDate = new Date('2026-10-25T00:00:00');
+      if (typeof birthDate !== 'string') return '';
+      const birth = new Date(`${birthDate}T00:00:00`);
+      if (Number.isNaN(birth.getTime())) return '';
+      let age = eventDate.getFullYear() - birth.getFullYear();
+      const monthDiff = eventDate.getMonth() - birth.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && eventDate.getDate() < birth.getDate())) age -= 1;
+      return `${age} años`;
+    }
+
+    const COLUMN_LABELS: Record<string, string> = {
+      id: 'ID',
+      participant_name: 'Nombre',
+      birth_date: 'Nacimiento',
+      contact_phone: 'Teléfono',
+      email: 'Correo',
+      sector: 'Sector',
+      address: 'Dirección',
+      allergies_medical: 'Alergias / Condiciones',
+      guardian_name: 'Encargado',
+      baptism_status: 'Bautismo',
+      communion_status: 'Comunión',
+      no_sacraments_confirmed: 'Sin sacramentos',
+      program_type: 'Programa',
+      status: 'Estado',
+      created_at: 'Inscrito',
+    };
+
+    const SKIP_COLUMNS = new Set(['payload', 'updated_at', 'notes', 'privacy_accepted']);
+
+    async function authFetch(input: string, init: RequestInit = {}) {
+      const headers = new Headers(init.headers);
+      if (credentials) headers.set('Authorization', `Basic ${credentials}`);
+      headers.set('Cache-Control', 'no-store');
+      return fetch(input, { ...init, headers });
+    }
+
+    function handle401() {
+      sessionStorage.removeItem(SESSION_KEY);
+      window.location.replace('/admin');
+    }
+
+    let currentDownload = '';
+
+    async function downloadExcel() {
+      if (!currentDownload) return;
+      if (downloadBtn) {
+        downloadBtn.disabled = true;
+        const label = downloadBtn.querySelector('span');
+        if (label) label.textContent = 'Descargando…';
+      }
+
+      try {
+        const response = await authFetch(currentDownload);
+        if (response.status === 401) {
+          handle401();
+          return;
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const disposition = response.headers.get('content-disposition') ?? '';
+        const match = disposition.match(/filename="?([^";]+)"?/);
+        a.href = url;
+        a.download = match ? match[1] : 'reporte.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error(error);
+        showError('No se pudo descargar el archivo.');
+      } finally {
+        if (downloadBtn) {
+          downloadBtn.disabled = false;
+          const label = downloadBtn.querySelector('span');
+          if (label) label.textContent = 'Descargar Excel';
+        }
+      }
+    }
+
+    downloadBtn?.addEventListener('click', downloadExcel);
+    logoutBtn?.addEventListener('click', () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      window.location.replace('/admin');
+    });
+
+    async function loadFormulario(endpoint: string, nombre: string, download: string) {
+      currentDownload = download;
+      if (tituloEl) tituloEl.textContent = nombre;
+      if (metaEl) metaEl.textContent = `Cargando registros de ${nombre}…`;
+      if (downloadBtn) downloadBtn.disabled = true;
+      showLoading();
+
+      try {
+        const response = await authFetch(endpoint);
+        if (response.status === 401) {
+          handle401();
+          return;
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = (await response.json()) as { ok: boolean; records?: Record[]; error?: string };
+
+        if (!data.ok || !data.records) {
+          showError(data.error ?? 'No se pudieron cargar los registros.');
+          return;
+        }
+
+        if (downloadBtn) downloadBtn.disabled = false;
+
+        if (data.records.length === 0) {
+          if (metaEl) metaEl.textContent = `0 registros en ${nombre}`;
+          showEmpty();
+          return;
+        }
+
+        const columns = Object.keys(data.records[0]).filter((c) => !SKIP_COLUMNS.has(c));
+
+        if (headEl) {
+          headEl.innerHTML = columns
+            .map((c) => {
+              const label = COLUMN_LABELS[c] ?? c;
+              return `<th class="px-5 py-3.5 font-label text-[10px] font-bold uppercase tracking-wider text-on-surface">${label}</th>`;
+            })
+            .join('');
+        }
+
+        if (bodyEl) {
+          bodyEl.innerHTML = data.records
+            .map((row) => {
+              return (
+                '<tr class="hover:bg-surface transition-colors">' +
+                columns
+                  .map((c) => {
+                    let value = row[c];
+                    if (c === 'birth_date') {
+                      const formatted = formatCell(value);
+                      const age = ageAtEvent(value);
+                      return `<td class="px-5 py-3.5 font-body text-sm text-on-surface">${formatted}<br/><span class="text-xs text-on-surface-variant">${age}</span></td>`;
+                    }
+                    return `<td class="px-5 py-3.5 font-body text-sm text-on-surface break-words">${formatCell(value)}</td>`;
+                  })
+                  .join('') +
+                '</tr>'
+              );
+            })
+            .join('');
+        }
+
+        if (metaEl) metaEl.textContent = `${data.records.length} registro${data.records.length === 1 ? '' : 's'} en ${nombre}`;
+
+        hideAll();
+        tablaWrapper?.classList.remove('hidden');
+      } catch (error) {
+        console.error(error);
+        showError('No fue posible conectar con el servidor.');
+      }
+    }
+
+    radios.forEach((radio) => {
+      radio.addEventListener('change', () => {
+        if (!radio.checked) return;
+        const endpoint = radio.dataset.endpoint ?? '';
+        const download = radio.dataset.download ?? '#';
+        const nombre = radio.dataset.nombre ?? '';
+        void loadFormulario(endpoint, nombre, download);
+      });
+    });
+
+    const initial = document.querySelector<HTMLInputElement>('input[name="formulario"]:checked');
+    if (initial) {
+      void loadFormulario(
+        initial.dataset.endpoint ?? '',
+        initial.dataset.nombre ?? '',
+        initial.dataset.download ?? '#',
+      );
+    }
+  </script>
+</Layout>
