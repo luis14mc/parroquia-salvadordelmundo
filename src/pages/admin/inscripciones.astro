@@ -11,7 +11,7 @@ const formularios = [
     descripcion: 'Inscripciones de catequesis de iniciación cristiana para mayores de 18 años.',
     icono: 'lucide:users',
     endpoint: '/api/admin/catequesis/adultos',
-    download: '/api/admin/excel/catequesis/ adultos'.replace(' ', ''),
+    download: '/api/admin/excel/catequesis/adultos',
   },
   {
     id: 'primera-comunion',
@@ -107,14 +107,25 @@ const formularios = [
             <h2 class="mt-1 font-display text-2xl font-bold text-primary" id="tabla-titulo">Cargando…</h2>
             <p class="mt-1 font-body text-sm text-on-surface-variant" id="tabla-meta">Selecciona un formulario para ver los registros.</p>
           </div>
-          <a
-            id="download-btn"
-            href="#"
-            class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 font-label text-xs font-bold uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container disabled:opacity-50"
-          >
-            <Icon name="lucide:download" class="h-4 w-4" />
-            Descargar Excel
-          </a>
+          <div class="flex flex-wrap items-center gap-3">
+            <button
+              id="logout-btn"
+              type="button"
+              class="inline-flex items-center gap-2 rounded-xl border border-outline-variant/40 bg-surface px-4 py-2.5 font-label text-xs font-bold uppercase tracking-widest text-on-surface transition-all hover:bg-surface-container-low"
+            >
+              <Icon name="lucide:log-out" class="h-3.5 w-3.5" />
+              Cerrar sesión
+            </button>
+            <button
+              id="download-btn"
+              type="button"
+              class="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 font-label text-xs font-bold uppercase tracking-widest text-on-primary transition-all hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-50"
+              disabled
+            >
+              <Icon name="lucide:download" class="h-4 w-4" />
+              <span>Descargar Excel</span>
+            </button>
+          </div>
         </div>
 
         <div id="loading" class="hidden p-12 text-center text-on-surface-variant">
@@ -145,6 +156,13 @@ const formularios = [
   <script>
     type Record = Record<string, unknown>;
 
+    const SESSION_KEY = 'adminBasicAuth';
+
+    const credentials = sessionStorage.getItem(SESSION_KEY);
+    if (!credentials) {
+      window.location.replace('/admin');
+    }
+
     const tituloEl = document.querySelector<HTMLElement>('#tabla-titulo');
     const metaEl = document.querySelector<HTMLElement>('#tabla-meta');
     const headEl = document.querySelector<HTMLElement>('#tabla-head');
@@ -153,7 +171,8 @@ const formularios = [
     const loadingEl = document.querySelector<HTMLElement>('#loading');
     const errorEl = document.querySelector<HTMLElement>('#error-box');
     const emptyEl = document.querySelector<HTMLElement>('#empty-state');
-    const downloadBtn = document.querySelector<HTMLAnchorElement>('#download-btn');
+    const downloadBtn = document.querySelector<HTMLButtonElement>('#download-btn');
+    const logoutBtn = document.querySelector<HTMLButtonElement>('#logout-btn');
     const radios = document.querySelectorAll<HTMLInputElement>('input[name="formulario"]');
 
     function hideAll() {
@@ -220,17 +239,78 @@ const formularios = [
 
     const SKIP_COLUMNS = new Set(['payload', 'updated_at', 'notes', 'privacy_accepted']);
 
+    async function authFetch(input: string, init: RequestInit = {}) {
+      const headers = new Headers(init.headers);
+      if (credentials) headers.set('Authorization', `Basic ${credentials}`);
+      headers.set('Cache-Control', 'no-store');
+      return fetch(input, { ...init, headers });
+    }
+
+    function handle401() {
+      sessionStorage.removeItem(SESSION_KEY);
+      window.location.replace('/admin');
+    }
+
+    let currentDownload = '';
+
+    async function downloadExcel() {
+      if (!currentDownload) return;
+      if (downloadBtn) {
+        downloadBtn.disabled = true;
+        const label = downloadBtn.querySelector('span');
+        if (label) label.textContent = 'Descargando…';
+      }
+
+      try {
+        const response = await authFetch(currentDownload);
+        if (response.status === 401) {
+          handle401();
+          return;
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const disposition = response.headers.get('content-disposition') ?? '';
+        const match = disposition.match(/filename="?([^";]+)"?/);
+        a.href = url;
+        a.download = match ? match[1] : 'reporte.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error(error);
+        showError('No se pudo descargar el archivo.');
+      } finally {
+        if (downloadBtn) {
+          downloadBtn.disabled = false;
+          const label = downloadBtn.querySelector('span');
+          if (label) label.textContent = 'Descargar Excel';
+        }
+      }
+    }
+
+    downloadBtn?.addEventListener('click', downloadExcel);
+    logoutBtn?.addEventListener('click', () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      window.location.replace('/admin');
+    });
+
     async function loadFormulario(endpoint: string, nombre: string, download: string) {
+      currentDownload = download;
       if (tituloEl) tituloEl.textContent = nombre;
       if (metaEl) metaEl.textContent = `Cargando registros de ${nombre}…`;
-      if (downloadBtn) {
-        downloadBtn.setAttribute('href', download);
-        downloadBtn.setAttribute('aria-disabled', 'true');
-      }
+      if (downloadBtn) downloadBtn.disabled = true;
       showLoading();
 
       try {
-        const response = await fetch(endpoint);
+        const response = await authFetch(endpoint);
+        if (response.status === 401) {
+          handle401();
+          return;
+        }
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = (await response.json()) as { ok: boolean; records?: Record[]; error?: string };
 
@@ -239,7 +319,7 @@ const formularios = [
           return;
         }
 
-        if (downloadBtn) downloadBtn.removeAttribute('aria-disabled');
+        if (downloadBtn) downloadBtn.disabled = false;
 
         if (data.records.length === 0) {
           if (metaEl) metaEl.textContent = `0 registros en ${nombre}`;

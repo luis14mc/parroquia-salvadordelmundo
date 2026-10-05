@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+export const prerender = false;
+---
+
+<Layout
+  title="Acceso administrativo"
+  description="Inicio de sesión para el panel administrativo de la Parroquia El Salvador del Mundo."
+>
+  <section class="relative min-h-screen flex items-center overflow-hidden bg-primary hero-clip">
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+
+    <div class="container-tight relative z-10 py-10">
+      <div class="mx-auto max-w-md">
+
+        <div class="mb-8 text-center reveal">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-white/10 backdrop-blur-sm mb-5">
+            <Icon name="lucide:lock" class="w-8 h-8 text-on-primary" />
+          </div>
+          <p class="font-label text-[11px] font-bold uppercase tracking-[0.22em] text-secondary-fixed mb-3">Acceso restringido</p>
+          <h1 class="font-display text-3xl md:text-4xl font-bold text-on-primary leading-[1.1] tracking-tight">
+            Panel<br/>
+            <span class="italic font-medium text-secondary-fixed">administrativo</span>
+          </h1>
+        </div>
+
+        <form
+          id="admin-login"
+          class="rounded-2xl border border-on-primary/15 bg-surface-container-lowest p-6 shadow-xl md:p-8 reveal stagger-1"
+          autocomplete="on"
+        >
+          <div class="space-y-5">
+            <div>
+              <label for="username" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                Usuario
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                required
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="usuario"
+              />
+            </div>
+            <div>
+              <label for="password" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                Contraseña
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3.5 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                placeholder="••••••••"
+              />
+            </div>
+          </div>
+
+          <p
+            id="login-error"
+            class="hidden mt-5 rounded-xl border border-red-700/20 bg-red-50 px-4 py-3 font-body text-sm text-red-800"
+            role="alert"
+            aria-live="polite"
+          ></p>
+
+          <button
+            id="login-submit"
+            type="submit"
+            class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-7 py-4 font-label text-xs font-bold uppercase tracking-widest text-on-primary shadow-md transition hover:bg-primary-container disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <span id="login-label">Ingresar al panel</span>
+            <Icon name="lucide:log-in" class="h-4 w-4" />
+          </button>
+
+          <p class="mt-6 text-center font-body text-xs text-on-surface-variant">
+            Solo personal autorizado de la parroquia.
+          </p>
+        </form>
+
+        <p class="mt-6 text-center font-body text-xs text-on-primary/60">
+          <a href="/" class="underline-offset-4 hover:text-secondary-fixed hover:underline">← Volver al sitio público</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const SESSION_KEY = 'adminBasicAuth';
+    const form = document.querySelector<HTMLFormElement>('#admin-login');
+    const submitBtn = document.querySelector<HTMLButtonElement>('#login-submit');
+    const submitLabel = document.querySelector<HTMLSpanElement>('#login-label');
+    const errorEl = document.querySelector<HTMLParagraphElement>('#login-error');
+    const usernameInput = document.querySelector<HTMLInputElement>('#username');
+
+    if (sessionStorage.getItem(SESSION_KEY)) {
+      window.location.replace('/admin/inscripciones');
+    }
+
+    usernameInput?.focus();
+
+    function showError(message: string) {
+      if (!errorEl) return;
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    }
+
+    function hideError() {
+      errorEl?.classList.add('hidden');
+    }
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      hideError();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const formData = new FormData(form);
+      const user = String(formData.get('username') ?? '').trim();
+      const pass = String(formData.get('password') ?? '');
+
+      if (!user || !pass) {
+        showError('Ingresa usuario y contraseña.');
+        return;
+      }
+
+      const credentials = btoa(`${user}:${pass}`);
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitLabel) submitLabel.textContent = 'Verificando…';
+
+      try {
+        const response = await fetch('/api/admin/gymkana', {
+          method: 'GET',
+          headers: { Authorization: `Basic ${credentials}` },
+          cache: 'no-store',
+        });
+
+        if (response.status === 401) {
+          showError('Usuario o contraseña incorrectos.');
+          return;
+        }
+
+        if (!response.ok) {
+          showError('No se pudo conectar con el servidor. Inténtalo nuevamente.');
+          return;
+        }
+
+        sessionStorage.setItem(SESSION_KEY, credentials);
+        window.location.href = '/admin/inscripciones';
+      } catch {
+        showError('No fue posible conectar con el servidor.');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitLabel) submitLabel.textContent = 'Ingresar al panel';
+      }
+    });
+  </script>
+</Layout>
