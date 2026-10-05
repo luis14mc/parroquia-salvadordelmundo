@@ -18,7 +18,7 @@ export const mainNavigation: NavItem[] = [
   { label: "Inicio", href: "/" },
   { label: "Nosotros", href: "/nosotros" },
   { label: "Sacramentos", href: "/sacramentos" },
-  { label: "Catequesis", href: "/catequesis" },
+  { label: "Inscripciones", href: "/inscripciones" },
   { label: "Oficina Parroquial", href: "/oficina" },
   { label: "Donaciones", href: "/donaciones", isCTA: true },
 ];
