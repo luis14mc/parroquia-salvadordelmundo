@@ -15,7 +15,7 @@ const esAdultos = programa.slug === 'adultos';
 const esPrimeraComunion = programa.slug === 'primera-comunion';
 const esConfirmacion = programa.slug === 'confirmacion';
 
-const edadMinima = esAdultos ? 18 : esConfirmacion ? 15 : 9;
+const edadMinima = esAdultos ? 18 : esConfirmacion ? 14 : 8;
 const hoy = new Date();
 const fechaMaximaNacimiento = new Date(hoy.getFullYear() - edadMinima, hoy.getMonth(), hoy.getDate());
 const fechaMaximaInput = fechaMaximaNacimiento.toISOString().split('T')[0];

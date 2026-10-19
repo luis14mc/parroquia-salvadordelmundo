@@ -6,8 +6,8 @@ export const prerender = false;
 
 const PROGRAMS: Record<string, { title: string; minAge: number }> = {
   adultos: { title: "Catequesis Adultos", minAge: 18 },
-  "primera-comunion": { title: "Primera Comunión", minAge: 9 },
-  confirmacion: { title: "Confirmación", minAge: 15 },
+  "primera-comunion": { title: "Primera Comunión", minAge: 8 },
+  confirmacion: { title: "Confirmación", minAge: 14 },
 };
 
 const BAPTISM_LABELS: Record<string, string> = {

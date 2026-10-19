@@ -32,34 +32,34 @@ export const catequesisProgramas: CatequesisPrograma[] = [
   {
     slug: "primera-comunion",
     nombre: "Catequesis de Primera Comunión",
-    subtitulo: "Formación para niños y niñas desde los 9 años",
+    subtitulo: "Formación para niños y niñas desde los 8 años",
     descripcion:
       "Proceso de preparación catequética para niños y niñas que desean recibir por primera vez el sacramento de la Eucaristía.",
     imagen: "/img/institucionales/primera-comunion.webp",
     requisitos: [
-      "Tener 9 años o más.",
+      "Tener 8 años cumplidos.",
       "Presentar partida de nacimiento.",
       "Presentar fe de bautismo, si cuenta con ella.",
       "Si no ha recibido el Bautismo, indicarlo en el formulario.",
     ],
-    edadMinima: 9,
+    edadMinima: 8,
     colorClase: "bg-secondary",
   },
   {
     slug: "confirmacion",
     nombre: "Catequesis de Confirmación",
-    subtitulo: "Formación para jóvenes mayores de 15 años",
+    subtitulo: "Formación para jóvenes mayores de 14 años",
     descripcion:
       "Proceso de formación para jóvenes que desean fortalecer su vida de fe y prepararse para recibir el sacramento de la Confirmación.",
     imagen: "/img/institucionales/confirmacion.webp",
     requisitos: [
-      "Tener 15 años o más.",
+      "Tener 14 años cumplidos.",
       "Presentar partida de nacimiento.",
       "Presentar fe de bautismo, si cuenta con ella.",
       "Presentar constancia de Primera Comunión, si cuenta con ella.",
       "Si no ha recibido Bautismo o Primera Comunión, indicarlo en el formulario.",
     ],
-    edadMinima: 15,
+    edadMinima: 14,
     colorClase: "bg-tertiary",
   },
 ];
