@@ -37,6 +37,10 @@ export const catequesisRegistrationSchema = z
     responsable_nombre: z.string().trim().max(200).optional().or(z.literal("")),
     estado_bautismo: z.enum(["tiene-fe", "no-bautizado", "no-aplica"]).default("no-aplica"),
     estado_comunion: z.enum(["tiene-constancia", "no-comunion", "no-aplica"]).default("no-aplica"),
+    bautismo_lugar: z
+      .enum(["parroquia-propia", "parroquia-otra", "no-aplica"])
+      .default("no-aplica"),
+    bautismo_otra_parroquia: z.string().trim().max(200).optional().or(z.literal("")),
     sin_sacramentos_confirmado: z.boolean().default(false),
     privacidad_aceptada: z.literal(true, {
       error: "Debes aceptar el aviso de privacidad.",
@@ -45,7 +49,7 @@ export const catequesisRegistrationSchema = z
   })
   .superRefine((input, ctx) => {
     const age = calculateAge(input.fecha_nacimiento);
-    const minimumAge = input.programa === "adultos" ? 18 : input.programa === "confirmacion" ? 15 : 9;
+    const minimumAge = input.programa === "adultos" ? 18 : input.programa === "confirmacion" ? 14 : 8;
 
     if (!Number.isFinite(age) || age < minimumAge) {
       ctx.addIssue({
@@ -79,6 +83,14 @@ export const catequesisRegistrationSchema = z
           message: "Indica la situación del Bautismo.",
         });
       }
+
+      if (input.estado_bautismo === "tiene-fe" && input.bautismo_lugar === "no-aplica") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["bautismo_lugar"],
+          message: "Indica si el Bautismo fue en esta parroquia u otra.",
+        });
+      }
     }
 
     if (input.programa === "confirmacion") {
@@ -95,6 +107,14 @@ export const catequesisRegistrationSchema = z
           code: z.ZodIssueCode.custom,
           path: ["estado_bautismo"],
           message: "Indica la situación del Bautismo.",
+        });
+      }
+
+      if (input.estado_bautismo === "tiene-fe" && input.bautismo_lugar === "no-aplica") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["bautismo_lugar"],
+          message: "Indica si el Bautismo fue en esta parroquia u otra.",
         });
       }
 

@@ -15,6 +15,11 @@ const BAPTISM_LABELS: Record<string, string> = {
   "no-bautizado": "No bautizado",
 };
 
+const BAPTISM_PLACE_LABELS: Record<string, string> = {
+  "parroquia-propia": "En esta parroquia",
+  "parroquia-otra": "En otra parroquia",
+};
+
 const COMMUNION_LABELS: Record<string, string> = {
   "tiene-constancia": "Cuento con constancia",
   "no-comunion": "No recibido",
@@ -39,6 +44,8 @@ const HEADERS = [
   "Dirección",
   "Encargado",
   "Estado de Bautismo",
+  "Lugar de Bautismo",
+  "Otra parroquia de Bautismo",
   "Estado de Comunión",
   "Sin sacramentos confirmado",
   "Estado",
@@ -75,6 +82,7 @@ export const GET: APIRoute = async ({ params }) => {
       `SELECT
         id, program_type, participant_name, birth_date, contact_phone,
         email, address, sector, guardian_name, baptism_status,
+        baptism_place, baptism_other_parish,
         communion_status, no_sacraments_confirmed, status, created_at
       FROM catechesis_registrations
       WHERE program_type = $1
@@ -118,6 +126,9 @@ export const GET: APIRoute = async ({ params }) => {
         Encargado: row.guardian_name ?? "",
         "Estado de Bautismo":
           BAPTISM_LABELS[String(row.baptism_status ?? "")] ?? row.baptism_status ?? "",
+        "Lugar de Bautismo":
+          BAPTISM_PLACE_LABELS[String(row.baptism_place ?? "")] ?? row.baptism_place ?? "",
+        "Otra parroquia de Bautismo": row.baptism_other_parish ?? "",
         "Estado de Comunión":
           COMMUNION_LABELS[String(row.communion_status ?? "")] ?? row.communion_status ?? "",
         "Sin sacramentos confirmado": row.no_sacraments_confirmed ? "Sí" : "No",
