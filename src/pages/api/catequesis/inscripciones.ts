@@ -54,12 +54,14 @@ export const POST: APIRoute = async ({ request }) => {
         sector,
         guardian_name,
         baptism_status,
+        baptism_place,
+        baptism_other_parish,
         communion_status,
         no_sacraments_confirmed,
         privacy_accepted,
         payload
       ) VALUES (
-        $1, $2, $3::date, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13::jsonb
+        $1, $2, $3::date, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15::jsonb
       ) RETURNING id`,
       [
         input.programa,
@@ -71,6 +73,8 @@ export const POST: APIRoute = async ({ request }) => {
         nullableText(input.sector),
         nullableText(input.responsable_nombre),
         input.estado_bautismo === "no-aplica" ? null : input.estado_bautismo,
+        input.bautismo_lugar === "no-aplica" ? null : input.bautismo_lugar,
+        nullableText(input.bautismo_otra_parroquia),
         input.estado_comunion === "no-aplica" ? null : input.estado_comunion,
         input.sin_sacramentos_confirmado,
         input.privacidad_aceptada,

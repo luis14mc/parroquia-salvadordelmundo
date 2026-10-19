@@ -216,6 +216,36 @@ const heroIcon = esAdultos ? 'lucide:users' : esPrimeraComunion ? 'lucide:wheat'
                   <span>No he recibido el Bautismo</span>
                 </label>
               </div>
+
+              <div data-bautismo-sub class="mt-4 hidden border-l-2 border-secondary/40 pl-4">
+                <p class="font-label text-xs font-bold uppercase tracking-wider text-on-surface mb-3">¿Dónde fue el Bautismo? <span class="text-primary">*</span></p>
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <label class="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 font-body text-sm text-on-surface">
+                    <input type="radio" name="bautismo_lugar" value="parroquia-propia" class="h-4 w-4 accent-primary" />
+                    <span>En esta parroquia</span>
+                  </label>
+                  <label class="flex cursor-pointer items-center gap-3 rounded-lg bg-surface px-4 py-3 font-body text-sm text-on-surface">
+                    <input type="radio" name="bautismo_lugar" value="parroquia-otra" class="h-4 w-4 accent-primary" />
+                    <span>En otra parroquia</span>
+                  </label>
+                </div>
+                <p class="field-error mt-2 hidden text-xs text-red-700" data-error-for="bautismo_lugar"></p>
+
+                <div data-bautismo-otra class="mt-4 hidden">
+                  <label for="bautismo_otra_parroquia" class="mb-2 block font-label text-xs font-bold uppercase tracking-wider text-on-surface">
+                    Especifique en cuál parroquia <span class="font-body text-on-surface-variant/70 normal-case tracking-normal">(opcional)</span>
+                  </label>
+                  <input
+                    id="bautismo_otra_parroquia"
+                    name="bautismo_otra_parroquia"
+                    type="text"
+                    maxlength="200"
+                    class="w-full rounded-xl border border-outline-variant bg-surface px-4 py-3 font-body text-sm text-on-surface outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+                    placeholder="Ej. Parroquia San Juan, Santa Rosa de Lima…"
+                  />
+                </div>
+              </div>
+
               <p class="field-error mt-2 hidden text-xs text-red-700" data-error-for="estado_bautismo"></p>
             </fieldset>
           )}
@@ -265,6 +295,40 @@ const heroIcon = esAdultos ? 'lucide:users' : esPrimeraComunion ? 'lucide:wheat'
     const alertBox = document.querySelector<HTMLDivElement>('#form-alert');
     const submitButton = document.querySelector<HTMLButtonElement>('#submit-button');
     const submitLabel = document.querySelector<HTMLSpanElement>('#submit-label');
+    const bautismoSub = document.querySelector<HTMLElement>('[data-bautismo-sub]');
+    const bautismoOtra = document.querySelector<HTMLElement>('[data-bautismo-otra]');
+    const bautismoOtraInput = document.querySelector<HTMLInputElement>('#bautismo_otra_parroquia');
+
+    function refreshBautismoConditional() {
+      const tieneFe =
+        document.querySelector<HTMLInputElement>('input[name="estado_bautismo"]:checked')?.value === 'tiene-fe';
+      const lugar =
+        document.querySelector<HTMLInputElement>('input[name="bautismo_lugar"]:checked')?.value ?? '';
+
+      document.querySelectorAll<HTMLInputElement>('input[name="bautismo_lugar"]').forEach((radio) => {
+        if (tieneFe) radio.setAttribute('required', '');
+        else radio.removeAttribute('required');
+      });
+
+      bautismoSub?.classList.toggle('hidden', !tieneFe);
+      bautismoOtra?.classList.toggle('hidden', !(tieneFe && lugar === 'parroquia-otra'));
+
+      if (!tieneFe) {
+        document.querySelectorAll<HTMLInputElement>('input[name="bautismo_lugar"]').forEach((radio) => {
+          radio.checked = false;
+        });
+        if (bautismoOtraInput) bautismoOtraInput.value = '';
+      } else if (lugar !== 'parroquia-otra' && bautismoOtraInput) {
+        bautismoOtraInput.value = '';
+      }
+    }
+
+    document
+      .querySelectorAll<HTMLInputElement>('input[name="estado_bautismo"]')
+      .forEach((radio) => radio.addEventListener('change', refreshBautismoConditional));
+    document
+      .querySelectorAll<HTMLInputElement>('input[name="bautismo_lugar"]')
+      .forEach((radio) => radio.addEventListener('change', refreshBautismoConditional));
 
     function clearErrors() {
       document.querySelectorAll<HTMLElement>('.field-error').forEach((element) => {
@@ -286,9 +350,14 @@ const heroIcon = esAdultos ? 'lucide:users' : esPrimeraComunion ? 'lucide:wheat'
       alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
+    form?.addEventListener('reset', () => {
+      setTimeout(refreshBautismoConditional, 0);
+    });
+
     form?.addEventListener('submit', async (event) => {
       event.preventDefault();
       clearErrors();
+      refreshBautismoConditional();
 
       if (!form.checkValidity()) {
         form.reportValidity();
@@ -307,6 +376,8 @@ const heroIcon = esAdultos ? 'lucide:users' : esPrimeraComunion ? 'lucide:wheat'
         responsable_nombre: String(formData.get('responsable_nombre') ?? ''),
         estado_bautismo: String(formData.get('estado_bautismo') ?? 'no-aplica'),
         estado_comunion: String(formData.get('estado_comunion') ?? 'no-aplica'),
+        bautismo_lugar: String(formData.get('bautismo_lugar') ?? 'no-aplica'),
+        bautismo_otra_parroquia: String(formData.get('bautismo_otra_parroquia') ?? ''),
         sin_sacramentos_confirmado: formData.get('sin_sacramentos_confirmado') === 'true',
         privacidad_aceptada: formData.get('privacidad_aceptada') === 'true',
         website: String(formData.get('website') ?? ''),
@@ -340,6 +411,7 @@ const heroIcon = esAdultos ? 'lucide:users' : esPrimeraComunion ? 'lucide:wheat'
         }
 
         form.reset();
+        refreshBautismoConditional();
         showAlert('¡Inscripción recibida! La parroquia se comunicará contigo al número de contacto registrado.', true);
       } catch {
         showAlert('No fue posible conectar con el servidor. Inténtalo nuevamente en unos minutos.');
